@@ -113,6 +113,7 @@ h1,h2,h3{text-wrap:balance;font-weight:700}
 section{position:relative}
 .sec{padding-block:clamp(5rem,12vw,9rem)}
 .head{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2.5rem,6vw,4.5rem)}
+@media (min-width:901px){#work{padding-top:clamp(5rem,9vh,7rem);padding-bottom:3rem}#work .head{margin-bottom:2rem}#work .head h2{font-size:clamp(2.8rem,6vw,5.6rem)}}
 .head h2{font-family:var(--f-display);font-weight:800;font-size:clamp(2.8rem,8vw,7rem);line-height:.88;letter-spacing:-.04em;text-transform:uppercase}
 .head h2 .serif{text-transform:none;color:var(--lime);letter-spacing:-.01em}
 .head p{max-width:34ch;color:var(--muted)}
@@ -121,7 +122,7 @@ section{position:relative}
 /* ---------- work reel ---------- */
 .reel-wrap{overflow:hidden}
 .reel{display:flex;gap:clamp(1.2rem,2.4vw,2.2rem);width:max-content;padding-right:var(--gut-r)}
-.card{position:relative;width:min(72vw,62rem);flex:none;display:grid;gap:1.1rem;cursor:pointer;text-align:left}
+.card{position:relative;width:min(72vw,62rem,calc((100svh - 19rem)*1.6));flex:none;display:grid;gap:1.1rem;cursor:pointer;text-align:left}
 .card .media{position:relative;aspect-ratio:16/10;border-radius:18px;overflow:hidden;background:var(--bg-3);max-width:100%}
 .card .media img,.card .media .mock{position:absolute;inset:-6% -6%;width:112%;height:112%;object-fit:cover;transition:transform 1.1s var(--ease);transform:translate3d(var(--px,0),0,0) scale(1)}
 .card:hover .media img,.card:hover .media .mock{transform:translate3d(var(--px,0),0,0) scale(1.05)}
