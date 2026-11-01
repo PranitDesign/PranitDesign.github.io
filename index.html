@@ -163,9 +163,19 @@ section{position:relative}
 .reel-end p{font-family:var(--f-serif);font-style:italic;font-size:clamp(1.6rem,2.6vw,2.4rem);line-height:1.15}
 .reel-bar{margin-top:2rem;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
 .reel-bar i{display:block;height:100%;width:100%;background:var(--lime);transform-origin:left;transform:scaleX(var(--p,0))}
+.reel{cursor:grab}.reel.dragging{cursor:grabbing;user-select:none}
+.reel.dragging .card{pointer-events:none}
+.reel-nav{display:flex;align-items:center;gap:.6rem;margin-top:1.2rem}
+.reel-nav button{width:2.8rem;height:2.8rem;border-radius:50%;border:1px solid var(--line);color:var(--cream);font-size:1.1rem;display:grid;place-items:center;transition:background .3s,color .3s,border-color .3s}
+.reel-nav button:hover{background:var(--lime);color:var(--ink);border-color:var(--lime)}
+.reel-nav button:disabled{opacity:.3;pointer-events:none}
+.reel-nav .mono{margin-left:.6rem}
 @media (max-width:900px){
-  .reel-wrap{overflow:visible}.reel{flex-direction:column;width:auto;padding-right:0;gap:3.5rem}
-  .card{width:100%}.reel-end{width:100%}.reel-bar{display:none}
+  .reel-wrap{overflow:visible}
+  .reel{width:auto;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-inline:calc(-1 * var(--gut)) calc(-1 * var(--gut-r));padding:0 var(--gut-r) 1rem var(--gut);scroll-padding-left:var(--gut);gap:1rem}
+  .reel::-webkit-scrollbar{display:none}
+  .card{width:min(84vw,34rem);scroll-snap-align:start}.reel-end{width:min(70vw,20rem);scroll-snap-align:start}
+  .reel-bar{display:block;margin-top:1rem}
 }
 
 /* ---------- case study overlay ---------- */
@@ -371,6 +381,7 @@ section{position:relative}
         <div class="reel-end"><p>More on <span class="lime">Behance</span>, including motion and web work.</p><a class="btn ghost" href="https://www.behance.net/kumarpranit" data-cursor="Visit">Visit Behance ↗</a></div>
       </div>
       <div class="wrap reel-bar" aria-hidden="true"><i id="reelBar"></i></div>
+      <div class="wrap reel-nav"><button id="reelPrev" aria-label="Previous project">←</button><button id="reelNext" aria-label="Next project">→</button><span class="mono">Scroll, swipe or drag</span></div>
     </div>
   </section>
 
@@ -557,20 +568,49 @@ section{position:relative}
   if(!reduce)setInterval(()=>{const a=words[wi];a.classList.remove('on');a.classList.add('out');wi=(wi+1)%words.length;const b=words[wi];b.classList.remove('out');b.classList.add('on');setTimeout(()=>a.classList.remove('out'),650)},2200);
 
   /* ---------- work reel: pinned horizontal scroll on desktop ---------- */
-  const reel=$('#reel'),wrapR=$('#reelWrap'),bar=$('#reelBar');
+  const reel=$('#reel'),wrapR=$('#reelWrap'),bar=$('#reelBar');let reelTween=null;
   if(hasG&&window.ScrollTrigger&&!reduce){
     ScrollTrigger.matchMedia({
       '(min-width: 901px)':function(){
         const dist=()=>reel.scrollWidth-wrapR.clientWidth+16;
-        const tw=gsap.to(reel,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:'#work',start:'top top',end:()=>'+='+dist(),pin:true,scrub:.8,invalidateOnRefresh:true,
+        const tw=reelTween=gsap.to(reel,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:'#work',start:'top top',end:()=>'+='+dist(),pin:true,scrub:.8,invalidateOnRefresh:true,
           onUpdate:s=>{bar.style.setProperty('--p',s.progress.toFixed(3));$$('.card .media>img,.card .media .mock,.card .media .cover-mcc').forEach(el=>el.style.setProperty('--px',(-s.progress*4).toFixed(2)+'%'))}}});
-        return()=>tw.kill();
+        return()=>{tw.kill();reelTween=null};
       }
     });
     gsap.utils.toArray('.card').forEach(c=>{if(innerWidth<=900)gsap.from(c,{y:60,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:c,start:'top 88%'}})});
     gsap.utils.toArray('.head h2,.contact h2').forEach(h=>gsap.from(h,{yPercent:30,opacity:0,duration:1.1,ease:'expo.out',scrollTrigger:{trigger:h,start:'top 88%'}}));
     gsap.utils.toArray('.row,.tile').forEach(r=>gsap.from(r,{y:40,opacity:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:r,start:'top 92%'}}));
   }
+
+  /* ---------- reel: horizontal wheel/trackpad, drag, arrows, keys ---------- */
+  (function(){
+    const work=$('#work'),prev=$('#reelPrev'),next=$('#reelNext'),cards=$$('#reel > .card, #reel > .reel-end');
+    const st=()=>reelTween&&reelTween.scrollTrigger;
+    const curScroll=()=>lenis?lenis.targetScroll:scrollY;
+    function goScroll(y,instant){if(lenis)lenis.scrollTo(y,{immediate:!!instant,duration:instant?0:1.1});else scrollTo({top:y,behavior:instant?'auto':'smooth'})}
+    // desktop: map sideways wheel onto the pinned scroll
+    work.addEventListener('wheel',e=>{const t=st();if(!t)return;if(Math.abs(e.deltaX)>Math.abs(e.deltaY)&&Math.abs(e.deltaX)>1){e.preventDefault();goScroll(Math.min(t.end,Math.max(t.start,curScroll()+e.deltaX*1.4)),true)}},{passive:false});
+    // drag with the mouse
+    let down=false,moved=false,sx=0,sy=0,sl=0;
+    reel.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||e.button!==0)return;down=true;moved=false;sx=e.clientX;sy=curScroll();sl=reel.scrollLeft});
+    addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-sx;if(!moved&&Math.abs(dx)>6){moved=true;reel.classList.add('dragging')}if(!moved)return;
+      const t=st();if(t)goScroll(Math.min(t.end,Math.max(t.start,sy-dx*1.2)),true);else reel.scrollLeft=sl-dx});
+    addEventListener('pointerup',()=>{if(!down)return;down=false;setTimeout(()=>reel.classList.remove('dragging'),0)});
+    reel.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
+    // arrows + keyboard: jump card by card
+    function offsets(){return cards.map(c=>c.offsetLeft-cards[0].offsetLeft)}
+    function currentX(){const t=st();if(t){const d=t.end-t.start;return (curScroll()-t.start)/(d||1)*d}return reel.scrollLeft}
+    function step(dir){const xs=offsets(),x=currentX();let target;
+      if(dir>0)target=xs.find(v=>v>x+20);else target=[...xs].reverse().find(v=>v<x-20);
+      if(target===undefined)target=dir>0?xs[xs.length-1]:0;
+      const t=st();if(t){if(curScroll()<t.start-5||curScroll()>t.end+5){goScroll(t.start);return}goScroll(Math.min(t.end,t.start+target))}
+      else reel.scrollTo({left:target,behavior:'smooth'})}
+    prev.onclick=()=>step(-1);next.onclick=()=>step(1);
+    addEventListener('keydown',e=>{if(!caseEl.hidden||!chat.hidden)return;if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;const r=work.getBoundingClientRect();if(r.top<innerHeight*.5&&r.bottom>innerHeight*.5){e.preventDefault();step(e.key==='ArrowRight'?1:-1)}});
+    // mobile progress bar
+    reel.addEventListener('scroll',()=>{if(st())return;const m=reel.scrollWidth-reel.clientWidth;bar.style.setProperty('--p',(m?reel.scrollLeft/m:0).toFixed(3))},{passive:true});
+  })();
 
   /* ---------- statement: words light up as you read ---------- */
   const st=$('#statement');
