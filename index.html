@@ -55,7 +55,7 @@ h1,h2,h3{text-wrap:balance;font-weight:700}
 .loader.done{transform:translateY(-100%);transition:transform .9s var(--ease)}
 
 /* ---------- cursor ---------- */
-.cursor{position:fixed;left:0;top:0;z-index:95;pointer-events:none;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--lime);mix-blend-mode:difference;transition:width .35s var(--ease),height .35s var(--ease),margin .35s var(--ease),background .35s}
+.cursor{position:fixed;left:0;top:0;z-index:99;pointer-events:none;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--lime);mix-blend-mode:difference;transition:width .35s var(--ease),height .35s var(--ease),margin .35s var(--ease),background .35s}
 .cursor span{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;color:var(--ink);opacity:0;transition:opacity .2s}
 .cursor.big{width:96px;height:96px;margin:-48px 0 0 -48px;mix-blend-mode:normal}
 .cursor.big span{opacity:1}
@@ -122,7 +122,7 @@ section{position:relative}
 /* ---------- work reel ---------- */
 .reel-wrap{overflow:hidden}
 .reel{display:flex;gap:clamp(1.2rem,2.4vw,2.2rem);width:max-content;padding-right:var(--gut-r)}
-.card{position:relative;width:min(72vw,62rem,calc((100svh - 19rem)*1.6));flex:none;display:grid;gap:1.1rem;cursor:pointer;text-align:left}
+.card{position:relative;width:min(72vw,62rem,calc((100svh - 23rem)*1.6));flex:none;display:grid;gap:1.1rem;cursor:pointer;text-align:left}
 .card .media{position:relative;aspect-ratio:16/10;border-radius:18px;overflow:hidden;background:var(--bg-3);max-width:100%}
 .card .media img,.card .media .mock{position:absolute;inset:-6% -6%;width:112%;height:112%;object-fit:cover;transition:transform 1.1s var(--ease);transform:translate3d(var(--px,0),0,0) scale(1)}
 .card:hover .media img,.card:hover .media .mock{transform:translate3d(var(--px,0),0,0) scale(1.05)}
@@ -133,6 +133,10 @@ section{position:relative}
 .card .meta{display:flex;justify-content:space-between;gap:1.5rem;align-items:start;flex-wrap:wrap}
 .card h3{font-family:var(--f-display);font-weight:700;font-size:clamp(1.5rem,2.8vw,2.4rem);line-height:1;letter-spacing:-.03em;max-width:22ch}
 .card .tags{display:flex;gap:.4rem;flex-wrap:wrap}
+.card .viewcs{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;font-size:.92rem;color:var(--lime);margin-top:.2rem}
+.card .viewcs i{font-style:normal;display:inline-block;transition:transform .4s var(--ease)}
+.card:hover .viewcs i{transform:translateX(6px)}
+.card .meta>div:first-child{display:grid;gap:.4rem}
 .chip{font-size:.75rem;font-weight:600;padding:.28rem .7rem;border:1px solid var(--line);border-radius:99px;color:var(--muted);white-space:nowrap}
 .mock{display:grid;place-items:center;background:radial-gradient(circle at 70% 30%,#5E3642,#24161C 70%)}
 .mock .ph{width:24%;aspect-ratio:9/19;border-radius:22px;border:2px solid rgba(241,234,225,.5);background:#1A1015;padding:6% 4%;display:grid;align-content:start;gap:8%;box-shadow:0 30px 60px -20px rgba(0,0,0,.7)}
@@ -156,7 +160,7 @@ section{position:relative}
 }
 
 /* ---------- case study overlay ---------- */
-.case{position:fixed;inset:0;z-index:85;background:var(--bg);overflow-y:auto;overscroll-behavior:contain;transform:translateY(100%);transition:transform .8s var(--ease);padding:0 var(--gut-r) 4rem var(--gut)}
+.case{position:fixed;inset:0;z-index:96;background:var(--bg);overflow-y:auto;overscroll-behavior:contain;transform:translateY(100%);transition:transform .8s var(--ease);padding:0 var(--gut-r) 4rem var(--gut)}
 .case.open{transform:none}
 .case-bar{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:calc(1rem + env(safe-area-inset-top,0px)) 0 1rem;background:linear-gradient(var(--bg) 70%,transparent)}
 .case-close{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--line);border-radius:99px;padding:.5rem 1rem;font-weight:600}
@@ -332,23 +336,23 @@ section{position:relative}
       <div class="reel" id="reel">
         <button class="card" data-case="philips" data-cursor="Open">
           <div class="media"><span class="num">01 / 05</span><img src="img/philips.jpg" alt="Philips Bottle and Nipple Advisor screens" style="object-position:center 18%"><span class="open">→</span></div>
-          <div class="meta"><h3>The right baby bottle, in a few questions.</h3><div class="tags"><span class="chip">Philips</span><span class="chip">Web</span><span class="chip">Wipro</span></div></div>
+          <div class="meta"><div><h3>The right baby bottle, in a few questions.</h3><span class="viewcs">View case study <i>→</i></span></div><div class="tags"><span class="chip">Philips</span><span class="chip">Web</span><span class="chip">Wipro</span></div></div>
         </button>
         <button class="card" data-case="ar" data-cursor="Open">
           <div class="media"><span class="num">02 / 05</span><img src="img/ar-retail.jpg" alt="Immersive Retail Store Experience cover"><span class="open">→</span></div>
-          <div class="meta"><h3>An AR store that knows your taste.</h3><div class="tags"><span class="chip">AR headset</span><span class="chip">Mobile</span><span class="chip">Wipro</span></div></div>
+          <div class="meta"><div><h3>An AR store that knows your taste.</h3><span class="viewcs">View case study <i>→</i></span></div><div class="tags"><span class="chip">AR headset</span><span class="chip">Mobile</span><span class="chip">Wipro</span></div></div>
         </button>
         <button class="card" data-case="digi" data-cursor="Open">
           <div class="media"><span class="num">03 / 05</span><div class="mock"><div class="ph"><i style="width:55%"></i><div class="face"></div><i></i><i style="width:70%"></i></div></div><span class="open">→</span></div>
-          <div class="meta"><h3>Digi Yatra, rethought for the queue.</h3><div class="tags"><span class="chip">Travel</span><span class="chip">Mobile</span><span class="chip">Concept</span></div></div>
+          <div class="meta"><div><h3>Digi Yatra, rethought for the queue.</h3><span class="viewcs">View case study <i>→</i></span></div><div class="tags"><span class="chip">Travel</span><span class="chip">Mobile</span><span class="chip">Concept</span></div></div>
         </button>
         <button class="card" data-case="fimbre" data-cursor="Open">
           <div class="media"><span class="num">04 / 05</span><img src="img/fimbre.jpg" alt="Fimbre app welcome screen"><span class="open">→</span></div>
-          <div class="meta"><h3>Shopping on the word of real people.</h3><div class="tags"><span class="chip">Community</span><span class="chip">E-commerce</span><span class="chip">Internship</span></div></div>
+          <div class="meta"><div><h3>Shopping on the word of real people.</h3><span class="viewcs">View case study <i>→</i></span></div><div class="tags"><span class="chip">Community</span><span class="chip">E-commerce</span><span class="chip">Internship</span></div></div>
         </button>
         <button class="card" data-case="airport" data-cursor="Open">
           <div class="media"><span class="num">05 / 05</span><div class="mock airport"><div class="ph"><i style="width:45%"></i><div class="route"><span></span><span></span><span></span><b>Gate 23 · 4 min</b></div><i></i><i style="width:60%"></i></div></div><span class="open">→</span></div>
-          <div class="meta"><h3>Finding your way through the airport, in AR.</h3><div class="tags"><span class="chip">AR</span><span class="chip">Research</span><span class="chip">Team</span></div></div>
+          <div class="meta"><div><h3>Finding your way through the airport, in AR.</h3><span class="viewcs">View case study <i>→</i></span></div><div class="tags"><span class="chip">AR</span><span class="chip">Research</span><span class="chip">Team</span></div></div>
         </button>
         <div class="reel-end"><p>More on <span class="lime">Behance</span>, including motion and web work.</p><a class="btn ghost" href="https://www.behance.net/kumarpranit" data-cursor="Visit">Visit Behance ↗</a></div>
       </div>
@@ -563,22 +567,22 @@ section{position:relative}
 
   /* ---------- case studies ---------- */
   const CASES={
-    philips:{idx:'01 / 04',title:'The right baby bottle, in a few questions.',img:'img/philips.jpg',pos:'center 15%',facts:[['Client','Philips (via Wipro)'],['Role','UX/UI Designer'],['Timeline','8 weeks'],['Platform','Web, mobile-first']],
+    philips:{idx:'01 / 05',title:'The right baby bottle, in a few questions.',img:'img/philips.jpg',pos:'center 15%',facts:[['Client','Philips (via Wipro)'],['Role','UX/UI Designer'],['Timeline','8 weeks'],['Platform','Web, mobile-first']],
       blocks:[['The problem','Parents often struggle to choose the right feeding bottle. There are many options, and picking the wrong nipple flow means babies reject the bottle, parents get frustrated, and customer service costs go up.'],
         ['The goal','Give parents personalised guidance so they can choose with confidence, based on their baby\'s needs and their own preferences.'],
         ['What I did',['Built personas, starting with a first-time working mother juggling a career and a 6-month-old','Ran ideation workshops and mapped the full advisory process','Prioritised ideas with an Eisenhower matrix, then sketched the flow','Designed the final mobile screens: one question per screen, product photos for recognition, a clear progress bar, and Back and Next always in reach']],
         ['The result','A short advisor that ends in a recommended bottle and teat combo, with an add-to-cart option and a feedback prompt, so parents leave with an answer instead of a list.']],
       pull:'One question per screen. One clear answer at the end.',link:'https://www.behance.net/gallery/244265285/Philips-MCC-Advisory-project'},
-    ar:{idx:'02 / 04',title:'An AR store that knows your taste.',img:'img/ar-retail.jpg',pos:'center',facts:[['Client','Retail brand (via Wipro)'],['Role','UX Designer, in a team'],['Team','Designers, developers, wearable device team'],['Platform','AR headset + mobile']],
+    ar:{idx:'02 / 05',title:'An AR store that knows your taste.',img:'img/ar-retail.jpg',pos:'center',facts:[['Client','Retail brand (via Wipro)'],['Role','UX Designer, in a team'],['Team','Designers, developers, wearable device team'],['Platform','AR headset + mobile']],
       blocks:[['The idea','An immersive retail store where shoppers get a personal guide instead of hunting the shelves alone.'],
         ['The experience',['Shoppers choose their flavour preferences and get recommendations inside the store','A 3D avatar guide, Maya, introduces products with subtle animation so the voice feels natural','Products can be customised, and promo codes unlock while you explore','The store was scanned into a 3D digital twin with Matterport, so it can also be explored virtually']],
         ['My part','Mapping the current store journey (registration, tour, handover, exploring, checkout) and designing the AR and mobile touchpoints with developers and the wearable device team on a Magic Leap headset.']],
       pull:'A store that feels like it was arranged just for you.',link:'https://www.behance.net/gallery/185484809/Augmented-Reality-Experience-Design'},
-    digi:{idx:'03 / 04',title:'Digi Yatra, rethought for the queue.',img:null,facts:[['Type','Redesign concept'],['Role','UX/UI Designer'],['Platform','Mobile app'],['Domain','Travel, identity']],
+    digi:{idx:'03 / 05',title:'Digi Yatra, rethought for the queue.',img:null,facts:[['Type','Redesign concept'],['Role','UX/UI Designer'],['Platform','Mobile app'],['Domain','Travel, identity']],
       blocks:[['The context','Digi Yatra lets travellers in India pass airport checkpoints using face-based entry. People use it in the most stressful moment of a trip: standing in a queue, bags in hand.'],
         ['The approach','I looked at how the app guides people from setup to the gate, and redesigned it so each step is obvious at a glance, even when you are rushed.']],
       pull:'Design for the person holding a boarding pass and a coffee.',link:'https://www.behance.net/gallery/230860599/Digi-Yatra-redesign'},
-    fimbre:{idx:'04 / 04',title:'Shopping on the word of real people.',img:'img/fimbre.jpg',pos:'center',facts:[['Company','Unthinkable Solutions'],['Role','Product Design Intern'],['Timeline','16 weeks, 2022'],['Platform','Mobile app']],
+    fimbre:{idx:'04 / 05',title:'Shopping on the word of real people.',img:'img/fimbre.jpg',pos:'center',facts:[['Company','Unthinkable Solutions'],['Role','Product Design Intern'],['Timeline','16 weeks, 2022'],['Platform','Mobile app']],
       blocks:[['The problem','Online reviews are hard to trust, and ads drown out real opinions. People want recommendations from someone like them.'],
         ['The product','Fimbre is a community e-commerce app. You can ask a question, recommend products, and discover what to buy through genuine recommendations from other members.'],
         ['What I learned','This was where I learned to ship: research, flows, UI and hand-off on a real in-house product over a full 16-week cycle.']],
