@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Pranit Kumar, UX/UI designer in Bangalore with 4+ years of experience. Selected case studies, process and contact.">
 <meta property="og:title" content="Pranit Kumar · UX/UI Designer">
-<meta property="og:description" content="Selected UX/UI case studies: Philips, AR retail, Digi Yatra and Fimbre.">
+<meta property="og:description" content="Selected UX/UI case studies: Philips, AR retail, AR airport, Digi Yatra and Fimbre.">
 <meta name="theme-color" content="#110A0D">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Pranit Kumar · UX/UI Designer</title>
@@ -140,6 +140,12 @@ section{position:relative}
 .mock .ph .face{width:70%;aspect-ratio:1;margin:12% auto;border-radius:50%;border:2px dashed var(--lime);display:grid;place-items:center;animation:spin 18s linear infinite}
 .mock .ph .face::after{content:"";width:34%;aspect-ratio:1;border-radius:50%;background:var(--lime)}
 @keyframes spin{to{transform:rotate(360deg)}}
+.mock.airport{background:radial-gradient(circle at 30% 70%,#3a4a3f,#1A1015 70%)}
+.route{position:relative;height:46%;margin:6% 0;border-radius:10px;background:linear-gradient(180deg,rgba(169,182,172,.25),rgba(169,182,172,.05));overflow:hidden}
+.route span{position:absolute;left:50%;width:22%;aspect-ratio:1;border-top:3px solid var(--lime);border-right:3px solid var(--lime);transform:translateX(-50%) rotate(-45deg);animation:chev 1.6s ease-in-out infinite}
+.route span:nth-child(1){bottom:8%}.route span:nth-child(2){bottom:30%;animation-delay:.2s}.route span:nth-child(3){bottom:52%;animation-delay:.4s}
+@keyframes chev{0%,100%{opacity:.25}50%{opacity:1}}
+.route b{position:absolute;top:6%;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--f-mono);font-size:clamp(.42rem,.9vw,.6rem);font-weight:500;background:var(--lime);color:var(--ink);padding:.15rem .4rem;border-radius:99px}
 .reel-end{width:min(40vw,24rem);flex:none;display:grid;align-content:center;gap:1rem}
 .reel-end p{font-family:var(--f-serif);font-style:italic;font-size:clamp(1.6rem,2.6vw,2.4rem);line-height:1.15}
 .reel-bar{margin-top:2rem;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
@@ -319,26 +325,30 @@ section{position:relative}
   <!-- WORK -->
   <section id="work" class="sec" aria-label="Selected work">
     <div class="wrap head">
-      <div><span class="idx">(01) — Selected work</span><h2>Four <span class="serif">stories</span></h2></div>
+      <div><span class="idx">(01) — Selected work</span><h2>Five <span class="serif">stories</span></h2></div>
       <p>Each one started with a person stuck somewhere. Open a project to see the problem, what I did, and why.</p>
     </div>
     <div class="reel-wrap" id="reelWrap">
       <div class="reel" id="reel">
         <button class="card" data-case="philips" data-cursor="Open">
-          <div class="media"><span class="num">01 / 04</span><img src="img/philips.jpg" alt="Philips Bottle and Nipple Advisor screens" style="object-position:center 18%"><span class="open">→</span></div>
+          <div class="media"><span class="num">01 / 05</span><img src="img/philips.jpg" alt="Philips Bottle and Nipple Advisor screens" style="object-position:center 18%"><span class="open">→</span></div>
           <div class="meta"><h3>The right baby bottle, in a few questions.</h3><div class="tags"><span class="chip">Philips</span><span class="chip">Web</span><span class="chip">Wipro</span></div></div>
         </button>
         <button class="card" data-case="ar" data-cursor="Open">
-          <div class="media"><span class="num">02 / 04</span><img src="img/ar-retail.jpg" alt="Immersive Retail Store Experience cover"><span class="open">→</span></div>
+          <div class="media"><span class="num">02 / 05</span><img src="img/ar-retail.jpg" alt="Immersive Retail Store Experience cover"><span class="open">→</span></div>
           <div class="meta"><h3>An AR store that knows your taste.</h3><div class="tags"><span class="chip">AR headset</span><span class="chip">Mobile</span><span class="chip">Wipro</span></div></div>
         </button>
         <button class="card" data-case="digi" data-cursor="Open">
-          <div class="media"><span class="num">03 / 04</span><div class="mock"><div class="ph"><i style="width:55%"></i><div class="face"></div><i></i><i style="width:70%"></i></div></div><span class="open">→</span></div>
+          <div class="media"><span class="num">03 / 05</span><div class="mock"><div class="ph"><i style="width:55%"></i><div class="face"></div><i></i><i style="width:70%"></i></div></div><span class="open">→</span></div>
           <div class="meta"><h3>Digi Yatra, rethought for the queue.</h3><div class="tags"><span class="chip">Travel</span><span class="chip">Mobile</span><span class="chip">Concept</span></div></div>
         </button>
         <button class="card" data-case="fimbre" data-cursor="Open">
-          <div class="media"><span class="num">04 / 04</span><img src="img/fimbre.jpg" alt="Fimbre app welcome screen"><span class="open">→</span></div>
+          <div class="media"><span class="num">04 / 05</span><img src="img/fimbre.jpg" alt="Fimbre app welcome screen"><span class="open">→</span></div>
           <div class="meta"><h3>Shopping on the word of real people.</h3><div class="tags"><span class="chip">Community</span><span class="chip">E-commerce</span><span class="chip">Internship</span></div></div>
+        </button>
+        <button class="card" data-case="airport" data-cursor="Open">
+          <div class="media"><span class="num">05 / 05</span><div class="mock airport"><div class="ph"><i style="width:45%"></i><div class="route"><span></span><span></span><span></span><b>Gate 23 · 4 min</b></div><i></i><i style="width:60%"></i></div></div><span class="open">→</span></div>
+          <div class="meta"><h3>Finding your way through the airport, in AR.</h3><div class="tags"><span class="chip">AR</span><span class="chip">Research</span><span class="chip">Team</span></div></div>
         </button>
         <div class="reel-end"><p>More on <span class="lime">Behance</span>, including motion and web work.</p><a class="btn ghost" href="https://www.behance.net/kumarpranit" data-cursor="Visit">Visit Behance ↗</a></div>
       </div>
@@ -572,17 +582,25 @@ section{position:relative}
       blocks:[['The problem','Online reviews are hard to trust, and ads drown out real opinions. People want recommendations from someone like them.'],
         ['The product','Fimbre is a community e-commerce app. You can ask a question, recommend products, and discover what to buy through genuine recommendations from other members.'],
         ['What I learned','This was where I learned to ship: research, flows, UI and hand-off on a real in-house product over a full 16-week cycle.']],
-      pull:'Discover and buy, on the word of people like you.',link:'https://www.behance.net/gallery/161408655/Fimber-ux-ui-case-study'}
+      pull:'Discover and buy, on the word of people like you.',link:'https://www.behance.net/gallery/161408655/Fimber-ux-ui-case-study'},
+    airport:{idx:'05 / 05',title:'Finding your way through the airport, in AR.',img:null,mock:'airport',facts:[['Type','AR concept, research-led'],['Role','UX research & design, in a team'],['Methods','Personas, journey maps, POV, HMW, ideation'],['Platform','Mobile AR']],
+      blocks:[['The problem','Airports are big, unfamiliar and stressful. Passengers struggle to find their way through every pre-flight step, and they miss offers at airport shops because nothing tells them what is nearby or relevant.'],
+        ['Who we designed for',['Sarah, 24, a marketing executive and savvy shopper who wants the best nearby offers without spending ages searching store by store','Rahul, 28, a business consultant who travels often and wants seamless navigation, real-time flight and gate updates, and deals that fit his limited time']],
+        ['Mapping the journey','We mapped the full trip, from check-in, immigration and security to the departure lounge, connecting flights, landing and finding the exit, plus separate maps for airport shops and shopping in one area. The emotion curve dipped hardest at security and at connecting flights, where people feel lost and short of time.'],
+        ['Point of view','Airport passengers need easy, real-time navigation to every pre-flight step, and to the right offers nearby, because they struggle to find the right path in a place they don\'t know.'],
+        ['How might we',['Make airport navigation more intuitive while telling passengers every step they need before boarding?','Add moments of fun to how passengers interact with the airport around them, even gamifying the wait?','Make it easier to find relevant information and compare offers across stores?']],
+        ['From ideas to direction','The team ran ideation rounds and voted on ideas, converging on an AR companion that draws your route to the gate in the real world, surfaces live flight updates, and shows relevant shop offers along the way.']],
+      pull:'An airport that shows you the way, instead of making you ask.',link:null}
   };
   const caseEl=$('#case'),caseBody=$('#caseBody'),caseIdx=$('#caseIdx');let lastFocus=null;
   const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   function openCase(k){const c=CASES[k];if(!c)return;lastFocus=document.activeElement;caseIdx.textContent=c.idx;
     caseBody.innerHTML=`<h2 id="caseTitle">${esc(c.title)}</h2>
-      <div class="hero-img">${c.img?`<img src="${c.img}" alt="" style="object-position:${c.pos}">`:`<div class="mock" style="position:absolute;inset:0"><div class="ph" style="width:16%"><i style="width:55%"></i><div class="face"></div><i></i><i style="width:70%"></i></div></div>`}</div>
+      <div class="hero-img">${c.img?`<img src="${c.img}" alt="" style="object-position:${c.pos}">`:c.mock==='airport'?`<div class="mock airport" style="position:absolute;inset:0"><div class="ph" style="width:16%"><i style="width:45%"></i><div class="route"><span></span><span></span><span></span><b>Gate 23 · 4 min</b></div><i></i><i style="width:60%"></i></div></div>`:`<div class="mock" style="position:absolute;inset:0"><div class="ph" style="width:16%"><i style="width:55%"></i><div class="face"></div><i></i><i style="width:70%"></i></div></div>`}</div>
       <div class="facts">${c.facts.map(f=>`<div><span class="mono">${esc(f[0])}</span><strong>${esc(f[1])}</strong></div>`).join('')}</div>
       ${c.blocks.map(b=>`<div class="block"><h3>${esc(b[0])}</h3>${Array.isArray(b[1])?`<ul>${b[1].map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:`<p>${esc(b[1])}</p>`}</div>`).join('')}
       <p class="pull">${esc(c.pull)}</p>
-      <div class="cta"><a class="btn" href="${c.link}" target="_blank" rel="noopener">Full case study on Behance ↗</a><button class="btn ghost" data-next="${k}">Next project →</button></div>`;
+      <div class="cta">${c.link?`<a class="btn" href="${c.link}" target="_blank" rel="noopener">Full case study on Behance ↗</a>`:''}<button class="btn ghost" data-next="${k}">Next project →</button></div>`;
     caseEl.hidden=false;caseEl.scrollTop=0;requestAnimationFrame(()=>caseEl.classList.add('open'));if(lenis)lenis.stop();document.body.style.overflow='hidden';$('#caseClose').focus()}
   function closeCase(){caseEl.classList.remove('open');setTimeout(()=>{caseEl.hidden=true},reduce?0:800);if(lenis)lenis.start();document.body.style.overflow='';if(lastFocus)lastFocus.focus()}
   $$('.card').forEach(c=>c.addEventListener('click',()=>openCase(c.dataset.case)));
@@ -670,6 +688,7 @@ section{position:relative}
 - Capgemini, UX/UI Designer, Sep 2025 to present.
 - Wipro, UX/UI Designer, Oct 2022 to Oct 2025. Projects: (1) Immersive retail store AR experience for a wearable headset (Magic Leap) and mobile, a team project with developers and a wearable device team: shoppers discover products by flavour preference, meet a 3D avatar guide called Maya, customise products and unlock promo codes; the store was scanned into a 3D digital twin with Matterport. (2) Philips Mother & Child Care bottle and nipple advisor (8 weeks): parents often choose the wrong nipple flow, which makes babies reject bottles and drives up customer service costs; the advisor asks about the child's age, feeding habits and preferences and recommends a bottle and teat combo, with add-combo-to-cart and a feedback prompt. Process: ideation workshops, process map, Eisenhower matrix, sketches, final mobile screens. Persona: a first-time working mother.
 - Unthinkable Solutions, Product Design Intern, Gurugram, Jan to May 2022: Fimbre (16 weeks), a community e-commerce app where people ask questions and discover products through member recommendations.
+- AR airport companion (team, research-led concept): personas Sarah (24, savvy shopper) and Rahul (28, frequent business traveller); journey maps from check-in through security, lounge, connecting flights, landing and exit; pain peaks at security and connecting flights; idea: AR route to the gate, live flight updates and nearby shop offers.
 - Digi Yatra redesign: a redesign concept of the airport face-based entry app.
 - Explorations: Nike cover page animation, HP webpage.
 - Education: Bachelor of Design, NIFT Patna, 2018-2022.
@@ -688,7 +707,8 @@ section{position:relative}
     {k:['wipro'],a:"At Wipro I worked as a UX/UI designer from October 2022 to October 2025. Highlights were an immersive AR store experience for a retail client and the Philips bottle and nipple advisor."},
     {k:['ar','augmented','reality','headset','magic leap','retail','store','avatar','maya','matterport','diageo','immersive'],a:"The AR project was an immersive store experience for a wearable headset and mobile. Shoppers pick their flavour preferences, meet a 3D avatar guide called Maya, get recommendations in the aisle, customise products and unlock promo codes. We even scanned the store into a 3D digital twin with Matterport. I worked with developers and a wearable device team."},
     {k:['philips','bottle','nipple','baby','mcc','mother','child','advisor','teat','feeding'],a:"For Philips' Mother & Child Care site I designed a bottle and nipple advisor. Parents often pick the wrong nipple flow, so babies reject bottles and support costs go up. The advisor asks a few questions about the baby's age and feeding habits, then recommends a bottle and teat combo you can add to cart. It took 8 weeks, with workshops, a process map, prioritisation and sketches before the final screens."},
-    {k:['digi','yatra','airport','travel','face'],a:"Digi Yatra is a redesign concept of the app Indian travellers use for face-based entry at airports. I looked at how it guides people from setup to the gate when they're rushed and standing in a queue."},
+    {k:['airport','navigation','journey map','persona','gate','flight','wayfinding'],a:"I also worked in a team on an AR airport companion. We built personas, mapped the whole airport journey from check-in to the exit gate, and found people feel most lost at security and connecting flights. The concept draws your route to the gate in AR, shows live flight updates and relevant shop offers on the way."},
+    {k:['digi','yatra','travel','face'],a:"Digi Yatra is a redesign concept of the app Indian travellers use for face-based entry at airports. I looked at how it guides people from setup to the gate when they're rushed and standing in a queue."},
     {k:['fimbre','fimber','community','internship','intern','unthinkable','recommendation app'],a:"Fimbre was my 16-week internship project at Unthinkable Solutions in 2022. It's a community e-commerce app where people ask questions, recommend products and discover what to buy from real members instead of ads."},
     {w:.4,k:['project','projects','work','portfolio','case study','best','proud'],a:"My main projects are the Philips bottle advisor, an immersive AR retail experience, a Digi Yatra redesign and Fimbre, a community shopping app. Scroll up to 'Four takes' to see them, and each has a full case study on Behance."},
     {k:['process','approach','how do you work','method','workflow','steps'],a:"Five stages: discover the people and the problem, define the journey in Miro or FlowMapp, design wireframes and UI in Figma, validate with prototypes and feedback, then deliver a clean hand-off to developers."},
