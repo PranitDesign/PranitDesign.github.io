@@ -176,6 +176,8 @@ section{position:relative}
 .case .block h3{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);font-weight:500;padding-top:.35rem}
 .case .block p,.case .block li{font-size:clamp(1.05rem,1.5vw,1.25rem);line-height:1.55;color:var(--cream)}
 .case .block ul{margin:0;padding-left:1.1rem;display:grid;gap:.5rem}
+.case .fig{margin:0;display:grid;gap:.8rem}
+.case .fig img{width:100%;height:auto;display:block;border-radius:16px;background:#fff}
 .case .pull{font-family:var(--f-serif);font-style:italic;font-size:clamp(1.8rem,4vw,3rem);line-height:1.1;color:var(--lime);max-width:24ch}
 .case .cta{display:flex;gap:.8rem;flex-wrap:wrap}
 @media (max-width:700px){.case .block{grid-template-columns:1fr;gap:.6rem}}
@@ -451,7 +453,7 @@ section{position:relative}
 </main>
 
 <!-- Case study overlay -->
-<div class="case" id="case" role="dialog" aria-modal="true" aria-labelledby="caseTitle" hidden>
+<div class="case" id="case" data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="caseTitle" hidden>
   <div class="case-bar"><span class="mono" id="caseIdx">01 / 04</span><button class="case-close" id="caseClose">Close ✕</button></div>
   <div class="case-inner" id="caseBody"></div>
 </div>
@@ -460,7 +462,7 @@ section{position:relative}
 <button class="ask" id="askBtn" aria-label="Ask AI Pranit a question"><span class="av">PK</span>Ask AI Pranit</button>
 <div class="chat" id="chat" hidden role="dialog" aria-label="Ask Pranit">
   <header><span class="av">PK</span><div><strong>AI Pranit</strong><span class="mono" style="font-size:.6rem">Trained on my resume &amp; projects</span></div><button class="tbtn" id="voice" aria-pressed="false" title="Read answers aloud"><span class="bars"><i></i><i></i><i></i></span>Voice</button><button class="x" id="closeChat" aria-label="Close chat">✕</button></header>
-  <div class="log" id="log"><div class="msg bot">Hi, I'm Pranit, or rather an AI version of me. Ask about my projects, process or experience.</div></div>
+  <div class="log" id="log" data-lenis-prevent><div class="msg bot">Hi, I'm Pranit, or rather an AI version of me. Ask about my projects, process or experience.</div></div>
   <div class="suggest" id="suggest"><button>What do you do?</button><button>Tell me about the AR project</button><button>What's your process?</button><button>Are you open to work?</button><button>Which tools do you use?</button></div>
   <form id="chatForm"><input id="chatIn" autocomplete="off" placeholder="Ask me anything…" aria-label="Your question"><button type="submit">Send</button></form>
   <p class="note">AI answers can be wrong. For anything important, email me.</p>
@@ -575,6 +577,8 @@ section{position:relative}
         ['Who it\'s for',['Sarah, 32, a first-time mother working full-time, overwhelmed by the sheer number of baby products','Patricia, 66, a grandmother who isn\'t tech-savvy and wants a reliable source she can trust','David, 38, an uncle who needs a quick, suitable gift without knowing the baby\'s specific needs']],
         ['What they need',['Guidance on the bottle that suits their child','Personalisation for age, feeding habits, and things like reflux or colic','Convenience, without research or trial and error','Trustworthy, expert advice','Flexibility on material, nipple type and capacity']],
         ['Process',['Discover: studied the business team\'s product documentation as secondary research','Define: built the information architecture as a filter-down flow, where each answer narrows the products to the best fit','Interviewed users on the architecture, step by step, and documented problems and fixes for every question','Re-iterated the architecture into three final flows: bottle, nipple and gift set','Prototyped mobile-first, tested it with users through a guided link, then refined the design and flow']],
+        ['__img','img/philips-ia.jpg','Information architecture: a filter-down flow for bottles and teats, narrowing by category, age, offering, drinking pattern and material'],
+        ['__img','img/philips-proto.jpg','Mobile-first prototype used in user testing'],
         ['The design','One question per screen with product photos for quick recognition, a progress bar, and Back, Restart and Close always in reach. Information cards explain unfamiliar terms. The recommendation page offers a bottle and teat combo with ratings, an add-combo-to-cart button, links to each product page, and a quick feedback flow.']],
       pull:'Three very different people, one short path to the right bottle.',link:'https://www.behance.net/gallery/244265285/Philips-MCC-Advisory-project'},
     ar:{idx:'02 / 05',title:'An AR store that knows your taste.',img:'img/ar-retail.jpg',pos:'center',facts:[['Client','Retail brand (via Wipro)'],['Role','UX Designer, in a team'],['Team','Designers, developers, wearable device team'],['Platform','AR headset + mobile']],
@@ -606,7 +610,7 @@ section{position:relative}
     caseBody.innerHTML=`<h2 id="caseTitle">${esc(c.title)}</h2>
       <div class="hero-img">${c.img?`<img src="${c.img}" alt="" style="object-position:${c.pos}">`:c.mock==='airport'?`<div class="mock airport" style="position:absolute;inset:0"><div class="ph" style="width:16%"><i style="width:45%"></i><div class="route"><span></span><span></span><span></span><b>Gate 23 · 4 min</b></div><i></i><i style="width:60%"></i></div></div>`:`<div class="mock" style="position:absolute;inset:0"><div class="ph" style="width:16%"><i style="width:55%"></i><div class="face"></div><i></i><i style="width:70%"></i></div></div>`}</div>
       <div class="facts">${c.facts.map(f=>`<div><span class="mono">${esc(f[0])}</span><strong>${esc(f[1])}</strong></div>`).join('')}</div>
-      ${c.blocks.map(b=>`<div class="block"><h3>${esc(b[0])}</h3>${Array.isArray(b[1])?`<ul>${b[1].map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:`<p>${esc(b[1])}</p>`}</div>`).join('')}
+      ${c.blocks.map(b=>b[0]==='__img'?`<figure class="fig"><img src="${b[1]}" alt="${esc(b[2])}" loading="lazy"><figcaption class="mono">${esc(b[2])}</figcaption></figure>`:`<div class="block"><h3>${esc(b[0])}</h3>${Array.isArray(b[1])?`<ul>${b[1].map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:`<p>${esc(b[1])}</p>`}</div>`).join('')}
       <p class="pull">${esc(c.pull)}</p>
       <div class="cta">${c.link?`<a class="btn" href="${c.link}" target="_blank" rel="noopener">Full case study on Behance ↗</a>`:''}<button class="btn ghost" data-next="${k}">Next project →</button></div>`;
     caseEl.hidden=false;caseEl.scrollTop=0;requestAnimationFrame(()=>caseEl.classList.add('open'));if(lenis)lenis.stop();document.body.style.overflow='hidden';$('#caseClose').focus()}
