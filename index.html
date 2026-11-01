@@ -138,6 +138,14 @@ section{position:relative}
 .card:hover .viewcs i{transform:translateX(6px)}
 .card .meta>div:first-child{display:grid;gap:.4rem}
 .chip{font-size:.75rem;font-weight:600;padding:.28rem .7rem;border:1px solid var(--line);border-radius:99px;color:var(--muted);white-space:nowrap}
+.cover-mcc{position:absolute;inset:0;background:radial-gradient(circle at 18% 85%,rgba(0,113,219,.14),transparent 45%),linear-gradient(135deg,#FFFFFF 0%,#F4F8FE 60%,#E8F1FD 100%);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);align-items:center;overflow:hidden;transform:translate3d(var(--px,0),0,0) scale(1);transition:transform 1.1s var(--ease)}
+.card:hover .cover-mcc{transform:translate3d(var(--px,0),0,0) scale(1.03)}
+.cover-mcc .cm-text{display:grid;gap:.7rem;padding-left:9%;color:#282D46;z-index:1}
+.cm-pill{justify-self:start;background:#0071DB;color:#fff;font-family:var(--f-body);font-weight:600;font-size:clamp(.55rem,1vw,.8rem);padding:.35em 1em;border-radius:99px}
+.cm-title{font-family:var(--f-display);font-weight:800;font-size:clamp(1.3rem,3.1vw,2.9rem);line-height:.98;letter-spacing:-.035em}
+.cm-sub{font-family:var(--f-mono);font-size:clamp(.5rem,.85vw,.72rem);letter-spacing:.08em;text-transform:uppercase;color:#5B6378}
+.cover-mcc img{position:relative!important;inset:auto!important;width:100%!important;height:118%!important;object-fit:cover;object-position:left top;margin-top:4%;mix-blend-mode:multiply;transform:none!important}
+.card .media .cover-mcc + .open{}
 .mock{display:grid;place-items:center;background:radial-gradient(circle at 70% 30%,#5E3642,#24161C 70%)}
 .mock .ph{width:24%;aspect-ratio:9/19;border-radius:22px;border:2px solid rgba(241,234,225,.5);background:#1A1015;padding:6% 4%;display:grid;align-content:start;gap:8%;box-shadow:0 30px 60px -20px rgba(0,0,0,.7)}
 .mock .ph i{display:block;height:6px;border-radius:4px;background:rgba(241,234,225,.25)}
@@ -340,7 +348,7 @@ section{position:relative}
     <div class="reel-wrap" id="reelWrap">
       <div class="reel" id="reel">
         <button class="card" data-case="philips" data-cursor="Open">
-          <div class="media"><span class="num">01 / 05</span><img src="img/philips.jpg" alt="Philips Bottle and Nipple Advisor screens" style="object-position:center 18%"><span class="open">→</span></div>
+          <div class="media"><span class="num">01 / 05</span><div class="cover-mcc" aria-label="Mother and Child Advisory cover"><div class="cm-text"><span class="cm-pill">UX Case Study</span><span class="cm-title">Mother &amp; Child<br>Advisory</span><span class="cm-sub">Bottle &amp; Nipple Advisor · Philips</span></div><img src="img/mcc-screens.jpg" alt="Angled screens of the Bottle and Nipple Advisor"></div><span class="open">→</span></div>
           <div class="meta"><div><h3>The right baby bottle, in a few questions.</h3><span class="viewcs">View case study <i>→</i></span></div><div class="tags"><span class="chip">Philips</span><span class="chip">Web</span><span class="chip">Wipro</span></div></div>
         </button>
         <button class="card" data-case="ar" data-cursor="Open">
@@ -554,7 +562,7 @@ section{position:relative}
       '(min-width: 901px)':function(){
         const dist=()=>reel.scrollWidth-wrapR.clientWidth+16;
         const tw=gsap.to(reel,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:'#work',start:'top top',end:()=>'+='+dist(),pin:true,scrub:.8,invalidateOnRefresh:true,
-          onUpdate:s=>{bar.style.setProperty('--p',s.progress.toFixed(3));$$('.card .media img,.card .media .mock').forEach(el=>el.style.setProperty('--px',(-s.progress*4).toFixed(2)+'%'))}}});
+          onUpdate:s=>{bar.style.setProperty('--p',s.progress.toFixed(3));$$('.card .media>img,.card .media .mock,.card .media .cover-mcc').forEach(el=>el.style.setProperty('--px',(-s.progress*4).toFixed(2)+'%'))}}});
         return()=>tw.kill();
       }
     });
@@ -573,7 +581,7 @@ section{position:relative}
 
   /* ---------- case studies ---------- */
   const CASES={
-    philips:{idx:'01 / 05',title:'The right baby bottle, in a few questions.',img:'img/philips.jpg',pos:'center 15%',facts:[['Client','Philips Mother & Child Care (via Wipro)'],['Role','UX/UI Designer'],['Timeline','8 weeks'],['Platform','Mobile-first web advisor']],
+    philips:{idx:'01 / 05',title:'The right baby bottle, in a few questions.',img:null,mock:'mcc',facts:[['Client','Philips Mother & Child Care (via Wipro)'],['Role','UX/UI Designer'],['Timeline','8 weeks'],['Platform','Mobile-first web advisor']],
       blocks:[['Overview','A personalised advisory for Philips\' Mother & Child Care website. Parents answer a few questions about their child\'s age, feeding habits and preferences, and get expert recommendations instead of facing a huge product range alone.'],
         ['The problem','Parents struggle to choose the right feeding bottle among many options and complex factors. Wrong nipple-flow choices meant babies rejecting bottles, unhappy customers and high customer-service costs.'],
         ['What I did','Secondary research, information architecture, two rounds of user interviews, three re-iterated flows (bottle, nipple, gift set), a mobile-first prototype, and the final advisor UI.']],
@@ -606,7 +614,7 @@ section{position:relative}
   const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   function openCase(k){const c=CASES[k];if(!c)return;lastFocus=document.activeElement;caseIdx.textContent=c.idx;
     caseBody.innerHTML=`<h2 id="caseTitle">${esc(c.title)}</h2>
-      <div class="hero-img">${c.img?`<img src="${c.img}" alt="" style="object-position:${c.pos}">`:c.mock==='airport'?`<div class="mock airport" style="position:absolute;inset:0"><div class="ph" style="width:16%"><i style="width:45%"></i><div class="route"><span></span><span></span><span></span><b>Gate 23 · 4 min</b></div><i></i><i style="width:60%"></i></div></div>`:`<div class="mock" style="position:absolute;inset:0"><div class="ph" style="width:16%"><i style="width:55%"></i><div class="face"></div><i></i><i style="width:70%"></i></div></div>`}</div>
+      <div class="hero-img">${c.img?`<img src="${c.img}" alt="" style="object-position:${c.pos}">`:c.mock==='mcc'?`<div class="cover-mcc"><div class="cm-text"><span class="cm-pill">UX Case Study</span><span class="cm-title">Mother &amp; Child<br>Advisory</span><span class="cm-sub">Bottle &amp; Nipple Advisor · Philips</span></div><img src="img/mcc-screens.jpg" alt=""></div>`:c.mock==='airport'?`<div class="mock airport" style="position:absolute;inset:0"><div class="ph" style="width:16%"><i style="width:45%"></i><div class="route"><span></span><span></span><span></span><b>Gate 23 · 4 min</b></div><i></i><i style="width:60%"></i></div></div>`:`<div class="mock" style="position:absolute;inset:0"><div class="ph" style="width:16%"><i style="width:55%"></i><div class="face"></div><i></i><i style="width:70%"></i></div></div>`}</div>
       <div class="facts">${c.facts.map(f=>`<div><span class="mono">${esc(f[0])}</span><strong>${esc(f[1])}</strong></div>`).join('')}</div>
       ${c.blocks.map(b=>b[0]==='__img'?`<figure class="fig"><img src="${b[1]}" alt="${esc(b[2])}" loading="lazy"><figcaption class="mono">${esc(b[2])}</figcaption></figure>`:`<div class="block"><h3>${esc(b[0])}</h3>${Array.isArray(b[1])?`<ul>${b[1].map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:`<p>${esc(b[1])}</p>`}</div>`).join('')}
       ${c.full?`<div class="fullhead"><span class="idx">The full case study</span><p>Scroll through the complete case study, exactly as I presented it.</p></div><div class="fullcs">${c.full.map(f=>`<img src="${f[0]}" alt="${esc(f[1])}" loading="lazy">`).join('')}</div>`:''}
