@@ -159,6 +159,16 @@ body.locked .ask{opacity:0;pointer-events:none}
 .hero-proc .feat{position:relative;top:auto;right:auto;width:100%;align-self:start}
 @media (min-width:761px) and (max-height:820px){.hero-proc .ddl em{display:none}.hero-proc .ddl{height:1.3rem}}
 /* (AI guide launcher below) */
+/* welcome from Proto: larger, centred, impossible to miss */
+.tour.offer{width:min(36rem,calc(100vw - 20px));padding:1.15rem 1.2rem;gap:1.1rem;border-color:rgba(213,252,101,.65);box-shadow:0 40px 90px -30px rgba(0,0,0,.95),0 0 0 6px rgba(213,252,101,.08);animation:offerIn .7s var(--ease) both}
+@keyframes offerIn{from{opacity:0;transform:translate(-50%,30px) scale(.96)}to{opacity:1;transform:translate(-50%,0)}}
+.tour.offer .tav{width:3.6rem;height:3.6rem}
+.tour.offer .tav::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--lime);animation:offerRing 1.8s ease-out infinite}
+@keyframes offerRing{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+.tour.offer p{font-size:1rem}.tour.offer p.tw{font-family:var(--f-display);font-size:1.45rem;line-height:1.1}.tour.offer p.tw b{font-weight:450}
+.tour.offer .btn{padding:.8rem 1.3rem}
+@media (prefers-reduced-motion:reduce){.tour.offer,.tour.offer .tav::after{animation:none}}
+
 /* Proto, the AI guide: avatar */
 .pav{background:transparent!important;overflow:visible}
 .pav svg{width:100%;height:100%;display:block;border-radius:50%}
@@ -186,6 +196,8 @@ body.locked .ask{opacity:0;pointer-events:none}
 .reachpop .rp-h{font-family:var(--f-display);font-size:1.25rem;margin:0 0 .7rem .2rem}
 .reachpop .rrow{padding:.6rem .7rem}
 .foot a{color:inherit;text-decoration:none}.foot a:hover{color:var(--lime)}
+.foot a{white-space:nowrap}
+@media (min-width:1000px){#lab .lab{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:600px){.rrow{grid-template-columns:auto minmax(0,1fr)}.rrow>.rc,.rrow>.racts{grid-column:2;justify-self:start}}
 /* tour entry in the hero */
 .tourbtn{justify-self:start;display:inline-flex;align-items:center;gap:.7rem;margin-top:.4rem;padding:.55rem 1rem .55rem .55rem;border-radius:99px;border:1px solid rgba(213,252,101,.4);background:rgba(17,10,13,.35);color:var(--cream);font-weight:650;font-size:.92rem;cursor:pointer;transition:background .3s,border-color .3s}
@@ -217,8 +229,13 @@ body.touring .ask{opacity:0;pointer-events:none}
 @media (max-width:600px){.tour{grid-template-columns:auto minmax(0,1fr);padding:.75rem}.tour .tctl{grid-column:1/-1;justify-content:flex-end;margin-top:-.2rem}.tour .tav{width:2.5rem;height:2.5rem}.tour p{font-size:.9rem}}
 @media (prefers-reduced-motion:reduce){.pav .eye,.tour .tav .ant,.tour.talking .tav svg{animation:none}}
 /* cards: clean lift + cover parallax (no 3D tilt, nothing clipped) */
-@media (min-width:901px){.reel{padding-top:18px}.reel-wrap{margin-top:-18px}}
+@media (min-width:901px){.reel{padding-top:18px;padding-left:max(0px,calc((100vw - var(--max)) / 2 - var(--gut)))}.reel-wrap{margin-top:-18px}}
 
+/* Ask Proto adapts to what's behind it: cream on dark sections, ink with a lime edge on light ones */
+.ask{transition:transform .4s var(--ease),background .35s,color .35s,box-shadow .35s}
+.ask.on-light{background:#1A1216;color:var(--cream);box-shadow:0 18px 40px -14px rgba(26,18,22,.55),0 0 0 1.5px var(--lime)}
+.ask.on-light .ant{background:#1A1216}
+.ask.on-light .av::after{border-color:#1A1216}
 /* Ask Proto launcher: a little radio antenna "on air", a periodic hop and a one-time hello */
 .ask .av{animation:askHop 7s var(--ease) 3s infinite}
 @keyframes askHop{0%,84%,100%{transform:none}88%{transform:translateY(-7px) rotate(-6deg)}92%{transform:translateY(0) rotate(0)}95%{transform:translateY(-3px)}}
@@ -548,14 +565,10 @@ section{position:relative}
 .listen.on .pi{animation:talk .5s ease-in-out infinite alternate}
 .msg.bot{display:grid;justify-items:start}
 .chat .vhint{font-size:.72rem;color:var(--muted)}
-/* card hover: a clean lift, a lime edge and a slow cover parallax; siblings step back */
+/* card hover: only the hovered card responds (a small lift and a thin lime outline); the others stay as they are */
 @media (hover:hover) and (pointer:fine){
-  .card .media{transition:transform .6s var(--ease),box-shadow .6s var(--ease)}
-  .card:hover .media{transform:translateY(-10px);box-shadow:0 40px 80px -30px rgba(0,0,0,.9),0 0 0 2px var(--lime)}
-  .card .cv{transform:translate(var(--mx,0px),var(--my,0px)) scale(var(--cs,1));transition:transform .9s var(--ease)}
-  .card:hover .cv{--cs:1.045}
-  .card{transition:opacity .5s,filter .5s}
-  .reel:has(.card:hover) .card:not(:hover){opacity:.45;filter:saturate(.5)}
+  .card .media{transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+  .card:hover .media{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(0,0,0,.85),0 0 0 1.5px var(--lime)}
   .card:hover h3{color:var(--lime)}
   .card h3{transition:color .4s}
 }
@@ -736,7 +749,7 @@ section{position:relative}
 .contact h2 .serif{color:var(--lime)}
 .mail{font-family:var(--f-display);font-weight:400;font-size:clamp(1.35rem,3.8vw,2.5rem);letter-spacing:-.02em;border-bottom:2px solid var(--lime);padding-bottom:.2rem;overflow-wrap:anywhere;user-select:all}
 .contact .row-btns{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center}
-.foot{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-block:1.6rem calc(6rem + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line)}
+.foot{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-block:1.6rem calc(8rem + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line)}
 
 /* ---------- AI guide ---------- */
 .ask{position:fixed;right:calc(var(--gut-r) + 2px);bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:75;display:inline-flex;align-items:center;gap:.6rem;background:var(--cream);color:var(--ink);border-radius:99px;padding:.45rem 1rem .45rem .45rem;font-weight:700;font-size:.9rem;box-shadow:0 20px 40px -15px rgba(0,0,0,.6);transition:transform .4s var(--ease)}
@@ -1025,7 +1038,7 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
 <div class="tour" id="tour" hidden>
   <span class="tav pav"><span class="ant" aria-hidden="true"><i class="tip"></i></span><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#D5FC65"/><rect class="eye" x="11.5" y="14" width="5" height="8" rx="2.5" fill="#141014"/><rect class="eye" x="23.5" y="14" width="5" height="8" rx="2.5" fill="#141014"/><path d="M14 27q6 5 12 0" fill="none" stroke="#141014" stroke-width="2.6" stroke-linecap="round"/></svg></span>
   <div class="tb">
-    <div class="toff"><p><b>Hi, I'm Proto.</b> Pranit built me to show you around. Want a 1-minute tour of his work, with voice?</p><div class="tbtns"><button class="btn sm" id="tourGo" type="button">▶ Start the tour</button><button class="tlink" id="tourNo" type="button">I'll explore myself</button></div></div>
+    <div class="toff"><p class="tw"><b>Hi, I'm Proto 👋</b></p><p>Pranit built me to show you around. Tap start and I'll walk you through his work in a minute, with music and voice.</p><div class="tbtns"><button class="btn" id="tourGo" type="button">▶ Start the tour</button><button class="tlink" id="tourNo" type="button">Just let me explore</button></div></div>
     <div class="trun"><div class="tk"><span class="mono">Tour with Proto</span><span class="mono" id="tourN">1 / 11</span></div><p id="tourTx" aria-live="polite"></p><span class="tbar"><i id="tourBar"></i></span></div>
   </div>
   <div class="tctl"><button id="tourPP" type="button" aria-label="Pause tour">❚❚</button><button id="tourNx" type="button" aria-label="Next stop">→</button><button id="tourX" type="button" aria-label="Close">✕</button></div>
@@ -1194,6 +1207,9 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
     reel.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
     // arrows + keyboard: jump card by card
     function offsets(){return cards.map(c=>c.offsetLeft-cards[0].offsetLeft)}
+    let snapT=0;addEventListener('scroll',()=>{clearTimeout(snapT);snapT=setTimeout(()=>{const t=st();if(!t||down||document.body.classList.contains('touring'))return;const y=curScroll();if(y<=t.start+4||y>=t.end-4)return;
+      const pts=offsets().map(x=>t.start+x).filter(v=>v<t.end);pts.push(t.end);let best=pts[0];for(const v of pts)if(Math.abs(v-y)<Math.abs(best-y))best=v;
+      if(Math.abs(best-y)>3){if(lenis)lenis.scrollTo(best,{duration:.7});else scrollTo({top:best,behavior:'smooth'})}},200)},{passive:true});
     window.__pkCard=i=>{const xs=offsets(),t=st();if(t){goScroll(Math.min(t.end,t.start+xs[i]))}else{goScroll(work.getBoundingClientRect().top+scrollY-70);reel.scrollTo({left:cards[i].offsetLeft-cards[0].offsetLeft,behavior:reduce?'auto':'smooth'})}};
     function currentX(){const t=st();if(t){const d=t.end-t.start;return (curScroll()-t.start)/(d||1)*d}return reel.scrollLeft}
     function step(dir){const xs=offsets(),x=currentX();let target;
@@ -1207,11 +1223,6 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
     reel.addEventListener('scroll',()=>{if(st())return;const m=reel.scrollWidth-reel.clientWidth;bar.style.setProperty('--p',(m?reel.scrollLeft/m:0).toFixed(3))},{passive:true});
   })();
 
-  /* ---------- card hover: the cover drifts gently toward the cursor (parallax), clipped inside the card ---------- */
-  if(fine&&!reduce)$$('.card').forEach(c=>{const m=c.querySelector('.media'),v=()=>m.querySelector('.cv');
-    c.addEventListener('pointermove',e=>{if(reel.classList.contains('dragging'))return;const r=m.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5,el=v();if(!el)return;
-      el.style.setProperty('--mx',(-x*14).toFixed(1)+'px');el.style.setProperty('--my',(-y*10).toFixed(1)+'px')});
-    c.addEventListener('pointerleave',()=>{const el=v();if(el){el.style.setProperty('--mx','0px');el.style.setProperty('--my','0px')}})});
 
   if(reduce)$$('svg.jy,svg.lf').forEach(v=>{try{v.pauseAnimations();v.setCurrentTime(v.classList.contains('lf')?17:9)}catch(e){}});
   /* ---------- statement: words light up as you read ---------- */
@@ -1433,6 +1444,10 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   function showInvite(){if(invAsked||on||menu.classList.contains('open')||!document.getElementById('chat').hidden||!caseEl.hidden)return;invAsked=true;invite.classList.add('show');setTimeout(hideInvite,14000)}
 
 
+  /* ---------- Ask Proto changes tone over light sections so it never blends in ---------- */
+  const lightEls=$$('.day');let toneQ=false;
+  function askTone(){toneQ=false;const r=askBtn.getBoundingClientRect(),y=r.top+r.height/2;askBtn.classList.toggle('on-light',lightEls.some(el=>{const b=el.getBoundingClientRect();return y>b.top&&y<b.bottom}))}
+  addEventListener('scroll',()=>{if(!toneQ){toneQ=true;requestAnimationFrame(askTone)}},{passive:true});addEventListener('resize',askTone);askTone();
   /* ---------- contact: "Let's talk" opens a small sheet with every way to reach Pranit ---------- */
   const talkBtn=$('#talkBtn'),reachPop=$('#reachPop');
   function popOpen(v){if(v){reachPop.hidden=false;requestAnimationFrame(()=>reachPop.classList.add('show'))}else{reachPop.classList.remove('show');setTimeout(()=>{reachPop.hidden=true},250)}talkBtn.setAttribute('aria-expanded',v)}
@@ -1473,14 +1488,15 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   $('#tourNx').onclick=()=>{if(!tPlaying){tPlaying=true;tPP.textContent='❚❚'}stop(ti+1)};
   $('#tourX').onclick=()=>{if(tourEl.classList.contains('offer')){tourMode(null);try{sessionStorage.setItem('pk-tour','1')}catch(e){}}else endTour(false)};
   $('#tourGo').onclick=startTour;$('#tourHero').onclick=startTour;
-  $('#tourNo').onclick=()=>{tourMode(null);try{sessionStorage.setItem('pk-tour','1')}catch(e){}toast('Sure. Proto is in the corner if you need anything.')};
+  $('#tourNo').onclick=()=>{tourMode(null);try{sessionStorage.setItem('pk-tour','1')}catch(e){}toast('Enjoy! Proto is in the corner whenever you want a guide.')};
   // the visitor takes the wheel: any manual scroll pauses the tour
   ['wheel','touchmove'].forEach(t=>addEventListener(t,e=>{if(tPlaying&&!e.target.closest('#tour'))pauseTour()},{passive:true}));
   addEventListener('keydown',e=>{if(!tourEl.hidden&&tourEl.classList.contains('run')){if(e.key==='Escape')endTour(false);else if([' ','ArrowDown','ArrowUp','PageDown','PageUp','Home','End'].includes(e.key)&&tPlaying&&!e.target.closest('#tour'))pauseTour()}});
   // first visit: Proto offers the tour once
   let toured=false;try{toured=sessionStorage.getItem('pk-tour')==='1'}catch(e){}
   window.__pkTourOffer=!toured;
-  if(!toured)setTimeout(()=>{if(!tourEl.hidden||!chat.hidden||!caseEl.hidden||menu.classList.contains('open')||scrollY>innerHeight*.6)return;tourMode('offer')},2600);
+  if(!toured)setTimeout(()=>{if(!tourEl.hidden||!chat.hidden||!caseEl.hidden||menu.classList.contains('open')||scrollY>innerHeight*.6)return;tourMode('offer')},1200);
+  setTimeout(()=>{let t=false;try{t=sessionStorage.getItem('pk-tour')==='1'&&!document.body.classList.contains('touring')}catch(e){}if(!tourEl.hidden||!chat.hidden||!caseEl.hidden)return;askBtn.querySelector('.asktip').textContent=t?'Questions? Ask me':'Want a guided tour? Tap me';askBtn.classList.add('hello');setTimeout(()=>askBtn.classList.remove('hello'),6000)},28000);
   /* ---------- music is on by default: it starts at the visitor's first tap or click (browsers block sound before that) ---------- */
   const mhint=$('#mhint');let hintT;
   function placeHint(){const r=sBtn.getBoundingClientRect();mhint.style.top=(r.bottom+12)+'px';mhint.style.right=Math.max(12,innerWidth-r.right)+'px';mhint.style.setProperty('--ax',Math.max(18,r.width/2)+'px')}
