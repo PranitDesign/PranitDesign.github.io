@@ -146,6 +146,21 @@ body.locked .ask{opacity:0;pointer-events:none}
 .scroll-cue i{width:1px;height:56px;background:linear-gradient(var(--cream),transparent);animation:cue 2s var(--ease) infinite;transform-origin:top}
 @keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
 @media (max-width:760px){.hero-foot{grid-template-columns:1fr}.scroll-cue{display:none}}
+/* hero order: who I am first, then how I work (5-second test: name, role, proof, then process) */
+.hero{align-content:center;padding-block:clamp(6rem,14vh,8rem) 2.4rem}
+.hero-top{margin-bottom:clamp(1rem,3vh,2rem)}
+.hero-foot{margin-top:clamp(1.2rem,3.5vh,2.2rem);grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(1.5rem,4vw,4rem);align-items:end}
+.hero-foot .intro{display:grid;gap:.8rem}
+.hero-foot p.lead{font-size:clamp(1.35rem,2.5vw,2.1rem);max-width:24ch;line-height:1.25;letter-spacing:-.01em}
+.hero-foot .sub{color:var(--muted);font-size:clamp(1rem,1.25vw,1.12rem);line-height:1.55;max-width:44ch}
+.hero-foot .cred{line-height:1.9;justify-self:end}
+.hero-proc{margin-top:clamp(1.8rem,5vh,3.4rem);padding-top:clamp(1.2rem,3vh,2rem);border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,40rem) minmax(0,25rem);justify-content:space-between;align-items:end;gap:2rem}
+.hero-proc .dd{margin:0}
+.hero-proc .feat{position:relative;top:auto;right:auto;width:100%;align-self:start}
+@media (min-width:761px) and (max-height:820px){.hero-proc .ddl em{display:none}.hero-proc .ddl{height:1.3rem}}
+@media (max-width:1100px){.hero-proc{grid-template-columns:minmax(0,1fr)}.hero-proc .feat{max-width:25rem}}
+@media (max-width:760px){.hero-foot{grid-template-columns:1fr}.hero-foot .cred{justify-self:start}.hero-proc{border-top:0;padding-top:0}}
+
 
 /* ---------- marquee ---------- */
 .marquee{border-block:1px solid var(--line);overflow:hidden;padding-block:1.1rem;white-space:nowrap}
@@ -693,9 +708,24 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   <!-- HERO -->
   <section class="hero bleed" aria-label="Introduction">
     <canvas id="field" aria-hidden="true"></canvas>
-    <button class="feat" data-case="philips" data-cursor="Open"><span class="th" id="featTh" aria-hidden="true"></span><span class="ft"><span class="mono">Featured case study</span><b>The right baby bottle, in a few questions.</b><span class="go">Philips · 8 weeks · Read it →</span></span></button>
     <div class="wrap">
-      <figure class="dd" aria-label="My design process: a double diamond (discover, define, design, deliver), then design thinking (empathize, define, ideate, prototype, test)">
+      <div class="hero-top">
+        <span class="mono status"><i></i>Open to roles &amp; freelance</span>
+        <span class="mono">UX/UI Designer · Bangalore · 4+ yrs</span>
+      </div>
+      <h1 class="name" aria-label="Pranit Kumar, UX/UI designer">
+        <span class="ln"><span>Pranit</span></span>
+        <span class="ln"><span>Kumar<span class="serif">.</span></span></span>
+      </h1>
+      <div class="hero-foot">
+        <div class="intro">
+          <p class="lead">I design products that feel <span class="rot" aria-hidden="true"><b class="on">calm.</b><b>clear.</b><b>human.</b><b>obvious.</b></span><span class="sr" style="position:absolute;left:-9999px">calm, clear and human.</span></p>
+          <p class="sub">I turn complex journeys in insurance, banking, retail and health into short, obvious flows that people get right the first time.</p>
+        </div>
+        <p class="mono cred">NIFT graduate. Three years at Wipro,<br>now at frog, Capgemini Invent.<br>Clients include Philips &amp; Barclays.</p>
+      </div>
+      <div class="hero-proc">
+        <figure class="dd" aria-label="My design process: a double diamond (discover, define, design, deliver), then design thinking (empathize, define, ideate, prototype, test)">
         <figcaption class="mono"><span class="sa">How I work · the double diamond</span><span class="sb">How I work · design thinking</span></figcaption>
         <div class="scenes"><div class="sc sa">
         <svg viewBox="0 0 800 240" aria-hidden="true">
@@ -724,18 +754,7 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
           <div class="sc sb" aria-hidden="true"><svg viewBox="0 0 800 240" class="dt"><path class="lp" d="M720 54C690 0 430 0 400 54" pathLength="1"/><path class="lph" d="M394 44l6 10 7-9"/><path class="lp" style="animation-delay:.6s" d="M720 170C680 232 280 232 240 170" pathLength="1"/><path class="lph" style="animation-delay:.6s" d="M233 180l7-10 6 10"/><text class="lt" x="560" y="22" text-anchor="middle">iterate</text><text class="lt" style="animation-delay:.6s" x="480" y="218" text-anchor="middle">learn &amp; reframe</text><path class="ar" style="animation-delay:0.30s" d="M132 112H184m-7-6l7 6-7 6" pathLength="1"/><path class="ar" style="animation-delay:0.85s" d="M292 112H344m-7-6l7 6-7 6" pathLength="1"/><path class="ar" style="animation-delay:1.40s" d="M452 112H504m-7-6l7 6-7 6" pathLength="1"/><path class="ar" style="animation-delay:1.95s" d="M612 112H664m-7-6l7 6-7 6" pathLength="1"/><g class="hx" style="animation-delay:0.00s"><polygon points="123.3,137.0 80.0,162.0 36.7,137.0 36.7,87.0 80.0,62.0 123.3,87.0"/><path d="M80 124c-14-9-20-16-20-23a9 9 0 0 1 20-4a9 9 0 0 1 20 4c0 7-6 14-20 23z"/></g><g class="hx" style="animation-delay:0.55s"><polygon points="283.3,137.0 240.0,162.0 196.7,137.0 196.7,87.0 240.0,62.0 283.3,87.0"/><circle cx="240" cy="112" r="16"/><circle cx="240" cy="112" r="7"/><circle cx="240" cy="112" r="1.5" class="f"/></g><g class="hx" style="animation-delay:1.10s"><polygon points="443.3,137.0 400.0,162.0 356.7,137.0 356.7,87.0 400.0,62.0 443.3,87.0"/><path d="M392 120c-6-4-10-10-10-17a18 18 0 0 1 36 0c0 7-4 13-10 17z"/><path d="M393 127h14M395 133h10"/></g><g class="hx" style="animation-delay:1.65s"><polygon points="603.3,137.0 560.0,162.0 516.7,137.0 516.7,87.0 560.0,62.0 603.3,87.0"/><rect x="549" y="93" width="22" height="38" rx="5"/><path d="M556 124h8"/><path d="M555 104h10M555 110h6"/></g><g class="hx" style="animation-delay:2.20s"><polygon points="763.3,137.0 720.0,162.0 676.7,137.0 676.7,87.0 720.0,62.0 763.3,87.0"/><circle cx="720" cy="112" r="16"/><path d="M713 112l5 5 9-10"/></g></svg>
           <div class="ddl dtl"><span style="left:10%;animation-delay:0.00s">Empathize<em>feel it</em></span><span style="left:30%;animation-delay:0.55s">Define<em>name it</em></span><span style="left:50%;animation-delay:1.10s">Ideate<em>go wide</em></span><span style="left:70%;animation-delay:1.65s">Prototype<em>make it real</em></span><span style="left:90%;animation-delay:2.20s">Test<em>learn fast</em></span></div></div></div>
       </figure>
-      <div class="hero-top">
-        <span class="mono status"><i></i>Open to roles &amp; freelance</span>
-        <span class="mono">UX/UI Designer · Bangalore · 4+ yrs</span>
-      </div>
-      <h1 class="name" aria-label="Pranit Kumar, UX/UI designer">
-        <span class="ln"><span>Pranit</span></span>
-        <span class="ln"><span>Kumar<span class="serif">.</span></span></span>
-      </h1>
-      <div class="hero-foot">
-        <p class="lead">I design products that feel <span class="rot" aria-hidden="true"><b class="on">calm.</b><b>clear.</b><b>human.</b><b>obvious.</b></span><span class="sr" style="position:absolute;left:-9999px">calm, clear and human.</span></p>
-        <p class="mono" style="line-height:1.9">NIFT graduate. Three years at Wipro,<br>now at frog, Capgemini Invent.<br>Insurance, banking, retail, health &amp; AR.</p>
-        <div class="scroll-cue" aria-hidden="true"><span class="mono">Scroll</span><i></i></div>
+        <button class="feat" data-case="philips" data-cursor="Open"><span class="th" id="featTh" aria-hidden="true"></span><span class="ft"><span class="mono">Featured case study</span><b>The right baby bottle, in a few questions.</b><span class="go">Philips · 8 weeks · Read it →</span></span></button>
       </div>
     </div>
   </section>
@@ -911,7 +930,7 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   function intro(){
     if(!hasG||reduce)return;
     gsap.from('.name .ln>span',{yPercent:110,duration:1.2,ease:'expo.out',stagger:.08});
-    gsap.from('.feat',{opacity:0,y:-14,duration:1,delay:.7,ease:'power3.out'});gsap.from('.hero-top,.hero-foot',{opacity:0,y:20,duration:1,delay:.4,ease:'power3.out'});
+    gsap.from('.hero-top,.hero-foot',{opacity:0,y:20,duration:1,delay:.4,ease:'power3.out'});gsap.from('.hero-proc',{opacity:0,y:24,duration:1.1,delay:.65,ease:'power3.out'});
   }
   let seen=false;try{seen=sessionStorage.getItem('pk-seen')==='1';sessionStorage.setItem('pk-seen','1')}catch(e){}
   if(reduce){loader.remove()}else if(seen){loader.remove();requestAnimationFrame(intro)}else{
