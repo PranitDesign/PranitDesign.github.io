@@ -1706,7 +1706,9 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   // first visit: AI Pranit offers the tour once
   let toured=false;try{toured=sessionStorage.getItem('pk-tour')==='1'}catch(e){}
   window.__pkTourOffer=!toured;
-  if(!toured)setTimeout(()=>{if(!tourEl.hidden||!chat.hidden||!caseEl.hidden||menu.classList.contains('open')||scrollY>innerHeight*.6)return;tourMode('offer')},1200);
+  // step 2 of the welcome: Proto offers the tour once the music tip has had its moment (or after ~7s regardless)
+  let offered=false;window.__pkOffer=()=>{if(toured||offered)return;offered=true;if(!tourEl.hidden||!chat.hidden||!caseEl.hidden||menu.classList.contains('open')||scrollY>innerHeight*.6)return;tourMode('offer')};
+  if(!toured)setTimeout(window.__pkOffer,7000);
   setTimeout(()=>{let t=false;try{t=sessionStorage.getItem('pk-tour')==='1'&&!document.body.classList.contains('touring')}catch(e){}if(!tourEl.hidden||!chat.hidden||!caseEl.hidden)return;askBtn.querySelector('.asktip').textContent=t?'Questions? Ask me':'Want a guided tour? Tap me';askBtn.classList.add('hello');setTimeout(()=>askBtn.classList.remove('hello'),6000)},28000);
   /* ---------- music is on by default: it starts at the visitor's first tap or click (browsers block sound before that) ---------- */
   const mhint=$('#mhint');let hintT;
@@ -1715,34 +1717,36 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   function hideHint(){mhint.classList.remove('show');sBtn.classList.remove('hl');setTimeout(()=>{mhint.hidden=true},400)}
   addEventListener('scroll',()=>{if(!mhint.hidden&&scrollY>320)hideHint()},{passive:true});addEventListener('resize',()=>{if(!mhint.hidden)placeHint()});
   sBtn.addEventListener('click',()=>{try{localStorage.setItem('pk-music',on?'on':'off')}catch(e){}if(!on){hideHint();toast('Music off. Tap Music in the top bar to bring it back.')}});
-  mhint.addEventListener('click',hideHint);
+  mhint.addEventListener('click',()=>{if(mhint.dataset.mode==='playing'&&on){hideHint();sBtn.click();return}hideHint()});
   let pref='on';try{pref=localStorage.getItem('pk-music')||'on'}catch(e){}
   const hintTx=mhint.querySelector('span:last-child');
   // ducking: when AI Pranit speaks, the music drops to a whisper and comes back after
   window.__pkDuck=d=>{try{if(!actx||!master||!on)return;const t=actx.currentTime;master.gain.cancelScheduledValues(t);master.gain.setTargetAtTime(d?.2:.55,t,d?.15:.7)}catch(e){}};
   window.__pkAudio=()=>({on,state:actx?actx.state:'none',gain:master?+master.gain.value.toFixed(3):0});
+  if(pref==='off')setTimeout(()=>window.__pkOffer&&window.__pkOffer(),1200);
   if(pref!=='off'){
     // Browsers only allow sound after a real tap, click or key press. Stay "armed" until the music is
     // actually playing: if a gesture doesn't unlock audio (e.g. iOS ignores some event types), try the next one.
     const EV=['click','touchend','pointerup','mousedown','keydown'];let trying=false,hinted=false;
     sBtn.classList.add('armed');sLbl.innerHTML='Music<span class="st"> on</span>';sBtn.title='Music starts with your first tap or click. Tap here to keep it off.';
     const disarm=()=>{EV.forEach(t=>removeEventListener(t,arm,true));sBtn.classList.remove('armed')};
+    function played(){disarm();mhint.dataset.mode='playing';hintTx.innerHTML='Music is on.<b>Tap here to turn it off</b>';showHint(4200);setTimeout(()=>window.__pkOffer&&window.__pkOffer(),1600)}
     function arm(e){
       if(e.type==='keydown'&&(e.metaKey||e.ctrlKey||e.altKey||e.key==='Escape'||e.key==='Tab'))return;
       if(e.target&&e.target.closest&&e.target.closest('#sound')){disarm();hideHint();window.__pkSkip=true;setSound(false);try{localStorage.setItem('pk-music','off')}catch(_){}toast('Music off. Tap Music in the top bar to bring it back.');setTimeout(()=>{window.__pkSkip=false},800);return}
       if(trying||on)return;trying=true;sBtn.onclick();
       setTimeout(()=>{trying=false;const ok=on&&actx&&actx.state==='running';
-        if(ok){disarm();hintTx.innerHTML='Music is on.<b>Tap here to turn it off</b>';showHint(5000)}
+        if(ok)played()
         else if(on){window.__pkSkip=false;sBtn.onclick();sBtn.classList.add('armed');sLbl.innerHTML='Music<span class="st"> on</span>'}},650)}
     EV.forEach(t=>addEventListener(t,arm,true));
     // try right away: browsers that allow autoplay for this visitor (desktop Chrome after earlier visits, or sound allowed
     // for the site) start the music on load; everyone else hears it from their first tap
     setTimeout(()=>{if(on||trying)return;trying=true;try{sBtn.onclick()}catch(_){}
-      setTimeout(()=>{trying=false;if(on&&actx&&actx.state==='running'){disarm();hintTx.innerHTML='Music is on.<b>Tap here to turn it off</b>';showHint(5000)}
-        else if(on){window.__pkSkip=false;try{sBtn.onclick()}catch(_){}sBtn.classList.add('armed');sLbl.innerHTML='Music<span class="st"> on</span>'}},700)},500);
+      setTimeout(()=>{trying=false;if(on&&actx&&actx.state==='running')played()
+        else{if(on){window.__pkSkip=false;try{sBtn.onclick()}catch(_){}}sBtn.classList.add('armed');sLbl.innerHTML='Music<span class="st"> on</span>';setTimeout(askTip,300)}},700)},500);
     // say it once per visit, so nobody wonders why "Music on" is silent
     let told=false;try{told=sessionStorage.getItem('pk-mh')==='1'}catch(e){}
-    if(!told&&!window.__pkTourOffer)setTimeout(()=>{if(on||!sBtn.classList.contains('armed')||scrollY>200)return;hintTx.innerHTML='Lo-fi music starts with your first tap.<b>Tap here to keep it off</b>';showHint(8000);try{sessionStorage.setItem('pk-mh','1')}catch(e){}},1800);
+    function askTip(){if(on||!sBtn.classList.contains('armed'))return;mhint.dataset.mode='ask';hintTx.innerHTML='This site has a lo-fi soundtrack.<b>Tap here to play ♪</b>';showHint(9000)}
   }
   $('#invYes').onclick=()=>{hideInvite();if(!on)sBtn.click()};$('#invNo').onclick=()=>{hideInvite();toast('No problem. Music is in the top bar whenever you want it.')};
   // pause when the tab is hidden, resume when back (iOS kills audio in the background anyway)
