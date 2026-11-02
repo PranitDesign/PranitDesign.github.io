@@ -1725,9 +1725,10 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   function showHint(ms){if(!caseEl.hidden||menu.classList.contains('open'))return;nav.classList.remove('hide');placeHint();mhint.hidden=false;sBtn.classList.add('hl');requestAnimationFrame(()=>mhint.classList.add('show'));clearTimeout(hintT);hintT=setTimeout(hideHint,ms||7000)}
   function hideHint(){mhint.classList.remove('show');sBtn.classList.remove('hl');setTimeout(()=>{mhint.hidden=true},400)}
   addEventListener('scroll',()=>{if(!mhint.hidden&&scrollY>320)hideHint()},{passive:true});addEventListener('resize',()=>{if(!mhint.hidden)placeHint()});
-  sBtn.addEventListener('click',()=>{try{localStorage.setItem('pk-music',on?'on':'off')}catch(e){}if(!on){hideHint();toast('Music off. Tap Music in the top bar to bring it back.')}});
+  sBtn.addEventListener('click',()=>{try{sessionStorage.setItem('pk-music',on?'on':'off')}catch(e){}if(!on){hideHint();toast('Music off. Tap Music in the top bar to bring it back.')}});
   mhint.addEventListener('click',()=>{if(mhint.dataset.mode==='playing'&&on){hideHint();sBtn.click();return}hideHint()});
-  let pref='on';try{pref=localStorage.getItem('pk-music')||'on'}catch(e){}
+  // the music choice lasts for this visit only, so every new visit gets the friendly tip again
+  let pref='on';try{localStorage.removeItem('pk-music');pref=sessionStorage.getItem('pk-music')||'on'}catch(e){}
   const hintTx=mhint.querySelector('span:last-child');
   // ducking: when AI Pranit speaks, the music drops to a whisper and comes back after
   window.__pkDuck=d=>{try{if(!actx||!master||!on)return;const t=actx.currentTime;master.gain.cancelScheduledValues(t);master.gain.setTargetAtTime(d?.2:.55,t,d?.15:.7)}catch(e){}};
@@ -1742,7 +1743,7 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
     function played(){disarm();mhint.dataset.mode='playing';hintTx.innerHTML='Music is on.<b>Tap here to turn it off</b>';showHint(4000);setTimeout(()=>window.__pkOffer&&window.__pkOffer(),4800)}
     function arm(e){
       if(e.type==='keydown'&&(e.metaKey||e.ctrlKey||e.altKey||e.key==='Escape'||e.key==='Tab'))return;
-      if(e.target&&e.target.closest&&e.target.closest('#sound')){disarm();hideHint();window.__pkSkip=true;setSound(false);try{localStorage.setItem('pk-music','off')}catch(_){}toast('Music off. Tap Music in the top bar to bring it back.');setTimeout(()=>{window.__pkSkip=false},800);return}
+      if(e.target&&e.target.closest&&e.target.closest('#sound')){disarm();hideHint();window.__pkSkip=true;setSound(false);try{sessionStorage.setItem('pk-music','off')}catch(_){}toast('Music off. Tap Music in the top bar to bring it back.');setTimeout(()=>{window.__pkSkip=false},800);return}
       if(trying||on)return;trying=true;sBtn.onclick();
       setTimeout(()=>{trying=false;const ok=on&&actx&&actx.state==='running';
         if(ok)played()
