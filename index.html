@@ -378,7 +378,8 @@ section{position:relative}
 .lf .lf-n{font:700 30px var(--f-body)}
 .lf .lf-r{font:700 16px var(--f-mono);fill:#E5484D;letter-spacing:.1em}
 
-.life{margin:0 0 -1px;display:grid;gap:.4rem}
+.life{margin:0 0 calc(-1.2rem - 1px);display:grid;gap:.4rem}
+@media (max-width:600px){.lf .lf-t{font-size:46px}.lf .lf-s{font-size:20px}}
 .life figcaption{color:#6E5C63}
 
 /* music invitation: one gentle, dismissible prompt per visit */
