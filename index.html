@@ -1743,8 +1743,9 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
     function played(){disarm();mhint.dataset.mode='playing';hintTx.innerHTML='Music is on.<b>Tap here to turn it off</b>';showHint(4000);setTimeout(()=>window.__pkOffer&&window.__pkOffer(),4800)}
     function arm(e){
       if(e.type==='keydown'&&(e.metaKey||e.ctrlKey||e.altKey||e.key==='Escape'||e.key==='Tab'))return;
-      if(e.target&&e.target.closest&&e.target.closest('#sound')){disarm();hideHint();window.__pkSkip=true;setSound(false);try{sessionStorage.setItem('pk-music','off')}catch(_){}toast('Music off. Tap Music in the top bar to bring it back.');setTimeout(()=>{window.__pkSkip=false},800);return}
-      if(trying||on)return;trying=true;sBtn.onclick();
+      // tapping Music itself turns the music on; skip the button's own click so it doesn't toggle straight back off
+      const onBtn=!!(e.target&&e.target.closest&&e.target.closest('#sound'));
+      if(trying||on)return;trying=true;window.__pkSkip=false;sBtn.onclick();if(onBtn)window.__pkSkip=true;
       setTimeout(()=>{trying=false;const ok=on&&actx&&actx.state==='running';
         if(ok)played()
         else if(on){window.__pkSkip=false;sBtn.onclick();sBtn.classList.add('armed');sLbl.innerHTML='Music<span class="st"> on</span>'}},650)}
