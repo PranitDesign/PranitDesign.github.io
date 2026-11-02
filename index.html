@@ -68,9 +68,28 @@ h1,h2,h3{text-wrap:balance;font-weight:700}
 .nav.hide{transform:translateY(calc(-100% - env(safe-area-inset-top,0px)))}
 .nav .links a.on{color:var(--lime)}
 .nav .brand{font-family:var(--f-display);font-weight:800;font-size:1.05rem;letter-spacing:.02em;white-space:nowrap;min-width:0}
+.nav .brand{display:inline-flex;align-items:center;gap:.7rem}
+.brand .pk{flex:none;width:2.4rem;height:2.4rem;border-radius:50%;border:1.5px solid currentColor;display:grid;place-items:center;font-size:.74rem;letter-spacing:-.01em;transition:background .3s,color .3s}
+.brand:hover .pk{background:var(--lime);border-color:var(--lime);color:var(--ink)}
+.brand .bn{opacity:0;transform:translateX(-8px);transition:opacity .4s,transform .5s var(--ease)}
+.nav.past .brand .bn{opacity:1;transform:none}
+.talk{display:inline-flex;align-items:center;border-radius:99px;background:var(--lime);color:var(--ink);font-weight:700;font-size:.85rem;padding:.5rem 1.05rem;transition:transform .3s var(--ease)}
+.talk:hover{transform:translateY(-2px)}
+@media (max-width:860px){.talk{display:none}}
+/* featured case card: fills the quiet top of the hero with the strongest piece of work */
+.feat{position:absolute;z-index:2;top:calc(6rem + env(safe-area-inset-top,0px));right:max(var(--gut-r),calc((100% - var(--max))/2));width:min(25rem,calc(100% - var(--gut) - var(--gut-r)));display:grid;grid-template-columns:9.5rem minmax(0,1fr);gap:1rem;align-items:center;padding:.55rem 1rem .55rem .55rem;border-radius:18px;background:rgba(26,16,21,.55);border:1px solid var(--line);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);text-align:left;transition:transform .5s var(--ease),border-color .3s}
+.feat:hover{transform:translateY(-3px);border-color:rgba(213,252,101,.55)}
+.feat .th{position:relative;display:block;aspect-ratio:16/10;max-width:100%;border-radius:11px;overflow:hidden;container-type:inline-size}
+.feat .ft{display:grid;gap:.3rem;min-width:0}
+.feat .ft .mono{color:var(--lime);font-size:.62rem}
+.feat b{font-family:var(--f-display);font-weight:700;font-size:1rem;line-height:1.12;letter-spacing:-.02em}
+.feat .go{font-size:.8rem;color:var(--muted);font-weight:600;transition:color .3s}
+.feat:hover .go{color:var(--cream)}
+@media (max-width:760px){.feat{left:var(--gut);right:auto;top:calc(5.4rem + env(safe-area-inset-top,0px));grid-template-columns:7.6rem minmax(0,1fr);gap:.8rem}.hero{padding-bottom:5.6rem}}
+@media (max-width:760px) and (max-height:660px){.feat{display:none}}
 .nav .tools{flex:none}.tbtn{white-space:nowrap}
 .nav.light{color:var(--ink);background:rgba(241,234,225,.84);border-color:rgba(26,16,21,.12)}.nav.light .links a.on{color:var(--plum)}
-@media (max-width:480px){.nav{gap:.6rem}.nav .brand{font-size:.9rem}.tbtn .st{display:none}.nav .tools{gap:.4rem}}
+@media (max-width:480px){.nav{gap:.6rem}.nav .brand{font-size:.9rem;gap:.55rem}.brand .pk{width:2.2rem;height:2.2rem;font-size:.68rem}.tbtn .st{display:none}.nav .tools{gap:.4rem}}
 .nav .links{display:flex;gap:1.6rem;margin-left:auto}
 .nav .links a{font-size:.9rem;font-weight:600;position:relative}
 .nav .links a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .4s var(--ease)}
@@ -415,11 +434,12 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
 <div class="cursor" id="cursor" aria-hidden="true"><span id="cursorLabel">View</span></div>
 
 <header class="nav">
-  <a class="brand" href="#top">PRANIT KUMAR</a>
+  <a class="brand" href="#top" aria-label="Pranit Kumar, back to top"><span class="pk" aria-hidden="true">PK</span><span class="bn" aria-hidden="true">Pranit Kumar</span></a>
   <nav class="links" aria-label="Main">
-    <a href="#work">Work</a><a href="#about">About</a><a href="#process">Process</a><a href="#lab">Lab</a><a href="#contact">Contact</a>
+    <a href="#work">Work</a><a href="#about">About</a><a href="#process">Process</a><a href="#lab">Lab</a>
   </nav>
   <div class="tools">
+    <a class="talk" href="#contact" data-cursor="Say hi">Let's talk</a>
     <button class="tbtn burger" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><i></i><i></i></button>
     <button class="tbtn" id="sound" aria-pressed="false" title="Play a soft lo-fi soundtrack"><span class="bars"><i></i><i></i><i></i></span><span id="soundLbl">Sound<span class="st"> off</span></span></button>
   </div>
@@ -434,6 +454,7 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   <!-- HERO -->
   <section class="hero bleed" aria-label="Introduction">
     <canvas id="field" aria-hidden="true"></canvas>
+    <button class="feat" data-case="philips" data-cursor="Open"><span class="th" id="featTh" aria-hidden="true"></span><span class="ft"><span class="mono">Featured case study</span><b>The right baby bottle, in a few questions.</b><span class="go">Philips · 8 weeks · Read it →</span></span></button>
     <div class="wrap">
       <div class="hero-top">
         <span class="mono status"><i></i>Open to roles &amp; freelance</span>
@@ -612,7 +633,7 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   function intro(){
     if(!hasG||reduce)return;
     gsap.from('.name .ln>span',{yPercent:110,duration:1.2,ease:'expo.out',stagger:.08});
-    gsap.from('.hero-top,.hero-foot',{opacity:0,y:20,duration:1,delay:.4,ease:'power3.out'});
+    gsap.from('.feat',{opacity:0,y:-14,duration:1,delay:.7,ease:'power3.out'});gsap.from('.hero-top,.hero-foot',{opacity:0,y:20,duration:1,delay:.4,ease:'power3.out'});
   }
   let seen=false;try{seen=sessionStorage.getItem('pk-seen')==='1';sessionStorage.setItem('pk-seen','1')}catch(e){}
   if(reduce){loader.remove()}else if(seen){loader.remove();requestAnimationFrame(intro)}else{
@@ -636,7 +657,7 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
     if(menu.classList.contains('open')){setMenu(false);setTimeout(()=>goTo(h),350)}else goTo(h)}));
   // nav: solid once you leave the hero, slides away while reading down, comes back the moment you scroll up
   let lastY=scrollY;const day=$('.day');const secs=['work','about','process','lab','contact'].map(id=>[id,document.getElementById(id)]);
-  function onNav(){const y=scrollY;nav.classList.toggle('solid',y>40);
+  function onNav(){const y=scrollY;nav.classList.toggle('solid',y>40);nav.classList.toggle('past',y>innerHeight*.55);
     if(!menu.classList.contains('open')&&Date.now()>navLock){if(y>lastY+4&&y>innerHeight*.7){nav.classList.add('hide');if(!fine&&document.getElementById('chat').hidden)document.body.classList.add('reading')}else if(y<lastY-4||y<innerHeight*.7){nav.classList.remove('hide');document.body.classList.remove('reading')}}
     const dr=day.getBoundingClientRect(),nh=nav.offsetHeight;nav.classList.toggle('light',!menu.classList.contains('open')&&dr.top<nh&&dr.bottom>nh*.5);
     lastY=y;let cur='';for(const [id,el] of secs){if(el&&el.getBoundingClientRect().top<innerHeight*.4)cur=id}
@@ -874,7 +895,8 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
     caseEl.hidden=false;caseEl.scrollTop=0;caseProg.style.setProperty('--p',0);void caseEl.offsetWidth;caseEl.classList.add('open');if(lenis)lenis.stop();document.body.style.overflow='hidden';document.body.classList.add('locked');$('#caseClose').focus({preventScroll:true})}
   function closeCase(fromPop){if(caseEl.hidden)return;if(!fromPop&&pushed){pushed=false;try{history.back();return}catch(e){}}
     if(!fromPop){try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}caseOpen=null;caseEl.classList.remove('open');document.body.classList.remove('locked');setTimeout(()=>{caseEl.hidden=true},reduce?0:800);if(lenis)lenis.start();document.body.style.overflow='';if(lastFocus)lastFocus.focus({preventScroll:true})}
-  $$('.card').forEach(c=>c.addEventListener('click',()=>openCase(c.dataset.case,'push')));
+  $$('.card,.feat').forEach(c=>c.addEventListener('click',()=>openCase(c.dataset.case,'push')));
+  $('#featTh').innerHTML=COVERS.philips();
   $('#caseClose').onclick=()=>closeCase();
   caseBody.addEventListener('click',e=>{const n=e.target.closest('[data-next]');if(!n)return;caseEl.scrollTo({top:0,behavior:reduce?'auto':'smooth'});setTimeout(()=>openCase(n.dataset.next,pushed?'replace':'push'),reduce?0:350)});
   // the phone / browser Back button closes the case study; deep links like #philips open it
