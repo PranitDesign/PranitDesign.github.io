@@ -279,7 +279,7 @@ section{position:relative}
 .case .fig img{width:100%;height:auto;display:block;border-radius:16px;background:#fff}
 .case .fullhead{display:grid;gap:.4rem;margin-top:1rem}.case .fullhead p{color:var(--muted)}
 .case .fullcs{display:grid;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
-.case .fullcs img{display:block;width:100%;height:auto;margin:0 auto;background:#fff}
+.case .fullcs a{display:block}.case .fullcs img{display:block;width:100%;height:auto;margin:0 auto;background:#fff}
 .case .pull{font-family:var(--f-serif);font-style:italic;font-size:clamp(1.8rem,4vw,3rem);line-height:1.1;color:var(--lime);max-width:24ch}
 .case .cta{display:flex;gap:.8rem;flex-wrap:wrap}
 .case-prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--line);overflow:hidden}
@@ -867,7 +867,7 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
       <div class="hero-img">${COVERS[k]()}</div>
       <div class="facts">${c.facts.map(f=>`<div><span class="mono">${esc(f[0])}</span><strong>${esc(f[1])}</strong></div>`).join('')}</div>
       ${c.blocks.map(b=>b[0]==='__img'?`<figure class="fig"><img src="${b[1]}" alt="${esc(b[2])}" loading="lazy"><figcaption class="mono">${esc(b[2])}</figcaption></figure>`:`<div class="block"><h3>${esc(b[0])}</h3>${Array.isArray(b[1])?`<ul>${b[1].map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:`<p>${esc(b[1])}</p>`}</div>`).join('')}
-      ${c.full?`<div class="fullhead"><span class="idx">The full case study</span><p>Scroll through the complete case study, exactly as I presented it.</p></div><div class="fullcs">${c.full.map(f=>`<img src="${f[0]}" alt="${esc(f[1])}" loading="lazy">`).join('')}</div>`:''}
+      ${c.full?`<div class="fullhead"><span class="idx">The full case study</span><p>Scroll through the complete case study, exactly as I presented it. Tap any board to open it full size.</p></div><div class="fullcs">${c.full.map(f=>`<a href="${f[0]}" target="_blank" rel="noopener" data-cursor="Zoom" aria-label="Open full size: ${esc(f[1])}"><img src="${f[0]}" alt="${esc(f[1])}" loading="lazy"></a>`).join('')}</div>`:''}
       <p class="pull">${esc(c.pull)}</p>
       ${c.link?`<div class="cta"><a class="btn" href="${c.link}" target="_blank" rel="noopener">See it on Behance ↗</a></div>`:''}
       <button class="next" data-next="${nk}"><span class="mono">Next project · ${CASES[nk].idx}</span><span class="nt"><span>${esc(CASES[nk].title)}</span><i aria-hidden="true">→</i></span><div class="hero-img" aria-hidden="true">${COVERS[nk]()}</div></button>`;
