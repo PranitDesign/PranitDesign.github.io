@@ -133,7 +133,7 @@ body.locked .ask{opacity:0;pointer-events:none}
 .status i{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 0 rgba(213,252,101,.6);animation:ping 2s infinite}
 @keyframes ping{70%{box-shadow:0 0 0 10px rgba(213,252,101,0)}100%{box-shadow:0 0 0 0 rgba(213,252,101,0)}}
 .name{font-family:var(--f-display);font-weight:400;font-size:clamp(3rem,16vw,16rem);font-size:clamp(3rem,15.5cqi,16rem);line-height:.9;letter-spacing:-.045em}
-.name .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.name .ln{display:block;overflow:hidden;padding:.12em .02em .1em;margin:-.12em -.02em -.1em}
 .name .ln>span{display:inline-block}
 .name .serif{letter-spacing:0;color:var(--lime)}
 .hero-foot{margin-top:clamp(1.5rem,4vh,2.6rem);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) auto;gap:2rem;align-items:end}
@@ -326,6 +326,28 @@ section{position:relative}
 .pal b{font-weight:600;font-size:.92rem}.pal span{font:600 .78rem var(--f-mono);letter-spacing:.06em;color:var(--muted)}
 .pal .type{grid-column:1/-1;display:flex;align-items:baseline;gap:1rem;color:var(--muted);margin-top:.4rem}
 .pal .type span{font:600 3rem "Inter",var(--f-body);color:var(--cream);letter-spacing:-.03em}
+
+/* scene switch: double diamond (0–12s) then design thinking (12–24s) */
+.dd .scenes,.dd figcaption{display:grid}
+.dd .sc,.dd figcaption>span{grid-area:1/1}
+.dd .sa{animation:scA 24s linear infinite both}.dd .sb{animation:scB 24s linear infinite both}
+@keyframes scA{0%,48%{opacity:1;visibility:visible}50%,98%{opacity:0;visibility:hidden}100%{opacity:1;visibility:visible}}
+@keyframes scB{0%,48%{opacity:0;visibility:hidden}50%,97%{opacity:1;visibility:visible}99%,100%{opacity:0;visibility:hidden}}
+.dt{width:100%;height:auto;overflow:visible;display:block}
+.dt .hx{transform-box:fill-box;transform-origin:center;animation:hx 24s var(--ease) infinite both}
+.dt .hx polygon{fill:rgba(241,234,225,.04);stroke:rgba(241,234,225,.55);stroke-width:2;stroke-linejoin:round}
+.dt .hx :not(polygon){fill:none;stroke:var(--lime);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}.dt .hx .f{fill:var(--lime)}
+@keyframes hx{0%,51%{opacity:0;transform:scale(.6) rotate(-30deg)}55%{opacity:1;transform:none}96%{opacity:1;transform:none}99%,100%{opacity:0}}
+.dt .ar{fill:none;stroke:rgba(241,234,225,.5);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:dtar 24s linear infinite both}
+@keyframes dtar{0%,54%{stroke-dashoffset:1;opacity:1}58%{stroke-dashoffset:0}96%{stroke-dashoffset:0;opacity:1}99%,100%{opacity:0}}
+.dt .lp{fill:none;stroke:var(--lime);stroke-width:2;stroke-dasharray:1;stroke-dashoffset:1;animation:dtlp 24s var(--ease) infinite both}
+@keyframes dtlp{0%,74%{stroke-dashoffset:1;opacity:1}84%{stroke-dashoffset:0}96%{stroke-dashoffset:0;opacity:1}99%,100%{opacity:0}}
+.dt .lph{fill:none;stroke:var(--lime);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:dtlh 24s linear infinite both}
+.dt .lt{fill:var(--lime);font:italic 20px var(--f-serif);animation:dtlh 24s linear infinite both}
+@keyframes dtlh{0%,83%{opacity:0}86%,96%{opacity:1}99%,100%{opacity:0}}
+.dtl span{animation:dtl 24s linear infinite both!important}
+@keyframes dtl{0%,52%{opacity:0;color:var(--muted)}55%{opacity:1;color:var(--lime)}62%,96%{opacity:1;color:var(--cream)}99%,100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.dd .sb{display:none}.dd .sa{animation:none}}
 
 /* music invitation: one gentle, dismissible prompt per visit */
 .invite{position:fixed;left:var(--gut);bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:77;display:flex;align-items:center;gap:.9rem;max-width:min(27rem,calc(100vw - var(--gut) - var(--gut-r)));padding:.7rem .8rem .7rem .7rem;border-radius:20px;background:rgba(36,22,28,.92);border:1px solid var(--line);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 30px 60px -25px rgba(0,0,0,.8);transform:translateY(calc(100% + 30px));opacity:0;pointer-events:none;transition:transform .7s var(--ease),opacity .4s;flex-wrap:wrap}
@@ -564,8 +586,9 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
     <canvas id="field" aria-hidden="true"></canvas>
     <button class="feat" data-case="philips" data-cursor="Open"><span class="th" id="featTh" aria-hidden="true"></span><span class="ft"><span class="mono">Featured case study</span><b>The right baby bottle, in a few questions.</b><span class="go">Philips · 8 weeks · Read it →</span></span></button>
     <div class="wrap">
-      <figure class="dd" aria-label="My design process as a double diamond: discover, define, design, deliver">
-        <figcaption class="mono">How I work · the double diamond</figcaption>
+      <figure class="dd" aria-label="My design process: a double diamond (discover, define, design, deliver), then design thinking (empathize, define, ideate, prototype, test)">
+        <figcaption class="mono"><span class="sa">How I work · the double diamond</span><span class="sb">How I work · design thinking</span></figcaption>
+        <div class="scenes"><div class="sc sa">
         <svg viewBox="0 0 800 240" aria-hidden="true">
           <g class="ln">
             <path class="dA" d="M20 120L200 20" pathLength="1"/><path class="dA" d="M20 120L200 220" pathLength="1"/>
@@ -588,7 +611,9 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
           <g class="ship"><rect x="760" y="92" width="40" height="56" rx="7"/><path d="M771 121l6 6 12-13"/></g>
           <circle class="trav" cx="20" cy="120" r="6"/>
         </svg>
-        <div class="ddl"><span class="l1">Discover<em>talk to people</em></span><span class="l2">Define<em>frame the problem</em></span><span class="l3">Design<em>explore &amp; test</em></span><span class="l4">Deliver<em>ship &amp; hand off</em></span></div>
+        <div class="ddl"><span class="l1">Discover<em>talk to people</em></span><span class="l2">Define<em>frame the problem</em></span><span class="l3">Design<em>explore &amp; test</em></span><span class="l4">Deliver<em>ship &amp; hand off</em></span></div></div>
+          <div class="sc sb" aria-hidden="true"><svg viewBox="0 0 800 240" class="dt"><path class="lp" d="M720 54C690 0 430 0 400 54" pathLength="1"/><path class="lph" d="M394 44l6 10 7-9"/><path class="lp" style="animation-delay:.6s" d="M720 170C680 232 280 232 240 170" pathLength="1"/><path class="lph" style="animation-delay:.6s" d="M233 180l7-10 6 10"/><text class="lt" x="560" y="22" text-anchor="middle">iterate</text><text class="lt" style="animation-delay:.6s" x="480" y="218" text-anchor="middle">learn &amp; reframe</text><path class="ar" style="animation-delay:0.30s" d="M132 112H184m-7-6l7 6-7 6" pathLength="1"/><path class="ar" style="animation-delay:0.85s" d="M292 112H344m-7-6l7 6-7 6" pathLength="1"/><path class="ar" style="animation-delay:1.40s" d="M452 112H504m-7-6l7 6-7 6" pathLength="1"/><path class="ar" style="animation-delay:1.95s" d="M612 112H664m-7-6l7 6-7 6" pathLength="1"/><g class="hx" style="animation-delay:0.00s"><polygon points="123.3,137.0 80.0,162.0 36.7,137.0 36.7,87.0 80.0,62.0 123.3,87.0"/><path d="M80 124c-14-9-20-16-20-23a9 9 0 0 1 20-4a9 9 0 0 1 20 4c0 7-6 14-20 23z"/></g><g class="hx" style="animation-delay:0.55s"><polygon points="283.3,137.0 240.0,162.0 196.7,137.0 196.7,87.0 240.0,62.0 283.3,87.0"/><circle cx="240" cy="112" r="16"/><circle cx="240" cy="112" r="7"/><circle cx="240" cy="112" r="1.5" class="f"/></g><g class="hx" style="animation-delay:1.10s"><polygon points="443.3,137.0 400.0,162.0 356.7,137.0 356.7,87.0 400.0,62.0 443.3,87.0"/><path d="M392 120c-6-4-10-10-10-17a18 18 0 0 1 36 0c0 7-4 13-10 17z"/><path d="M393 127h14M395 133h10"/></g><g class="hx" style="animation-delay:1.65s"><polygon points="603.3,137.0 560.0,162.0 516.7,137.0 516.7,87.0 560.0,62.0 603.3,87.0"/><rect x="549" y="93" width="22" height="38" rx="5"/><path d="M556 124h8"/><path d="M555 104h10M555 110h6"/></g><g class="hx" style="animation-delay:2.20s"><polygon points="763.3,137.0 720.0,162.0 676.7,137.0 676.7,87.0 720.0,62.0 763.3,87.0"/><circle cx="720" cy="112" r="16"/><path d="M713 112l5 5 9-10"/></g></svg>
+          <div class="ddl dtl"><span style="left:10%;animation-delay:0.00s">Empathize<em>feel it</em></span><span style="left:30%;animation-delay:0.55s">Define<em>name it</em></span><span style="left:50%;animation-delay:1.10s">Ideate<em>go wide</em></span><span style="left:70%;animation-delay:1.65s">Prototype<em>make it real</em></span><span style="left:90%;animation-delay:2.20s">Test<em>learn fast</em></span></div></div></div>
       </figure>
       <div class="hero-top">
         <span class="mono status"><i></i>Open to roles &amp; freelance</span>
