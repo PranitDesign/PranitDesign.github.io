@@ -159,6 +159,26 @@ body.locked .ask{opacity:0;pointer-events:none}
 .hero-proc .feat{position:relative;top:auto;right:auto;width:100%;align-self:start}
 @media (min-width:761px) and (max-height:820px){.hero-proc .ddl em{display:none}.hero-proc .ddl{height:1.3rem}}
 /* (AI guide launcher below) */
+/* tour as a subtitle bar: Proto lives inside it and points up at the item; the page scrolls the item into the clear space above */
+.tour.run{left:50%;bottom:calc(10px + env(safe-area-inset-bottom,0px));width:min(60rem,calc(100vw - 20px));grid-template-columns:auto minmax(0,1fr) auto;padding:.7rem .9rem .7rem .6rem;gap:.9rem}
+.tour .tav{width:3.4rem;height:4.75rem;background:none!important;border-radius:0;overflow:visible;align-self:end;margin:-1.4rem 0 -.2rem}
+.tour .tav svg{width:100%;height:100%}
+.tour .tav .m-shadow{opacity:.35}
+.tour.offer .tav{width:3.6rem;height:5rem;margin:-1.6rem 0 -.2rem}
+.tour.offer .tav::after{display:none}
+.tour.run .tav .m-arm-r{transform:rotate(var(--aa,0deg));transition:transform .5s var(--ease)}
+.tour.run .tav.fl svg{transform:scaleX(-1)}
+.tour.talking .tav .m-all{animation:mBob .5s ease-in-out infinite}
+#tourTx{min-height:2.9em}
+#tourTx .w{transition:opacity .18s,filter .18s}
+#tourTx .w.h{opacity:0}
+body.touring{padding-bottom:var(--tourH,140px)}
+body.touring .guide{display:none}
+@media (max-width:600px){.tour.run{grid-template-columns:auto minmax(0,1fr);padding:.6rem .7rem .6rem .5rem}.tour .tav{width:2.8rem;height:3.9rem;margin-top:-1rem}}
+/* tighter rhythm: About starts sooner, process cards hug their content */
+#about.sec{padding-block:clamp(3.5rem,7vw,5.5rem) clamp(4rem,8vw,7rem)}
+.step{min-height:0!important;align-items:center;padding:clamp(1.2rem,2.4vw,1.9rem) clamp(1.4rem,3vw,2.4rem)!important}
+
 /* Proto, the guide: a small cream robot with a screen face (reads on dark and light) */
 .mascot{display:block;overflow:visible}
 .mascot *{transform-box:view-box}
@@ -1082,7 +1102,7 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
 <!-- AI guide -->
 <div class="guide" id="guide" aria-hidden="true"><svg viewBox="0 0 80 112" class="mascot" aria-hidden="true"><g class="m-all"><ellipse class="m-shadow" cx="40" cy="108" rx="18" ry="3.5" fill="#000" opacity=".22"/><g class="m-leg m-leg-l"><path d="M34 84v15" stroke="#1A1216" stroke-width="5" stroke-linecap="round"/><path d="M29.5 102h8" stroke="#1A1216" stroke-width="5" stroke-linecap="round"/></g><g class="m-leg m-leg-r"><path d="M46 84v15" stroke="#1A1216" stroke-width="5" stroke-linecap="round"/><path d="M42.5 102h8" stroke="#1A1216" stroke-width="5" stroke-linecap="round"/></g><g class="m-arm m-arm-l"><path d="M28 63q-9 5-10 15" stroke="#1A1216" stroke-width="4.5" fill="none" stroke-linecap="round"/><circle cx="18" cy="79" r="3.8" fill="#F6F1E8" stroke="#1A1216" stroke-width="2"/></g><g class="m-arm m-arm-r"><path d="M52 63q9 5 10 15" stroke="#1A1216" stroke-width="4.5" fill="none" stroke-linecap="round"/><circle cx="62" cy="79" r="3.8" fill="#F6F1E8" stroke="#1A1216" stroke-width="2"/></g><rect x="25" y="55" width="30" height="31" rx="11" fill="#F6F1E8" stroke="#1A1216" stroke-width="2.5"/><path d="M36 64h8l-4 10z" fill="#D5FC65" stroke="#1A1216" stroke-width="1.6" stroke-linejoin="round"/><g class="m-head"><g class="m-ant"><path d="M40 15L46 5" stroke="#1A1216" stroke-width="2.5" stroke-linecap="round"/><circle class="m-wave" cx="46" cy="4" r="7" fill="none" stroke="#D5FC65" stroke-width="2"/><circle cx="46" cy="4" r="4" fill="#D5FC65" stroke="#1A1216" stroke-width="2"/></g><rect x="13" y="14" width="54" height="42" rx="17" fill="#F6F1E8" stroke="#1A1216" stroke-width="2.5"/><rect x="20" y="21" width="40" height="27" rx="11" fill="#1A1216"/><rect class="m-eye" x="28" y="27" width="6.5" height="10" rx="3.2" fill="#D5FC65"/><rect class="m-eye" x="45.5" y="27" width="6.5" height="10" rx="3.2" fill="#D5FC65"/><path class="m-mouth" d="M35 41.5q5 4 10 0" stroke="#D5FC65" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="17.5" cy="44" r="2.6" fill="#F4A3A0" opacity=".85"/><circle cx="62.5" cy="44" r="2.6" fill="#F4A3A0" opacity=".85"/></g></g></svg></div>
 <div class="tour" id="tour" hidden>
-  <span class="tav pav"><svg viewBox="10 -2 60 60" class="mascot mhead" aria-hidden="true"><g class="m-all"><ellipse class="m-shadow" cx="40" cy="108" rx="18" ry="3.5" fill="#000" opacity=".22"/><g class="m-leg m-leg-l"><path d="M34 84v15" stroke="#1A1216" stroke-width="5" stroke-linecap="round"/><path d="M29.5 102h8" stroke="#1A1216" stroke-width="5" stroke-linecap="round"/></g><g class="m-leg m-leg-r"><path d="M46 84v15" stroke="#1A1216" stroke-width="5" stroke-linecap="round"/><path d="M42.5 102h8" stroke="#1A1216" stroke-width="5" stroke-linecap="round"/></g><g class="m-arm m-arm-l"><path d="M28 63q-9 5-10 15" stroke="#1A1216" stroke-width="4.5" fill="none" stroke-linecap="round"/><circle cx="18" cy="79" r="3.8" fill="#F6F1E8" stroke="#1A1216" stroke-width="2"/></g><g class="m-arm m-arm-r"><path d="M52 63q9 5 10 15" stroke="#1A1216" stroke-width="4.5" fill="none" stroke-linecap="round"/><circle cx="62" cy="79" r="3.8" fill="#F6F1E8" stroke="#1A1216" stroke-width="2"/></g><rect x="25" y="55" width="30" height="31" rx="11" fill="#F6F1E8" stroke="#1A1216" stroke-width="2.5"/><path d="M36 64h8l-4 10z" fill="#D5FC65" stroke="#1A1216" stroke-width="1.6" stroke-linejoin="round"/><g class="m-head"><g class="m-ant"><path d="M40 15L46 5" stroke="#1A1216" stroke-width="2.5" stroke-linecap="round"/><circle class="m-wave" cx="46" cy="4" r="7" fill="none" stroke="#D5FC65" stroke-width="2"/><circle cx="46" cy="4" r="4" fill="#D5FC65" stroke="#1A1216" stroke-width="2"/></g><rect x="13" y="14" width="54" height="42" rx="17" fill="#F6F1E8" stroke="#1A1216" stroke-width="2.5"/><rect x="20" y="21" width="40" height="27" rx="11" fill="#1A1216"/><rect class="m-eye" x="28" y="27" width="6.5" height="10" rx="3.2" fill="#D5FC65"/><rect class="m-eye" x="45.5" y="27" width="6.5" height="10" rx="3.2" fill="#D5FC65"/><path class="m-mouth" d="M35 41.5q5 4 10 0" stroke="#D5FC65" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="17.5" cy="44" r="2.6" fill="#F4A3A0" opacity=".85"/><circle cx="62.5" cy="44" r="2.6" fill="#F4A3A0" opacity=".85"/></g></g></svg></span>
+  <span class="tav pav"><svg viewBox="0 0 80 112" class="mascot" aria-hidden="true"><g class="m-all"><ellipse class="m-shadow" cx="40" cy="108" rx="18" ry="3.5" fill="#000" opacity=".22"/><g class="m-leg m-leg-l"><path d="M34 84v15" stroke="#1A1216" stroke-width="5" stroke-linecap="round"/><path d="M29.5 102h8" stroke="#1A1216" stroke-width="5" stroke-linecap="round"/></g><g class="m-leg m-leg-r"><path d="M46 84v15" stroke="#1A1216" stroke-width="5" stroke-linecap="round"/><path d="M42.5 102h8" stroke="#1A1216" stroke-width="5" stroke-linecap="round"/></g><g class="m-arm m-arm-l"><path d="M28 63q-9 5-10 15" stroke="#1A1216" stroke-width="4.5" fill="none" stroke-linecap="round"/><circle cx="18" cy="79" r="3.8" fill="#F6F1E8" stroke="#1A1216" stroke-width="2"/></g><g class="m-arm m-arm-r"><path d="M52 63q9 5 10 15" stroke="#1A1216" stroke-width="4.5" fill="none" stroke-linecap="round"/><circle cx="62" cy="79" r="3.8" fill="#F6F1E8" stroke="#1A1216" stroke-width="2"/></g><rect x="25" y="55" width="30" height="31" rx="11" fill="#F6F1E8" stroke="#1A1216" stroke-width="2.5"/><path d="M36 64h8l-4 10z" fill="#D5FC65" stroke="#1A1216" stroke-width="1.6" stroke-linejoin="round"/><g class="m-head"><g class="m-ant"><path d="M40 15L46 5" stroke="#1A1216" stroke-width="2.5" stroke-linecap="round"/><circle class="m-wave" cx="46" cy="4" r="7" fill="none" stroke="#D5FC65" stroke-width="2"/><circle cx="46" cy="4" r="4" fill="#D5FC65" stroke="#1A1216" stroke-width="2"/></g><rect x="13" y="14" width="54" height="42" rx="17" fill="#F6F1E8" stroke="#1A1216" stroke-width="2.5"/><rect x="20" y="21" width="40" height="27" rx="11" fill="#1A1216"/><rect class="m-eye" x="28" y="27" width="6.5" height="10" rx="3.2" fill="#D5FC65"/><rect class="m-eye" x="45.5" y="27" width="6.5" height="10" rx="3.2" fill="#D5FC65"/><path class="m-mouth" d="M35 41.5q5 4 10 0" stroke="#D5FC65" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="17.5" cy="44" r="2.6" fill="#F4A3A0" opacity=".85"/><circle cx="62.5" cy="44" r="2.6" fill="#F4A3A0" opacity=".85"/></g></g></svg></span>
   <div class="tb">
     <div class="toff"><p class="tw"><b>Hi, I'm Proto 👋</b></p><p>Pranit built me to show you around. Tap start and I'll walk you through his work in a minute, with music and voice.</p><div class="tbtns"><button class="btn" id="tourGo" type="button">▶ Start the tour</button><button class="tlink" id="tourNo" type="button">Just let me explore</button></div></div>
     <div class="trun"><div class="tk"><span class="mono">Tour with Proto</span><span class="mono" id="tourN">1 / 11</span></div><p id="tourTx" aria-live="polite"></p><span class="tbar"><i id="tourBar"></i></span></div>
@@ -1510,13 +1530,26 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   const yOf=sel=>{let t=document.querySelector(sel);if(!t)return 0;if(t.parentElement&&t.parentElement.classList.contains('pin-spacer'))t=t.parentElement;return Math.max(0,t.getBoundingClientRect().top+scrollY-(innerWidth<761?64:80))};
   const glide=y=>{if(lenis)lenis.scrollTo(y,{duration:reduce?0:1.6,immediate:reduce});else scrollTo({top:y,behavior:reduce?'auto':'smooth'})};
   const STOPS=[
-    {go:()=>glide(0),hl:null},{go:()=>glide(innerWidth<761?Math.max(0,yOf('.hfacts')-40):0),hl:'.hfacts'},
+    {go:()=>glide(0),hl:null},{go:()=>centerOn($('.hfacts')),hl:'.hfacts'},
     {go:()=>__pkCard(0),hl:'#reel>.card:nth-child(1) .media',w:1700},{go:()=>__pkCard(1),hl:'#reel>.card:nth-child(2) .media'},{go:()=>__pkCard(2),hl:'#reel>.card:nth-child(3) .media'},{go:()=>__pkCard(3),hl:'#reel>.card:nth-child(4) .media'},{go:()=>__pkCard(4),hl:'#reel>.card:nth-child(5) .media'},
-    {go:()=>glide(yOf('#about')),hl:null,w:1700},{go:()=>glide(yOf('#process')),hl:null,w:1700},{go:()=>glide(yOf('#lab')),hl:'#fpTile',w:1700},{go:()=>glide(yOf('#contact')),hl:'.reach.big',w:1700}];
+    {go:()=>centerOn($('#statement')),hl:'#statement',w:1700},{go:()=>centerOn($('#process .stack')),hl:'#process .step:first-child',w:1700},{go:()=>centerOn($('#fpTile')),hl:'#fpTile',w:1700},{go:()=>centerOn($('.reach.big')),hl:'.reach.big',w:1700}];
   let ti=-1,tPlaying=false,tTimer=0,tId=0,hlEl=null;
   const setHl=sel=>{if(hlEl)hlEl.classList.remove('tour-hl');hlEl=sel?document.querySelector(sel):null;if(hlEl)hlEl.classList.add('tour-hl')};
   function tourMode(m){tourEl.classList.toggle('offer',m==='offer');tourEl.classList.toggle('run',m==='run');tourEl.hidden=!m;document.body.classList.toggle('touring',m==='run')}
 
+
+  /* ---------- tour bar: keep items clear of the bar, point at them, type captions in sync with the voice ---------- */
+  const tav=tourEl.querySelector('.tav');
+  function freeBox(){const b=tourEl.getBoundingClientRect();return{top:innerWidth<761?64:84,bottom:(tourEl.hidden?innerHeight:b.top)-14}}
+  function centerOn(el){if(!el)return;const r=el.getBoundingClientRect(),f=freeBox(),av=f.bottom-f.top;const y=scrollY+r.top-f.top-Math.max(0,(av-r.height)/2);glide(Math.max(0,y))}
+  function pointAt(el){if(!tav)return;if(!el){tav.style.setProperty('--aa','-20deg');tav.classList.remove('fl');return}
+    const a=tav.getBoundingClientRect(),r=el.getBoundingClientRect();const sx=a.left+a.width*.65,sy=a.top+a.height*.56;let dx=r.left+r.width/2-sx,dy=Math.max(r.top,Math.min(r.bottom,sy-40))-sy;
+    if(r.top<sy&&r.bottom>sy)dy=-30;const fl=dx<0;tav.classList.toggle('fl',fl);dx=Math.abs(dx);
+    let ang=Math.atan2(dy,dx)*180/Math.PI-56;ang=Math.max(-160,Math.min(10,ang));tav.style.setProperty('--aa',ang.toFixed(0)+'deg')}
+  let tWords=[];
+  function setWords(t){tTx.textContent='';tWords=t.split(/(\s+)/).map(w=>{const sp=document.createElement('span');sp.textContent=w;if(w.trim()){sp.className='w h'}tTx.appendChild(sp);return sp}).filter(sp=>sp.className)}
+  function reveal(p){const n=Math.ceil(tWords.length*Math.min(1,p*1.06));tWords.forEach((w,i)=>w.classList.toggle('h',i>=n))}
+  function barH(){document.body.style.setProperty('--tourH',(tourEl.offsetHeight+28)+'px')}
   /* ---------- Proto walks to whatever he's talking about, then points ---------- */
   const guide=$('#guide');let gx=0,gy=0,gT=0;
   function gSet(x,y,dur){guide.style.setProperty('--gd',dur+'s');guide.style.setProperty('--gx',x+'px');guide.style.setProperty('--gy',y+'px');gx=x;gy=y}
@@ -1534,20 +1567,20 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
     else gPlace(r.right-W-6,r.top+8,'left',after||'point')}
   function gShow(){const [x,y]=gHome();guide.style.transition='none';gSet(x,y,0);void guide.offsetWidth;guide.style.transition='';guide.classList.add('gon')}
   function gBye(){const [x,y]=gHome();gPlace(x,y,'left');setTimeout(()=>guide.classList.remove('gon'),900)}
-  function say(text,done,id){tTx.textContent=text;tBar.style.width='0';const src=CLIPS[text];
-    const fallback=()=>{const ms=Math.max(2600,text.split(/\s+/).length*360),t0=performance.now();const f=()=>{if(id!==tId||!tPlaying)return;const k=(performance.now()-t0)/ms;tBar.style.width=Math.min(100,k*100)+'%';k<1?requestAnimationFrame(f):done()};f()};
+  function say(text,done,id){tBar.style.width='0';const src=CLIPS[text];
+    setWords(text);const fallback=()=>{const ms=Math.max(2600,text.split(/\s+/).length*330),t0=performance.now();const f=()=>{if(id!==tId||!tPlaying)return;const k=(performance.now()-t0)/ms;tBar.style.width=Math.min(100,k*100)+'%';reveal(k);k<1?requestAnimationFrame(f):done()};f()};
     if(!src)return fallback();
     tAud.src=src;tAud.currentTime=0;tAud.onended=()=>{tourEl.classList.remove('talking');guide.classList.remove('gtalk');if(id===tId)done()};
-    tAud.ontimeupdate=()=>{if(tAud.duration)tBar.style.width=(tAud.currentTime/tAud.duration*100)+'%'};
+    tAud.ontimeupdate=null;const loop=()=>{if(id!==tId)return;if(tAud.duration){const p=tAud.currentTime/tAud.duration;tBar.style.width=(p*100)+'%';reveal(p)}if(!tAud.paused&&!tAud.ended)requestAnimationFrame(loop)};tAud.onplaying=()=>requestAnimationFrame(loop);
     window.__pkDuck&&window.__pkDuck(true);tourEl.classList.add('talking');guide.classList.add('gtalk');tAud.play().catch(()=>{tourEl.classList.remove('talking');guide.classList.remove('gtalk');fallback()})}
-  function stop(i){if(i>=STOPS.length)return endTour(true);ti=i;const id=++tId;tN.textContent=(i+1)+' / '+STOPS.length;tTx.textContent=TOUR[i];tBar.style.width='0';
+  function stop(i){if(i>=STOPS.length)return endTour(true);ti=i;const id=++tId;tN.textContent=(i+1)+' / '+STOPS.length;setWords(TOUR[i]);barH();tBar.style.width='0';
     clearTimeout(tTimer);try{tAud.pause()}catch(e){}STOPS[i].go();setHl(null);
-    tTimer=setTimeout(()=>{if(id!==tId||!tPlaying)return;setHl(STOPS[i].hl);gToEl(hlEl,i===0||i===STOPS.length-1?'wave':null);setTimeout(()=>{if(id===tId&&tPlaying&&hlEl)gToEl(hlEl)},900);say(TOUR[i],()=>{if(id===tId&&tPlaying)tTimer=setTimeout(()=>stop(i+1),650)},id)},reduce?200:(STOPS[i].w||1200))}
+    tTimer=setTimeout(()=>{if(id!==tId||!tPlaying)return;setHl(STOPS[i].hl);pointAt(hlEl);setTimeout(()=>{if(id===tId)pointAt(hlEl)},900);say(TOUR[i],()=>{if(id===tId&&tPlaying)tTimer=setTimeout(()=>stop(i+1),650)},id)},reduce?200:(STOPS[i].w||1200))}
   function startTour(){stopVoice();if(!chat.hidden)closeChat();if(!caseEl.hidden)closeCase();if(menu.classList.contains('open'))setMenu(false);popOpen(false);
-    try{sessionStorage.setItem('pk-tour','1')}catch(e){}tourMode('run');gShow();tPlaying=true;tPP.textContent='❚❚';tPP.setAttribute('aria-label','Pause tour');stop(0)}
+    try{sessionStorage.setItem('pk-tour','1')}catch(e){}tourMode('run');barH();tPlaying=true;tPP.textContent='❚❚';tPP.setAttribute('aria-label','Pause tour');stop(0)}
   function pauseTour(){if(!tPlaying)return;tPlaying=false;tId++;clearTimeout(tTimer);try{tAud.pause()}catch(e){}tourEl.classList.remove('talking');guide.classList.remove('gtalk','walk');tPP.textContent='▶';tPP.setAttribute('aria-label','Resume tour');tTx.textContent='Paused. Tap ▶ to continue, → for the next stop.';window.__pkDuck&&window.__pkDuck(false)}
   function resumeTour(){if(tPlaying)return;tPlaying=true;tPP.textContent='❚❚';tPP.setAttribute('aria-label','Pause tour');stop(Math.max(0,ti))}
-  function endTour(finished){tPlaying=false;tId++;clearTimeout(tTimer);try{tAud.pause()}catch(e){}setHl(null);guide.classList.remove('gtalk');gBye();tourMode(null);window.__pkDuck&&window.__pkDuck(false);if(finished)toast('Thanks for taking the tour! Proto is in the corner if you have questions.')}
+  function endTour(finished){tPlaying=false;tId++;clearTimeout(tTimer);try{tAud.pause()}catch(e){}setHl(null);tourMode(null);document.body.style.removeProperty('--tourH');window.__pkDuck&&window.__pkDuck(false);if(finished)toast('Thanks for taking the tour! Proto is in the corner if you have questions.')}
   tPP.onclick=()=>tPlaying?pauseTour():resumeTour();
   $('#tourNx').onclick=()=>{if(!tPlaying){tPlaying=true;tPP.textContent='❚❚'}stop(ti+1)};
   $('#tourX').onclick=()=>{if(tourEl.classList.contains('offer')){tourMode(null);try{sessionStorage.setItem('pk-tour','1')}catch(e){}}else endTour(false)};
