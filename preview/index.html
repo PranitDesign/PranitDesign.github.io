@@ -1,0 +1,1053 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base href="/">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Pranit Kumar, UX/UI designer in Bangalore with 4+ years of experience. Selected case studies, process and contact.">
+<meta property="og:title" content="Pranit Kumar · UX/UI Designer">
+<meta property="og:description" content="Selected UX/UI case studies: Philips, AR retail, AR airport, Digi Yatra and Fimbre.">
+<meta name="theme-color" content="#110A0D">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Pranit Kumar · UX/UI Designer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a product-design portfolio reel. Plum-black stage with a live light-field hero, a pinned horizontal reel of projects that open into full case studies, and one cream "daylight" chapter for the about statement. Lime is the single point of focus. Deliberate single dark look. */
+:root{
+  --bg:#110A0D; --bg-2:#1A1015; --bg-3:#24161C; --plum:#4B2A33; --line:rgba(241,234,225,.12);
+  --cream:#F1EAE1; --muted:#A8979E; --lime:#D5FC65; --sage:#A9B6AC; --ink:#1A1015;
+  --f-display:"Syne","Arial Black",system-ui,sans-serif;
+  --f-serif:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --gut:max(16px,env(safe-area-inset-left,0px)); --gut-r:max(16px,env(safe-area-inset-right,0px));
+  --max:84rem; --ease:cubic-bezier(.7,0,.2,1);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:var(--bg);color:var(--cream);font-family:var(--f-body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased;
+  padding-left:var(--gut);padding-right:var(--gut-r);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:90;background:var(--bg)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+:focus-visible{outline:2px solid var(--lime);outline-offset:4px;border-radius:4px}
+::selection{background:var(--lime);color:var(--ink)}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{text-wrap:balance;font-weight:700}
+.wrap{max-width:var(--max);margin:0 auto}
+.bleed{margin-inline:calc(-1 * var(--gut)) calc(-1 * var(--gut-r));padding-inline:var(--gut) var(--gut-r)}
+.mono{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-variant-numeric:tabular-nums}
+.serif{font-family:var(--f-serif);font-style:italic;font-weight:400;letter-spacing:0}
+.lime{color:var(--lime)}
+.grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:80;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1s steps(4) infinite}
+@keyframes grain{25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
+
+/* ---------- loader ---------- */
+.loader{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;padding:var(--gut)}
+.loader .mono{position:absolute;bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));left:var(--gut)}
+.loader .count{font-family:var(--f-display);font-weight:800;font-size:clamp(4rem,16vw,12rem);line-height:1;font-variant-numeric:tabular-nums}
+.loader .bar{position:absolute;left:0;bottom:0;height:3px;background:var(--lime);width:0}
+.loader.done{transform:translateY(-100%);transition:transform .9s var(--ease);pointer-events:none}
+
+/* ---------- cursor ---------- */
+.cursor{position:fixed;left:0;top:0;z-index:99;pointer-events:none;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--lime);mix-blend-mode:difference;transition:width .35s var(--ease),height .35s var(--ease),margin .35s var(--ease),background .35s}
+.cursor span{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;color:var(--ink);opacity:0;transition:opacity .2s}
+.cursor.big{width:96px;height:96px;margin:-48px 0 0 -48px;mix-blend-mode:normal}
+.cursor.big span{opacity:1}
+.cursor.link{width:44px;height:44px;margin:-22px 0 0 -22px}
+@media (hover:none),(pointer:coarse){.cursor{display:none}}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:70;padding:1rem var(--gut-r) 1rem var(--gut);display:flex;align-items:center;gap:1.5rem;color:var(--cream);border-bottom:1px solid transparent;transition:transform .55s var(--ease),background .35s,border-color .35s,padding .35s}
+.nav.solid{background:rgba(17,10,13,.78);-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);border-color:var(--line);padding-block:.7rem}
+.nav.hide{transform:translateY(calc(-100% - env(safe-area-inset-top,0px)))}
+.nav .links a.on{color:var(--lime)}
+.nav .brand{font-family:var(--f-display);font-weight:800;font-size:1.05rem;letter-spacing:.02em;white-space:nowrap;min-width:0}
+.nav .tools{flex:none}.tbtn{white-space:nowrap}
+.nav.light{color:var(--ink);background:rgba(241,234,225,.84);border-color:rgba(26,16,21,.12)}.nav.light .links a.on{color:var(--plum)}
+@media (max-width:480px){.nav{gap:.6rem}.nav .brand{font-size:.9rem}.tbtn .st{display:none}.nav .tools{gap:.4rem}}
+.nav .links{display:flex;gap:1.6rem;margin-left:auto}
+.nav .links a{font-size:.9rem;font-weight:600;position:relative}
+.nav .links a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .4s var(--ease)}
+.nav .links a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav .tools{display:flex;gap:.5rem;align-items:center}
+.tbtn{display:inline-flex;align-items:center;gap:.45rem;border:1px solid currentColor;border-radius:99px;padding:.32rem .8rem;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase}
+.tbtn .bars{display:inline-flex;gap:2px;align-items:flex-end;height:10px}
+.tbtn .bars i{width:2px;height:3px;background:currentColor;display:block}
+.tbtn[aria-pressed="true"] .bars i{animation:eq .8s ease-in-out infinite alternate}
+.tbtn[aria-pressed="true"] .bars i:nth-child(2){animation-delay:.2s}.tbtn[aria-pressed="true"] .bars i:nth-child(3){animation-delay:.4s}
+@keyframes eq{to{height:10px}}
+#menuBtn{display:none}
+.burger{width:40px;height:40px;min-height:40px;padding:0!important;justify-content:center;flex-direction:column;gap:5px}
+.burger i{display:block;width:16px;height:1.5px;background:currentColor;transition:transform .45s var(--ease)}
+.burger[aria-expanded="true"] i:first-child{transform:translateY(3.25px) rotate(45deg)}.burger[aria-expanded="true"] i:last-child{transform:translateY(-3.25px) rotate(-45deg)}
+@media (max-width:860px){.nav .links{display:none}.nav .tools{margin-left:auto}#menuBtn{display:inline-flex}}
+@media (pointer:coarse){.tbtn{min-height:40px;padding-inline:.95rem}}
+/* mobile menu */
+.menu{position:fixed;inset:0;z-index:69;background:var(--bg);display:grid;align-content:space-between;padding:calc(5.5rem + env(safe-area-inset-top,0px)) var(--gut-r) calc(2rem + env(safe-area-inset-bottom,0px)) var(--gut);clip-path:inset(0 0 100% 0);transition:clip-path .7s var(--ease);visibility:hidden}
+.menu.open{clip-path:inset(0 0 0 0);visibility:visible}
+.menu nav{display:grid}
+.menu nav a{display:flex;align-items:baseline;gap:1rem;font-family:var(--f-display);font-weight:800;font-size:clamp(2rem,10vw,4.5rem);line-height:1.1;letter-spacing:-.04em;text-transform:uppercase;padding-block:.2rem;border-bottom:1px solid var(--line);transform:translateY(30px);opacity:0;transition:transform .7s var(--ease),opacity .5s}
+.menu nav a span{font-family:var(--f-mono);font-size:.75rem;color:var(--lime);letter-spacing:.1em;font-weight:400}
+.menu.open nav a{transform:none;opacity:1}
+.menu.open nav a:nth-child(2){transition-delay:.05s}.menu.open nav a:nth-child(3){transition-delay:.1s}.menu.open nav a:nth-child(4){transition-delay:.15s}.menu.open nav a:nth-child(5){transition-delay:.2s}
+.menu .mfoot{display:grid;gap:.6rem}
+.menu .mfoot a{font-weight:600}
+body.locked .ask{opacity:0;pointer-events:none}
+/* toast */
+.toast{position:fixed;left:50%;bottom:calc(5.2rem + env(safe-area-inset-bottom,0px));z-index:98;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--cream);color:var(--ink);font-weight:600;font-size:.88rem;padding:.7rem 1.1rem;border-radius:99px;box-shadow:0 20px 40px -15px rgba(0,0,0,.6);transition:transform .5s var(--ease),opacity .4s;max-width:calc(100vw - 32px);text-align:center}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100svh;display:grid;align-content:end;padding-block:7rem 2.2rem;overflow:hidden}
+#field{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero::after{content:"";position:absolute;inset:auto 0 0;height:40%;background:linear-gradient(transparent,var(--bg));pointer-events:none}
+.hero .wrap{position:relative;z-index:2;width:100%;container-type:inline-size}
+.hero-top{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:clamp(1.5rem,5vh,3rem)}
+.status{display:inline-flex;align-items:center;gap:.55rem}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 0 rgba(213,252,101,.6);animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 10px rgba(213,252,101,0)}100%{box-shadow:0 0 0 0 rgba(213,252,101,0)}}
+.name{font-family:var(--f-display);font-weight:800;font-size:clamp(2.4rem,13vw,15rem);font-size:clamp(2.4rem,13cqi,15rem);line-height:.84;letter-spacing:-.045em;text-transform:uppercase}
+.name .ln{display:block;overflow:hidden;padding-bottom:.04em}
+.name .ln>span{display:inline-block}
+.name .serif{text-transform:none;letter-spacing:-.01em;font-size:.9em;color:var(--lime)}
+.hero-foot{margin-top:clamp(1.5rem,4vh,2.6rem);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) auto;gap:2rem;align-items:end}
+.hero-foot p.lead{font-size:clamp(1.05rem,1.6vw,1.3rem);max-width:30ch;color:var(--cream);line-height:1.35}
+.rot{display:inline-grid;vertical-align:top;overflow:hidden;height:1.35em;line-height:1.35em}
+.rot b{grid-area:1/1;font-family:var(--f-serif);font-style:italic;font-weight:400;color:var(--lime);font-size:1.15em;line-height:1.17em;transition:transform .6s var(--ease),opacity .6s}
+.rot b:not(.on){transform:translateY(110%);opacity:0}
+.rot b.out{transform:translateY(-110%);opacity:0}
+.scroll-cue{display:grid;justify-items:center;gap:.5rem}
+.scroll-cue i{width:1px;height:56px;background:linear-gradient(var(--cream),transparent);animation:cue 2s var(--ease) infinite;transform-origin:top}
+@keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+@media (max-width:760px){.hero-foot{grid-template-columns:1fr}.scroll-cue{display:none}}
+
+/* ---------- marquee ---------- */
+.marquee{border-block:1px solid var(--line);overflow:hidden;padding-block:1.1rem;white-space:nowrap}
+.marquee .track{display:inline-flex;gap:2.4rem;animation:mq 30s linear infinite;font-family:var(--f-display);font-weight:700;font-size:clamp(1.4rem,3.2vw,2.4rem);text-transform:uppercase;letter-spacing:-.02em}
+.marquee .track span{display:inline-flex;align-items:center;gap:2.4rem}
+.marquee .track span::after{content:"✳";color:var(--lime);font-size:.7em}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ---------- section heads ---------- */
+section{position:relative}
+.sec{padding-block:clamp(5rem,12vw,9rem)}
+.head{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2.5rem,6vw,4.5rem)}
+@media (min-width:901px){#work{padding-top:clamp(4.2rem,8vh,6rem);padding-bottom:2rem}#work .head{margin-bottom:1.6rem}#work .head h2{font-size:clamp(2.6rem,5.4vw,5rem)}#work .reel-bar{margin-top:1.2rem}#work .reel-nav{margin-top:.9rem}.card .meta{gap:1rem}}
+.head h2{font-family:var(--f-display);font-weight:800;font-size:clamp(2.8rem,8vw,7rem);line-height:.88;letter-spacing:-.04em;text-transform:uppercase}
+.head h2 .serif{text-transform:none;color:var(--lime);letter-spacing:-.01em}
+.head p{max-width:34ch;color:var(--muted)}
+.idx{font-family:var(--f-mono);font-size:.75rem;color:var(--lime);letter-spacing:.1em;display:block;margin-bottom:1rem}
+
+/* ---------- work reel ---------- */
+.reel-wrap{overflow:hidden}
+.reel{display:flex;gap:clamp(1.2rem,2.4vw,2.2rem);width:max-content;padding-right:var(--gut-r)}
+.card{position:relative;width:min(72vw,62rem,calc((100svh - 27.5rem)*1.6));flex:none;display:grid;gap:1.1rem;cursor:pointer;text-align:left}
+.card .media{position:relative;aspect-ratio:16/10;border-radius:18px;overflow:hidden;background:var(--bg-3);max-width:100%}
+.cvslot{position:absolute;inset:0}
+.card .media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(17,10,13,.65));pointer-events:none}
+.card .num{position:absolute;top:1rem;left:1.1rem;z-index:2;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;background:rgba(17,10,13,.6);backdrop-filter:blur(8px);padding:.3rem .6rem;border-radius:99px}
+.card .open{position:absolute;right:1.1rem;bottom:1.1rem;z-index:2;width:3.2rem;height:3.2rem;border-radius:50%;background:var(--lime);color:var(--ink);display:grid;place-items:center;font-size:1.3rem;transition:transform .5s var(--ease)}
+.card:hover .open{transform:rotate(-45deg) scale(1.08)}
+.card .meta{display:flex;justify-content:space-between;gap:1.5rem;align-items:start;flex-wrap:wrap}
+.card h3{font-family:var(--f-display);font-weight:700;font-size:clamp(1.45rem,2.4vw,2.2rem);line-height:1;letter-spacing:-.03em;max-width:22ch}
+.card .tags{display:flex;gap:.4rem;flex-wrap:wrap}
+.card .viewcs{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;font-size:.92rem;color:var(--lime);margin-top:.2rem}
+.card .viewcs i{font-style:normal;display:inline-block;transition:transform .4s var(--ease)}
+.card:hover .viewcs i{transform:translateX(6px)}
+.card .meta>div:first-child{display:grid;gap:.4rem;flex:1 1 18rem;min-width:0}
+.chip{font-size:.75rem;font-weight:600;padding:.28rem .7rem;border:1px solid var(--line);border-radius:99px;color:var(--muted);white-space:nowrap}
+/* ---------- covers: vector + HTML, sized in container units so they stay razor sharp at any size ---------- */
+.card .media,.case .hero-img{container-type:inline-size}
+.cv{position:absolute;inset:0;overflow:hidden;display:grid;grid-template-columns:40% 60%;align-items:center;font-family:var(--f-body);transition:transform 1.1s var(--ease)}
+.card:hover .cv{transform:scale(1.025)}
+.card .media:has(.cv)::after{display:none}
+.cv .txt{position:relative;z-index:3;display:grid;gap:1.5cqi;padding-left:6.5cqi;padding-right:1cqi}
+.cv .pill{justify-self:start;font-weight:700;font-size:1.3cqi;line-height:1;padding:.85cqi 1.7cqi;border-radius:99px;letter-spacing:.01em}
+.cv .ttl{font-family:var(--f-display);font-weight:800;font-size:4.3cqi;line-height:.96;letter-spacing:-.04em}
+.cv .sub{font-family:var(--f-mono);font-size:1.15cqi;letter-spacing:.09em;text-transform:uppercase;line-height:1.5}
+.cv .stage{position:relative;height:100%;transform:translate3d(var(--px,0),0,0)}
+.cv .phn{position:absolute;width:20cqi;aspect-ratio:9/19.2;border-radius:3.2cqi;background:#0D0D10;padding:.62cqi;box-shadow:0 3cqi 6cqi -2cqi rgba(0,0,0,.45),inset 0 0 0 .18cqi rgba(255,255,255,.14)}
+.cv .scr{position:relative;height:100%;border-radius:2.65cqi;overflow:hidden;display:flex;flex-direction:column;gap:1cqi;padding:3.4cqi 1.5cqi 1.5cqi;font-size:1.05cqi;line-height:1.3}
+.cv .scr::before{content:"";position:absolute;top:.75cqi;left:50%;width:5.6cqi;height:1.35cqi;margin-left:-2.8cqi;border-radius:99px;background:#0D0D10}
+.cv .sb{position:absolute;top:.85cqi;left:2.2cqi;right:2cqi;display:flex;justify-content:space-between;font-size:.82cqi;font-weight:700}
+.cv .h{font-weight:800;font-size:1.75cqi;line-height:1.12;letter-spacing:-.02em}
+.cv .s{font-size:.95cqi;opacity:.65}
+.cv .btnx{margin-top:auto;border-radius:99px;text-align:center;font-weight:700;font-size:1.1cqi;padding:1.05cqi}
+.cv .float{position:absolute;z-index:2;border-radius:1.6cqi;padding:1.2cqi 1.4cqi;font-size:1.05cqi;line-height:1.3;box-shadow:0 2cqi 4cqi -1.5cqi rgba(0,0,0,.35);display:grid;gap:.5cqi}
+.cv .lbl{font-family:var(--f-mono);font-size:.78cqi;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.cv b{font-weight:800}
+.cv svg{display:block}
+/* Philips MCC */
+.cv-mcc{background:radial-gradient(circle at 78% 30%,#DCEBFC 0,transparent 42%),radial-gradient(circle at 12% 90%,rgba(0,113,219,.12),transparent 40%),linear-gradient(135deg,#fff,#F3F8FE 60%,#E6F0FC);color:#1F2A44}
+.cv-mcc .pill{background:#0071DB;color:#fff}.cv-mcc .sub{color:#5B6683}
+.cv-mcc .scr{background:#fff;color:#1F2A44}
+.cv-mcc .prog{display:flex;gap:.4cqi}.cv-mcc .prog i{flex:1;height:.42cqi;border-radius:9px;background:#E3E9F2}.cv-mcc .prog i.on{background:#0071DB}
+.cv-mcc .opt{border:.13cqi solid #DCE3EE;border-radius:1cqi;padding:.95cqi 1.1cqi;font-weight:600;font-size:1.05cqi;display:flex;justify-content:space-between;align-items:center}
+.cv-mcc .opt.on{background:#0071DB;border-color:#0071DB;color:#fff}
+.cv-mcc .btnx{background:#0071DB;color:#fff}
+.cv-mcc .tagr{display:flex;gap:.4cqi;flex-wrap:wrap}.cv-mcc .tagr span{font-size:.85cqi;font-weight:700;color:#0071DB;background:#E8F2FD;border-radius:99px;padding:.35cqi .8cqi}
+.cv-mcc .prod{border-radius:1.4cqi;background:linear-gradient(160deg,#EEF5FE,#DDEAFB);display:grid;place-items:center;padding:1.2cqi 0 .8cqi}
+/* AR retail */
+.cv-ar{background:radial-gradient(circle at 70% 45%,#FFF3D6 0,transparent 55%),#FBF5E9;color:#1F4A3D}
+.cv-ar .pill{background:#1F4A3D;color:#FBF5E9}.cv-ar .sub{color:#5E6B5F}
+.cv-ar .ttl em{font-style:normal;color:#C8962A}
+.cv-ar .visor{position:absolute;left:3cqi;top:50%;width:52cqi;transform:translateY(-50%)}
+.cv-ar .float{background:#fff;color:#1F4A3D}
+.cv-ar .meter{height:.5cqi;border-radius:9px;background:#EDE6D6;overflow:hidden}.cv-ar .meter i{display:block;height:100%;width:94%;background:linear-gradient(90deg,#1F4A3D,#5C9A6E)}
+.cv-ar .maya{display:flex;gap:.9cqi;align-items:center}
+.cv-ar .maya .av{width:3.4cqi;height:3.4cqi;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFD9B8,#E59A6A 60%,#B9673F);flex:none;box-shadow:0 0 0 .3cqi #fff,0 0 0 .5cqi #C8962A}
+.cv-ar .code{background:#F2C14E!important;color:#1F2A20!important;font-family:var(--f-mono);font-weight:500;letter-spacing:.06em}
+/* Digi Yatra */
+.cv-digi{background:radial-gradient(circle at 75% 25%,#3B4AB8 0,transparent 50%),linear-gradient(140deg,#151A45,#0C0F2A);color:#fff}
+.cv-digi .pill{background:#FF8A3D;color:#1A1023}.cv-digi .sub{color:#A9B1E6}
+.cv-digi .scr{background:#0F1433;color:#fff}
+.cv-digi .face{position:relative;border-radius:1.6cqi;background:radial-gradient(circle at 50% 40%,#26306E,#141A42);aspect-ratio:1;overflow:hidden}
+.cv-digi .scan{position:absolute;left:8%;right:8%;height:.3cqi;background:linear-gradient(90deg,transparent,#5CF0C1,transparent);box-shadow:0 0 1.2cqi #5CF0C1;animation:scan 2.6s ease-in-out infinite}
+@keyframes scan{0%,100%{top:14%}50%{top:84%}}
+.cv-digi .ok{align-self:start;background:rgba(92,240,193,.14);color:#5CF0C1;font-weight:700;font-size:.95cqi;border-radius:99px;padding:.45cqi 1cqi}
+.cv-digi .pass{background:#fff;color:#151A45;border-radius:1.2cqi;padding:1cqi 1.1cqi;display:grid;gap:.3cqi;position:relative}
+.cv-digi .pass .rt{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--f-display);font-weight:800;font-size:1.7cqi;letter-spacing:-.02em}
+.cv-digi .btnx{background:#FF8A3D;color:#1A1023}
+.cv-digi .float{background:#fff;color:#151A45}
+/* Fimbre */
+.cv-fim{background:#0A0A0A;color:#fff}
+.cv-fim .pill{background:#7CCB33;color:#0A0A0A}.cv-fim .sub{color:#9BA39B}
+.cv-fim .blob{position:absolute;left:4cqi;top:50%;width:44cqi;aspect-ratio:1;border-radius:50%;background:#7CCB33;transform:translateY(-50%)}
+.cv-fim .waves{position:absolute;right:-6cqi;bottom:-6cqi;width:44cqi;opacity:.85}
+.cv-fim .scr{background:#fff;color:#1E1E24}
+.cv-fim .logo{display:flex;align-items:center;gap:.4cqi;color:#E2616E;font-weight:800;font-size:1.45cqi;letter-spacing:-.02em}
+.cv-fim .btnx{background:#E2616E;color:#fff;border-radius:.8cqi}
+.cv-fim .float{background:#fff;color:#1E1E24}
+.cv-fim .avs{display:flex}.cv-fim .avs i{width:1.9cqi;height:1.9cqi;border-radius:50%;border:.25cqi solid #fff;margin-left:-.6cqi}.cv-fim .avs i:first-child{margin-left:0}
+/* Airport AR */
+.cv-air{background:radial-gradient(circle at 70% 40%,#3D5245 0,transparent 55%),linear-gradient(150deg,#1A221D,#0E1210);color:#EEF3EC}
+.cv-air .pill{background:var(--lime);color:#14190F}.cv-air .sub{color:#A9B6AC}
+.cv-air .scr{background:linear-gradient(180deg,#7E8C93 0%,#AEB8BA 42%,#C9C3B6 43%,#9C968A 100%);color:#fff;padding:0}
+.cv-air .scr svg{position:absolute;inset:0;width:100%;height:100%}
+.cv-air .top{position:absolute;left:1.2cqi;right:1.2cqi;top:3.2cqi;background:rgba(14,18,16,.82);backdrop-filter:blur(6px);border-radius:1.2cqi;padding:.9cqi 1.1cqi;display:grid;gap:.15cqi}
+.cv-air .top b{font-size:1.5cqi;color:var(--lime)}
+.cv-air .sheet{position:absolute;left:0;right:0;bottom:0;background:#121815;border-radius:1.6cqi 1.6cqi 0 0;padding:1.2cqi 1.3cqi 1.5cqi;display:grid;gap:.35cqi}
+.cv-air .float{background:#EEF3EC;color:#14190F}
+.cv-air .chev{animation:chev 1.6s ease-in-out infinite}
+@keyframes chev{0%,100%{opacity:.3}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.cv-digi .scan,.cv-air .chev{animation:none}}
+@container (max-width:520px){.cv .float{display:none}.cv .ttl{font-size:4.8cqi}.cv .pill{font-size:1.7cqi}.cv .sub{font-size:1.5cqi}}
+.reel-end{width:min(40vw,24rem);flex:none;display:grid;align-content:center;gap:1rem}
+.reel-end p{font-family:var(--f-serif);font-style:italic;font-size:clamp(1.6rem,2.6vw,2.4rem);line-height:1.15}
+.reel-bar{margin-top:2rem;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
+.reel-bar i{display:block;height:100%;width:100%;background:var(--lime);transform-origin:left;transform:scaleX(var(--p,0))}
+.reel{cursor:grab}.reel.dragging{cursor:grabbing;user-select:none}
+.reel.dragging .card{pointer-events:none}
+.reel-nav{display:flex;align-items:center;gap:.6rem;margin-top:1.2rem}
+.reel-nav button{width:2.8rem;height:2.8rem;border-radius:50%;border:1px solid var(--line);color:var(--cream);font-size:1.1rem;display:grid;place-items:center;transition:background .3s,color .3s,border-color .3s}
+.reel-nav button:hover{background:var(--lime);color:var(--ink);border-color:var(--lime)}
+.reel-nav button:disabled{opacity:.3;pointer-events:none}
+.reel-nav .mono{margin-left:.6rem}
+@media (max-width:900px){
+  .reel-wrap{overflow:visible}
+  .reel{width:auto;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-inline:calc(-1 * var(--gut)) calc(-1 * var(--gut-r));padding:0 var(--gut-r) 1rem var(--gut);scroll-padding-left:var(--gut);gap:1rem}
+  .reel::-webkit-scrollbar{display:none}
+  .card{width:min(84vw,34rem);scroll-snap-align:start}.reel-end{width:min(70vw,20rem);scroll-snap-align:start}
+  .reel-bar{display:block;margin-top:1rem}
+}
+
+/* ---------- case study overlay ---------- */
+.case{position:fixed;inset:0;z-index:96;background:var(--bg);overflow-y:auto;overscroll-behavior:contain;transform:translateY(100%);transition:transform .8s var(--ease);padding:0 var(--gut-r) 4rem var(--gut)}
+.case.open{transform:none}
+.case-bar{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:calc(1rem + env(safe-area-inset-top,0px)) 0 1rem;background:var(--bg)}
+.case-close{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--line);border-radius:99px;padding:.5rem 1rem;font-weight:600}
+.case-close:hover{border-color:var(--lime);color:var(--lime)}
+.case-inner{max-width:62rem;margin:0 auto;display:grid;gap:clamp(2rem,5vw,3.5rem);padding-top:1rem}
+.case h2{font-family:var(--f-display);font-weight:800;font-size:clamp(2.4rem,7vw,5.6rem);line-height:.9;letter-spacing:-.04em}
+.case .hero-img{border-radius:18px;overflow:hidden;aspect-ratio:16/9;background:var(--bg-3);position:relative;max-width:100%}
+.case .hero-img img{width:100%;height:100%;object-fit:cover;display:block}
+.case .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr));border-top:1px solid var(--line)}
+.case .facts div{padding:1rem 1rem 1rem 0;border-bottom:1px solid var(--line);display:grid;gap:.2rem}
+.case .facts strong{font-weight:600}
+.case .block{display:grid;grid-template-columns:minmax(0,12rem) minmax(0,1fr);gap:2rem}
+.case .block h3{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);font-weight:500;padding-top:.35rem}
+.case .block p,.case .block li{font-size:clamp(1.05rem,1.5vw,1.25rem);line-height:1.55;color:var(--cream)}
+.case .block ul{margin:0;padding-left:1.1rem;display:grid;gap:.5rem}
+.case .fig{margin:0;display:grid;gap:.8rem}
+.case .fig img{width:100%;height:auto;display:block;border-radius:16px;background:#fff}
+.case .fullhead{display:grid;gap:.4rem;margin-top:1rem}.case .fullhead p{color:var(--muted)}
+.case .fullcs{display:grid;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
+.case .fullcs img{display:block;width:100%;height:auto;margin:0 auto;background:#fff}
+.case .pull{font-family:var(--f-serif);font-style:italic;font-size:clamp(1.8rem,4vw,3rem);line-height:1.1;color:var(--lime);max-width:24ch}
+.case .cta{display:flex;gap:.8rem;flex-wrap:wrap}
+.case-prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--line);overflow:hidden}
+.case-prog i{display:block;height:100%;background:var(--lime);transform-origin:left;transform:scaleX(var(--p,0))}
+.case-close{min-height:42px}
+.case .next{display:grid;gap:1.2rem;width:100%;text-align:left;border-top:1px solid var(--line);padding-top:clamp(2rem,5vw,3rem);margin-top:1rem}
+.case .next .nt{font-family:var(--f-display);font-weight:800;font-size:clamp(1.8rem,5vw,3.6rem);line-height:.95;letter-spacing:-.04em;display:flex;justify-content:space-between;gap:1rem;align-items:end}
+.case .next .nt i{font-style:normal;flex:none;width:3.4rem;height:3.4rem;border-radius:50%;background:var(--lime);color:var(--ink);display:grid;place-items:center;font-size:1.4rem;transition:transform .5s var(--ease)}
+.case .next:hover .nt i{transform:rotate(-45deg)}
+.case .next .hero-img{transition:transform .9s var(--ease)}
+.case .next:hover .hero-img{transform:scale(.985)}
+@media (max-width:700px){.case .block{grid-template-columns:1fr;gap:.6rem}}
+
+/* ---------- buttons ---------- */
+.btn{position:relative;display:inline-flex;align-items:center;gap:.6rem;border-radius:99px;padding:.9rem 1.5rem;font-weight:700;font-size:.95rem;background:var(--lime);color:var(--ink);overflow:hidden;isolation:isolate;transition:transform .3s var(--ease)}
+.btn::before{content:"";position:absolute;inset:0;background:var(--cream);transform:translateY(101%);transition:transform .45s var(--ease);z-index:-1;border-radius:inherit}
+.btn:hover::before{transform:none}
+.btn.ghost{background:transparent;color:var(--cream);border:1px solid var(--line)}
+.btn.ghost::before{background:var(--lime)}
+.btn.ghost:hover{color:var(--ink)}
+
+/* ---------- about (daylight chapter) ---------- */
+.day{background:var(--cream);color:var(--ink);border-radius:clamp(20px,3vw,36px) clamp(20px,3vw,36px) 0 0}
+.day .mono{color:#6E5C63}.day .idx{color:var(--plum)}
+.statement{font-family:var(--f-display);font-weight:700;font-size:clamp(1.9rem,4.6vw,4rem);line-height:1.04;letter-spacing:-.035em;max-width:22ch}
+.statement .w{opacity:.14;transition:opacity .2s}
+.statement .w.lit{opacity:1}
+.statement .serif{color:var(--plum);letter-spacing:-.01em}
+.about-grid{margin-top:clamp(3rem,7vw,5rem);display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(2rem,5vw,5rem);align-items:end}
+@media (max-width:820px){.about-grid{grid-template-columns:1fr}}
+.portrait{aspect-ratio:4/5;max-width:100%;border-radius:20px;background:var(--plum);color:var(--cream);display:grid;place-items:center;text-align:center;padding:2rem;overflow:hidden;position:relative}
+.portrait .ini{font-family:var(--f-display);font-weight:800;font-size:clamp(5rem,12vw,9rem);letter-spacing:-.06em;line-height:1}
+.portrait .mono{color:var(--sage);position:absolute;bottom:1.2rem;left:0;right:0}
+.stats{display:grid;grid-template-columns:repeat(3,auto);justify-content:space-between;gap:0 1.2rem;border-top:1px solid rgba(26,16,21,.18)}
+.stats div{padding:1.4rem 1rem 0 0;display:grid;gap:.3rem}
+.stats b{font-family:var(--f-display);font-weight:800;font-size:clamp(1.9rem,4.4vw,3.4rem);letter-spacing:-.04em;line-height:1}
+.about-copy{display:grid;gap:1.2rem;max-width:56ch}
+.about-copy p{color:#3B2A31}
+
+/* ---------- process (stacking cards) ---------- */
+.stack{display:grid;gap:1.2rem}
+.step{position:sticky;top:calc(6rem + var(--i)*1.4rem);display:grid;grid-template-columns:minmax(0,5rem) minmax(0,1fr) minmax(0,1.2fr);gap:2rem;align-items:start;padding:clamp(1.5rem,3vw,2.4rem);border-radius:22px;background:var(--bg-2);border:1px solid var(--line);min-height:13rem}
+.step:nth-child(even){background:var(--bg-3)}
+.step .n{font-family:var(--f-mono);font-size:.8rem;color:var(--lime);letter-spacing:.1em}
+.step h3{font-family:var(--f-display);font-weight:800;font-size:clamp(1.8rem,4vw,3.2rem);line-height:.95;letter-spacing:-.035em}
+.step h3 small{display:block;font-family:var(--f-serif);font-style:italic;font-weight:400;font-size:.5em;color:var(--muted);letter-spacing:0;margin-top:.4rem}
+.step p{color:var(--muted);font-size:1.05rem;max-width:42ch}
+@media (max-width:760px){.step{grid-template-columns:1fr;gap:.8rem;position:relative;top:auto}}
+.kit{margin-top:2.5rem;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+
+/* ---------- lab ---------- */
+.lab{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:1.2rem}
+.tile{border:1px solid var(--line);border-radius:22px;background:var(--bg-2);padding:clamp(1.3rem,2.5vw,2rem);display:grid;gap:1rem;align-content:start;min-width:0}
+.tile h3{font-family:var(--f-display);font-weight:700;font-size:1.6rem;letter-spacing:-.03em}
+.tile p{color:var(--muted);font-size:.98rem}
+.composer{position:relative;aspect-ratio:16/10;max-width:100%;border-radius:14px;background:var(--bg-3);overflow:hidden;touch-action:none;cursor:grab}
+.composer .g{position:absolute;inset:0;background-image:linear-gradient(rgba(241,234,225,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(241,234,225,.18) 1px,transparent 1px);background-size:33.333% 33.333%}
+.composer .subj{position:absolute;width:16%;aspect-ratio:1;border-radius:50%;background:var(--lime);left:42%;top:35%;box-shadow:0 0 40px rgba(213,252,101,.45)}
+.verdict{font-family:var(--f-serif);font-style:italic;font-size:1.35rem}
+.tile textarea{width:100%;min-height:6rem;resize:vertical;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--cream);padding:.8rem;font:inherit;font-size:16px}
+.tile textarea:focus{outline:none;border-color:var(--lime)}
+.tile .out{white-space:pre-wrap;font-size:.95rem;min-height:1.4rem}
+.tile.link{transition:border-color .3s,transform .5s var(--ease)}
+.tile.link:hover{border-color:var(--lime);transform:translateY(-4px)}
+.tile .big{font-family:var(--f-display);font-weight:800;font-size:clamp(3rem,7vw,5rem);letter-spacing:-.05em;line-height:.9;color:var(--plum);-webkit-text-stroke:1px var(--muted)}
+.tile.link:hover .big{color:var(--lime);-webkit-text-stroke:0}
+
+/* ---------- experience ---------- */
+.rows{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:minmax(0,10rem) minmax(0,1fr) minmax(0,1fr);gap:1.5rem;padding:1.6rem 0;border-bottom:1px solid var(--line);align-items:baseline;transition:padding .5s var(--ease),background .5s}
+@media (hover:hover){.row:hover{padding-inline:1rem;background:var(--bg-2)}}
+.row h3{font-family:var(--f-display);font-weight:700;font-size:clamp(1.5rem,3vw,2.4rem);letter-spacing:-.03em}
+.row p{color:var(--muted);font-size:.98rem}
+.row .now{color:var(--lime)}
+@media (max-width:760px){.row{grid-template-columns:1fr;gap:.3rem}}
+
+/* ---------- contact ---------- */
+.contact{text-align:center;display:grid;justify-items:center;gap:2rem;padding-block:clamp(6rem,14vw,11rem)}
+.contact h2{font-family:var(--f-display);font-weight:800;font-size:clamp(3.6rem,15vw,13rem);line-height:.82;letter-spacing:-.05em;text-transform:uppercase}
+.contact h2 .serif{text-transform:none;color:var(--lime)}
+.mail{font-family:var(--f-display);font-weight:700;font-size:clamp(1.1rem,3.4vw,2.2rem);letter-spacing:-.02em;border-bottom:2px solid var(--lime);padding-bottom:.2rem;overflow-wrap:anywhere;user-select:all}
+.contact .row-btns{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center}
+.foot{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-block:1.6rem calc(6rem + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line)}
+
+/* ---------- AI guide ---------- */
+.ask{position:fixed;right:calc(var(--gut-r) + 2px);bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:75;display:inline-flex;align-items:center;gap:.6rem;background:var(--cream);color:var(--ink);border-radius:99px;padding:.45rem 1rem .45rem .45rem;font-weight:700;font-size:.9rem;box-shadow:0 20px 40px -15px rgba(0,0,0,.6);transition:transform .4s var(--ease)}
+.ask:hover{transform:translateY(-3px)}
+body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bottom,0px)))}
+.ask .av{width:2.1rem;height:2.1rem;border-radius:50%;background:var(--plum);color:var(--cream);display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:.8rem;position:relative}
+.ask .av::after{content:"";position:absolute;right:-1px;bottom:-1px;width:9px;height:9px;border-radius:50%;background:var(--lime);border:2px solid var(--cream)}
+.ask.talk .av{animation:talk .5s ease-in-out infinite alternate}
+@keyframes talk{to{box-shadow:0 0 0 5px rgba(75,42,51,.35)}}
+.chat{position:fixed;right:var(--gut-r);bottom:calc(5rem + env(safe-area-inset-bottom,0px));z-index:76;width:min(25rem,calc(100vw - 32px));height:min(36rem,calc(100svh - 8rem));background:var(--bg-2);border:1px solid var(--line);border-radius:22px;box-shadow:0 40px 80px -30px rgba(0,0,0,.8);display:grid;grid-template-rows:auto 1fr auto auto auto;overflow:hidden;transform-origin:bottom right;transition:transform .45s var(--ease),opacity .3s}
+.chat[hidden]{display:grid!important;transform:scale(.9) translateY(10px);opacity:0;pointer-events:none}
+.chat header{display:flex;align-items:center;gap:.7rem;padding:1rem 1.1rem;border-bottom:1px solid var(--line)}
+.chat header .av{width:2.2rem;height:2.2rem;border-radius:50%;background:var(--plum);display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:.8rem}
+.chat header div{display:grid;line-height:1.2;margin-right:auto}
+.chat header strong{font-size:.95rem}
+.chat header .x{font-size:1.3rem;color:var(--muted);padding:.2rem .4rem}
+.log{overflow-y:auto;padding:1.1rem;display:grid;gap:.7rem;align-content:start;min-height:0}
+.msg{max-width:88%;padding:.65rem .9rem;border-radius:16px;font-size:.93rem;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.me{justify-self:end;background:var(--lime);color:var(--ink);border-bottom-right-radius:4px}
+.msg.bot{justify-self:start;background:var(--bg-3);border-bottom-left-radius:4px}
+.msg.bot .play{display:inline-block;margin-top:.4rem;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--lime)}
+.suggest{display:flex;gap:.4rem;overflow-x:auto;padding:0 1.1rem .7rem;scrollbar-width:none}
+.suggest button{flex:none;border:1px solid var(--line);border-radius:99px;padding:.32rem .75rem;font-size:.8rem;color:var(--cream)}
+.suggest button:hover{border-color:var(--lime);color:var(--lime)}
+.chat form{display:flex;gap:.5rem;padding:.8rem;border-top:1px solid var(--line)}
+.chat input{flex:1;min-width:0;border:1px solid var(--line);background:var(--bg);color:var(--cream);border-radius:99px;padding:.65rem 1rem;font:inherit;font-size:16px}
+.chat input:focus{outline:none;border-color:var(--lime)}
+.chat form button{background:var(--lime);color:var(--ink);border-radius:99px;padding:0 1rem;font-weight:700}
+.chat .note{font-size:.7rem;color:var(--muted);padding:0 1.1rem .8rem}
+.chat header .x{min-width:40px;min-height:40px}
+@media (max-width:600px){
+  .chat{left:0;right:0;bottom:0;width:100%;height:min(86svh,40rem);border-radius:22px 22px 0 0;border-bottom:0;padding-bottom:env(safe-area-inset-bottom,0px);transform-origin:bottom center}
+  .chat[hidden]{transform:translateY(30px)}
+  .ask .lg{display:none}
+  .ask{padding-right:.85rem}
+}
+@media (min-width:601px){.ask .sm{display:none}}
+
+@media (prefers-reduced-motion:reduce){
+  .grain,.marquee .track,.status i,.scroll-cue i{animation:none!important}
+  .case,.card .media img,.rot b{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+
+<div class="grain" aria-hidden="true"></div>
+<div class="loader" id="loader" aria-hidden="true"><div class="count" id="count">0</div><span class="mono">Pranit Kumar — UX/UI Portfolio 2026</span><div class="bar" id="lbar"></div></div>
+<div class="cursor" id="cursor" aria-hidden="true"><span id="cursorLabel">View</span></div>
+
+<header class="nav">
+  <a class="brand" href="#top">PRANIT KUMAR</a>
+  <nav class="links" aria-label="Main">
+    <a href="#work">Work</a><a href="#about">About</a><a href="#process">Process</a><a href="#lab">Lab</a><a href="#contact">Contact</a>
+  </nav>
+  <div class="tools">
+    <button class="tbtn burger" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><i></i><i></i></button>
+    <button class="tbtn" id="sound" aria-pressed="false" title="Play a soft lo-fi soundtrack"><span class="bars"><i></i><i></i><i></i></span><span id="soundLbl">Sound<span class="st"> off</span></span></button>
+  </div>
+</header>
+<div class="menu" id="menu" aria-label="Menu" data-lenis-prevent>
+  <nav><a href="#work"><span>01</span>Work</a><a href="#about"><span>02</span>About</a><a href="#process"><span>03</span>Process</a><a href="#lab"><span>04</span>Lab</a><a href="#contact"><span>05</span>Contact</a></nav>
+  <div class="mfoot"><span class="mono">Say hello</span><a href="#contact">pranitvlogs0@gmail.com</a><a href="https://www.behance.net/kumarpranit" target="_blank" rel="noopener">Behance ↗</a></div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero bleed" aria-label="Introduction">
+    <canvas id="field" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="hero-top">
+        <span class="mono status"><i></i>Open to roles &amp; freelance</span>
+        <span class="mono">UX/UI Designer · Bangalore · 4+ yrs</span>
+      </div>
+      <h1 class="name" aria-label="Pranit Kumar, UX/UI designer">
+        <span class="ln"><span>Pranit</span></span>
+        <span class="ln"><span>Kumar<span class="serif">.</span></span></span>
+      </h1>
+      <div class="hero-foot">
+        <p class="lead">I design products that feel <span class="rot" aria-hidden="true"><b class="on">calm.</b><b>clear.</b><b>human.</b><b>obvious.</b></span><span class="sr" style="position:absolute;left:-9999px">calm, clear and human.</span></p>
+        <p class="mono" style="line-height:1.9">NIFT graduate. Three years at Wipro,<br>now at Capgemini. Retail, health,<br>travel, AR &amp; e-commerce.</p>
+        <div class="scroll-cue" aria-hidden="true"><span class="mono">Scroll</span><i></i></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee bleed" aria-hidden="true"><div class="track">
+    <span>User research</span><span>Interaction design</span><span>UI design</span><span>AR experiences</span><span>Design systems</span><span>Prototyping</span>
+    <span>User research</span><span>Interaction design</span><span>UI design</span><span>AR experiences</span><span>Design systems</span><span>Prototyping</span>
+  </div></div>
+
+  <!-- WORK -->
+  <section id="work" class="sec" aria-label="Selected work">
+    <div class="wrap head">
+      <div><span class="idx">(01) — Selected work</span><h2>Five <span class="serif">stories</span></h2></div>
+      <p>Each one started with a person stuck somewhere. Open a project to see the problem, what I did, and why.</p>
+    </div>
+    <div class="reel-wrap" id="reelWrap">
+      <div class="reel" id="reel">
+        <button class="card" data-case="philips" data-cursor="Open">
+          <div class="media"><span class="num">01 / 05</span><div class="cvslot"></div><span class="open" aria-hidden="true">→</span></div>
+          <div class="meta"><div><h3>The right baby bottle, in a few questions.</h3><span class="viewcs">View case study <i>→</i></span></div><div class="tags"><span class="chip">Philips</span><span class="chip">Web</span><span class="chip">Wipro</span></div></div>
+        </button>
+        <button class="card" data-case="ar" data-cursor="Open">
+          <div class="media"><span class="num">02 / 05</span><div class="cvslot"></div><span class="open" aria-hidden="true">→</span></div>
+          <div class="meta"><div><h3>An AR store that knows your taste.</h3><span class="viewcs">View case study <i>→</i></span></div><div class="tags"><span class="chip">AR headset</span><span class="chip">Mobile</span><span class="chip">Wipro</span></div></div>
+        </button>
+        <button class="card" data-case="digi" data-cursor="Open">
+          <div class="media"><span class="num">03 / 05</span><div class="cvslot"></div><span class="open" aria-hidden="true">→</span></div>
+          <div class="meta"><div><h3>Digi Yatra, rethought for the queue.</h3><span class="viewcs">View case study <i>→</i></span></div><div class="tags"><span class="chip">Travel</span><span class="chip">Mobile</span><span class="chip">Concept</span></div></div>
+        </button>
+        <button class="card" data-case="fimbre" data-cursor="Open">
+          <div class="media"><span class="num">04 / 05</span><div class="cvslot"></div><span class="open" aria-hidden="true">→</span></div>
+          <div class="meta"><div><h3>Shopping on the word of real people.</h3><span class="viewcs">View case study <i>→</i></span></div><div class="tags"><span class="chip">Community</span><span class="chip">E-commerce</span><span class="chip">Internship</span></div></div>
+        </button>
+        <button class="card" data-case="airport" data-cursor="Open">
+          <div class="media"><span class="num">05 / 05</span><div class="cvslot"></div><span class="open" aria-hidden="true">→</span></div>
+          <div class="meta"><div><h3>Finding your way through the airport, in AR.</h3><span class="viewcs">View case study <i>→</i></span></div><div class="tags"><span class="chip">AR</span><span class="chip">Research</span><span class="chip">Team</span></div></div>
+        </button>
+        <div class="reel-end"><p>More on <span class="lime">Behance</span>, including motion and web work.</p><a class="btn ghost" href="https://www.behance.net/kumarpranit" data-cursor="Visit">Visit Behance ↗</a></div>
+      </div>
+      <div class="wrap reel-bar" aria-hidden="true"><i id="reelBar"></i></div>
+      <div class="wrap reel-nav"><button id="reelPrev" aria-label="Previous project">←</button><button id="reelNext" aria-label="Next project">→</button><span class="mono">Scroll, swipe or drag</span></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="sec day bleed" aria-label="About">
+    <div class="wrap">
+      <span class="idx">(02) — About</span>
+      <p class="statement" id="statement">I design for the moment someone feels <span class="serif">stuck.</span> I find what they need to see first, what to do next, and everything we can take away.</p>
+      <div class="about-grid">
+        <div class="portrait"><div><div class="ini">PK</div></div><span class="mono">Photo coming soon</span></div>
+        <div class="about-copy">
+          <div class="stats">
+            <div><b>4+</b><span class="mono">Years designing</span></div>
+            <div><b>3</b><span class="mono">Companies</span></div>
+            <div><b>B.Des</b><span class="mono">NIFT Patna</span></div>
+          </div>
+          <p>I studied design at NIFT Patna, then spent three years at Wipro designing client products across retail, healthcare and e-commerce, from AR headsets to guided web flows. Today I'm a UX/UI designer at Capgemini in Bangalore.</p>
+          <p>I care about clear hierarchy, honest research and interfaces that explain themselves. I'm happiest turning a messy, many-option problem into a short, confident flow.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" class="sec" aria-label="Process">
+    <div class="wrap">
+      <div class="head"><div><span class="idx">(03) — Process</span><h2>How I <span class="serif">work</span></h2></div><p>Five stages, each with one job. Nothing gets designed before it's understood.</p></div>
+      <div class="stack">
+        <article class="step" style="--i:0"><span class="n">01</span><h3>Discover<small>understand the people</small></h3><p>Talk to users, read the brief and the data, and map what people are really trying to do. On Philips this meant personas, workshops and a full process map.</p></article>
+        <article class="step" style="--i:1"><span class="n">02</span><h3>Define<small>map the journey</small></h3><p>Journeys and information architecture in Miro and FlowMapp, so the whole story works before any pixel exists.</p></article>
+        <article class="step" style="--i:2"><span class="n">03</span><h3>Design<small>shape the interface</small></h3><p>Wireframes, then high-fidelity screens and reusable components in Figma.</p></article>
+        <article class="step" style="--i:3"><span class="n">04</span><h3>Validate<small>test and refine</small></h3><p>Clickable prototypes and feedback. Anything that doesn't help the person gets cut.</p></article>
+        <article class="step" style="--i:4"><span class="n">05</span><h3>Deliver<small>hand off and support</small></h3><p>Specs and design-system notes so developers build exactly what was designed.</p></article>
+      </div>
+      <div class="kit"><span class="mono" style="margin-right:.5rem">Toolkit</span><span class="chip">Figma</span><span class="chip">Adobe XD</span><span class="chip">Miro</span><span class="chip">FlowMapp</span><span class="chip">Adobe Creative Suite</span></div>
+    </div>
+  </section>
+
+  <!-- LAB -->
+  <section id="lab" class="sec" aria-label="Lab">
+    <div class="wrap">
+      <div class="head"><div><span class="idx">(04) — Lab</span><h2>Play &amp; <span class="serif">explore</span></h2></div><p>Small experiments and side work. Try them.</p></div>
+      <div class="lab">
+        <div class="tile">
+          <span class="mono">Interactive · Visual hierarchy</span>
+          <h3>Focal point playground</h3>
+          <p>Drag the focal element around the layout grid and see how its position changes where the eye lands.</p>
+          <div class="composer" id="composer" aria-label="Composition playground" data-cursor="Drag"><div class="g"></div><div class="subj" id="subj"></div></div>
+          <p class="verdict" id="verdict">Dead centre. Stable, but static.</p>
+        </div>
+        <div class="tile">
+          <span class="mono">AI · Design critique</span>
+          <h3>Let me critique your screen</h3>
+          <p>Describe a screen in a sentence or two and get three quick UX notes on hierarchy, flow and what to simplify.</p>
+          <label class="mono" for="critIn">Your screen</label>
+          <textarea id="critIn">A checkout page with a big promo banner at the top, the order summary on the right, and the Pay button below the fold.</textarea>
+          <div><button class="btn" id="critBtn">Get my notes</button></div>
+          <p class="out" id="critOut"></p>
+        </div>
+        <a class="tile link" href="https://www.behance.net/gallery/176309831/Nike-cover-page-animation" data-cursor="Visit"><span class="big">Motion</span><span class="mono">Motion design</span><h3>Nike cover animation</h3><p>A motion study for a product landing page.</p></a>
+        <a class="tile link" href="https://www.behance.net/gallery/173813935/HP-Webpage" data-cursor="Visit"><span class="big">Web</span><span class="mono">Web design</span><h3>HP webpage</h3><p>A product page layout for a hardware brand.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="sec" aria-label="Experience" style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><div><span class="idx">(05) — Experience</span><h2>Where I've <span class="serif">been</span></h2></div></div>
+      <div class="rows">
+        <div class="row"><span class="mono now">Sep 2025 — Now</span><h3>Capgemini</h3><p>UX/UI Designer, Bangalore.</p></div>
+        <div class="row"><span class="mono">Oct 2022 — Oct 2025</span><h3>Wipro</h3><p>UX/UI Designer, Bangalore. Immersive AR retail, the Philips bottle advisor, and research-to-UI work for client products.</p></div>
+        <div class="row"><span class="mono">Jan — May 2022</span><h3>Unthinkable</h3><p>Product Design Intern, Gurugram. Designed Fimbre over 16 weeks.</p></div>
+        <div class="row"><span class="mono">2018 — 2022</span><h3>NIFT Patna</h3><p>Bachelor of Design.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact" aria-label="Contact">
+    <span class="mono">(06) — Contact</span>
+    <h2>Let's <span class="serif">talk</span></h2>
+    <p class="mail" id="email">pranitvlogs0@gmail.com</p>
+    <div class="row-btns">
+      <button class="btn" id="copyEmail" data-cursor="Copy">Copy email</button>
+      <button class="btn ghost" id="openChat2">Ask AI Pranit</button>
+      <a class="btn ghost" href="https://www.behance.net/kumarpranit" data-cursor="Visit">Behance ↗</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/pranit-kumar" data-cursor="Visit">LinkedIn ↗</a>
+    </div>
+  </section>
+  <footer class="foot"><span class="mono">© 2026 Pranit Kumar</span><span class="mono" id="clock">Bangalore</span><a class="mono" href="#top">Back to top ↑</a></footer>
+</main>
+
+<!-- Case study overlay -->
+<div class="case" id="case" data-lenis-prevent role="dialog" aria-modal="true" aria-labelledby="caseTitle" hidden>
+  <div class="case-bar"><span class="mono" id="caseIdx">01 / 05</span><button class="case-close" id="caseClose" aria-label="Close case study">Close ✕</button><span class="case-prog" aria-hidden="true"><i id="caseProg"></i></span></div>
+  <div class="case-inner" id="caseBody"></div>
+</div>
+
+<!-- AI guide -->
+<button class="ask" id="askBtn" aria-label="Ask AI Pranit a question"><span class="av">PK</span><span class="lg">Ask AI Pranit</span><span class="sm">Ask AI</span></button>
+<div class="chat" id="chat" hidden role="dialog" aria-label="Ask Pranit">
+  <header><span class="av">PK</span><div><strong>AI Pranit</strong><span class="mono" style="font-size:.6rem">Trained on my resume &amp; projects</span></div><button class="tbtn" id="voice" aria-pressed="false" title="Read answers aloud"><span class="bars"><i></i><i></i><i></i></span>Voice</button><button class="x" id="closeChat" aria-label="Close chat">✕</button></header>
+  <div class="log" id="log" data-lenis-prevent><div class="msg bot">Hi, I'm Pranit, or rather an AI version of me. Ask about my projects, process or experience.</div></div>
+  <div class="suggest" id="suggest"><button>What do you do?</button><button>Tell me about the AR project</button><button>What's your process?</button><button>Are you open to work?</button><button>Which tools do you use?</button></div>
+  <form id="chatForm"><input id="chatIn" autocomplete="off" placeholder="Ask me anything…" aria-label="Your question"><button type="submit">Send</button></form>
+  <p class="note">AI answers can be wrong. For anything important, email me.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+  const hasG=!!window.gsap;if(hasG&&window.ScrollTrigger)gsap.registerPlugin(ScrollTrigger);
+
+  /* ---------- loader ---------- */
+  const loader=$('#loader'),count=$('#count'),lbar=$('#lbar');
+  function intro(){
+    if(!hasG||reduce)return;
+    gsap.from('.name .ln>span',{yPercent:110,duration:1.2,ease:'expo.out',stagger:.08});
+    gsap.from('.hero-top,.hero-foot',{opacity:0,y:20,duration:1,delay:.4,ease:'power3.out'});
+  }
+  let seen=false;try{seen=sessionStorage.getItem('pk-seen')==='1';sessionStorage.setItem('pk-seen','1')}catch(e){}
+  if(reduce){loader.remove()}else if(seen){loader.remove();requestAnimationFrame(intro)}else{
+    let n=0;const t0=performance.now();
+    let fin=false;const finish=()=>{if(fin)return;fin=true;count.textContent=100;lbar.style.width='100%';loader.classList.add('done');setTimeout(()=>loader.remove(),950);intro()};setTimeout(finish,1600);
+    (function tick(){if(fin)return;const p=Math.min(1,(performance.now()-t0)/1100);n=Math.round(p*100);count.textContent=n;lbar.style.width=n+'%';
+      if(p<1)requestAnimationFrame(tick);else finish()})();
+  }
+
+  /* ---------- smooth scroll ---------- */
+  let lenis=null;
+  if(!reduce&&window.Lenis){try{lenis=new Lenis({lerp:.085});
+    if(hasG){lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0)}
+    else(function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(performance.now());}catch(e){lenis=null}}
+  const nav=$('.nav'),menu=$('#menu'),menuBtn=$('#menuBtn');
+  function setMenu(open){menu.classList.toggle('open',open);menuBtn.setAttribute('aria-expanded',open);menuBtn.setAttribute('aria-label',open?'Close menu':'Open menu');if(open)nav.classList.remove('light');document.body.classList.toggle('locked',open);
+    if(open){nav.classList.remove('hide');if(lenis)lenis.stop();document.body.style.overflow='hidden';setTimeout(()=>menu.querySelector('a').focus({preventScroll:true}),300)}else{if(lenis)lenis.start();document.body.style.overflow='';onNav()}}
+  menuBtn.onclick=()=>setMenu(!menu.classList.contains('open'));
+  function goTo(sel){let t=document.querySelector(sel);if(!t)return;if(t.parentElement&&t.parentElement.classList.contains('pin-spacer'))t=t.parentElement;const y=sel==='#top'?0:t.getBoundingClientRect().top+scrollY;lenis?lenis.scrollTo(y,{duration:1.4}):scrollTo({top:y,behavior:reduce?'auto':'smooth'})}
+  $$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const h=a.getAttribute('href');if(!document.querySelector(h))return;e.preventDefault();
+    if(menu.classList.contains('open')){setMenu(false);setTimeout(()=>goTo(h),350)}else goTo(h)}));
+  // nav: solid once you leave the hero, slides away while reading down, comes back the moment you scroll up
+  let lastY=scrollY;const day=$('.day');const secs=['work','about','process','lab','contact'].map(id=>[id,document.getElementById(id)]);
+  function onNav(){const y=scrollY;nav.classList.toggle('solid',y>40);
+    if(!menu.classList.contains('open')){if(y>lastY+4&&y>innerHeight*.7){nav.classList.add('hide');if(!fine&&document.getElementById('chat').hidden)document.body.classList.add('reading')}else if(y<lastY-4||y<innerHeight*.7){nav.classList.remove('hide');document.body.classList.remove('reading')}}
+    const dr=day.getBoundingClientRect(),nh=nav.offsetHeight;nav.classList.toggle('light',!menu.classList.contains('open')&&dr.top<nh&&dr.bottom>nh*.5);
+    lastY=y;let cur='';for(const [id,el] of secs){if(el&&el.getBoundingClientRect().top<innerHeight*.4)cur=id}
+    $$('.nav .links a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur))}
+  addEventListener('scroll',onNav,{passive:true});onNav();
+  nav.addEventListener('focusin',()=>nav.classList.remove('hide'));
+  const toastEl=$('#toast');let tt;function toast(m){toastEl.textContent=m;toastEl.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toastEl.classList.remove('show'),3200)}
+
+  /* ---------- custom cursor ---------- */
+  const cur=$('#cursor'),curL=$('#cursorLabel');let cx=innerWidth/2,cy=innerHeight/2,tx=cx,ty=cy;
+  if(fine&&!reduce){addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY},{passive:true});
+    (function f(){cx+=(tx-cx)*.2;cy+=(ty-cy)*.2;cur.style.transform=`translate3d(${cx}px,${cy}px,0)`;requestAnimationFrame(f)})();
+    document.addEventListener('pointerover',e=>{const el=e.target.closest('[data-cursor],a,button');cur.classList.remove('big','link');
+      if(!el)return;if(el.dataset.cursor){curL.textContent=el.dataset.cursor;cur.classList.add('big')}else cur.classList.add('link')});
+  }else cur.remove();
+
+  /* ---------- hero light field (WebGL) ---------- */
+  (function(){const cv=$('#field');const gl=cv.getContext('webgl',{premultipliedAlpha:false,antialias:false});
+    if(!gl){cv.style.background='radial-gradient(circle at 70% 30%,#4B2A33,#110A0D 70%)';return}
+    const vs='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+    const fs=`precision mediump float;uniform vec2 r;uniform float t;uniform vec2 m;
+      float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+      float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
+      float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p*=2.02;a*=.5;}return v;}
+      void main(){vec2 uv=gl_FragCoord.xy/r;vec2 q=uv;q.x*=r.x/r.y;
+        float tt=t*.05;vec2 w=vec2(fbm(q*1.6+tt),fbm(q*1.6-tt+3.1));float f=fbm(q*1.2+w*1.6+vec2(tt*.6,-tt*.4));
+        vec3 bg=vec3(.067,.039,.051);vec3 plum=vec3(.36,.18,.23);vec3 deep=vec3(.20,.10,.13);vec3 lime=vec3(.835,.988,.396);
+        vec3 col=mix(bg,deep,smoothstep(.25,.75,f));col=mix(col,plum,smoothstep(.55,.95,f)*.85);
+        vec2 mm=m;mm.x*=r.x/r.y;float d=distance(q,mm);col+=lime*.16*exp(-d*d*7.)*(.6+.4*f);
+        col+=lime*.05*smoothstep(.72,.98,f);
+        float v=smoothstep(1.3,.2,distance(uv,vec2(.55,.6)));col*=mix(.55,1.,v);
+        gl_FragColor=vec4(col,1.);}`;
+    function sh(t,s){const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o}
+    const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);
+    if(!gl.getProgramParameter(pr,gl.LINK_STATUS)){cv.style.background='#110A0D';return}gl.useProgram(pr);
+    const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+    const loc=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+    const ur=gl.getUniformLocation(pr,'r'),ut=gl.getUniformLocation(pr,'t'),um=gl.getUniformLocation(pr,'m');
+    let mx=.7,my=.6,smx=.7,smy=.6,vis=true;
+    addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();mx=(e.clientX-r.left)/r.width;my=1-(e.clientY-r.top)/r.height},{passive:true});
+    new IntersectionObserver(es=>vis=es[0].isIntersecting).observe(cv);
+    function size(){const d=Math.min(1.5,devicePixelRatio||1);cv.width=cv.clientWidth*d*.6;cv.height=cv.clientHeight*d*.6;gl.viewport(0,0,cv.width,cv.height)}
+    size();addEventListener('resize',size);
+    const t0=performance.now();
+    function draw(now){if(vis){smx+=(mx-smx)*.05;smy+=(my-smy)*.05;gl.uniform2f(ur,cv.width,cv.height);gl.uniform1f(ut,reduce?8:(now-t0)/1000);gl.uniform2f(um,smx,smy);gl.drawArrays(gl.TRIANGLES,0,3)}
+      if(!reduce)requestAnimationFrame(draw)}
+    requestAnimationFrame(draw);
+  })();
+
+  /* ---------- rotating word ---------- */
+  const words=$$('.rot b');let wi=0;
+  if(!reduce)setInterval(()=>{const a=words[wi];a.classList.remove('on');a.classList.add('out');wi=(wi+1)%words.length;const b=words[wi];b.classList.remove('out');b.classList.add('on');setTimeout(()=>a.classList.remove('out'),650)},2200);
+
+  /* ---------- covers (drawn in HTML + SVG so they stay sharp on any screen) ---------- */
+  const bottle=`<svg viewBox="0 0 60 120" style="width:5.4cqi" aria-hidden="true"><defs><linearGradient id="bt" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".5" stop-color="#E6F1FD" stop-opacity=".8"/><stop offset="1" stop-color="#C9DEF7"/></linearGradient></defs><path d="M22 18c0-8 4-14 8-14s8 6 8 14z" fill="#F4D9B7" stroke="#D8B48A" stroke-width="1.2"/><rect x="14" y="17" width="32" height="12" rx="4" fill="#0071DB"/><rect x="14" y="17" width="32" height="3" rx="1.5" fill="#fff" opacity=".35"/><path d="M15 29h30c4 0 7 4 7 9v66c0 8-6 13-14 13H22c-8 0-14-5-14-13V38c0-5 3-9 7-9z" fill="url(#bt)" stroke="#0071DB" stroke-width="1.6"/><path d="M10 66h40v38c0 7-5 11-12 11H22c-7 0-12-4-12-11z" fill="#fff" opacity=".85"/><g stroke="#0071DB" stroke-width="1.2" opacity=".6"><path d="M40 46h7M42 56h5M40 66h7M42 76h5M40 86h7"/></g><path d="M16 40c-2 18-2 40 0 62" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".9" fill="none"/></svg>`;
+  const COVERS={
+    philips:()=>`<div class="cv cv-mcc" role="img" aria-label="Mother and Child Advisory: the bottle advisor's question and recommendation screens">
+      <div class="txt"><span class="pill">UX Case Study</span><span class="ttl">Mother &amp; Child<br>Advisory</span><span class="sub">Bottle &amp; Nipple Advisor<br>Philips · 8 weeks</span></div>
+      <div class="stage">
+        <div class="phn" style="left:27cqi;top:9cqi;transform:rotate(7deg)"><div class="scr"><div class="sb"><span>9:41</span><span>●●●</span></div>
+          <span class="lbl" style="color:#0071DB;opacity:1">Your match</span><span class="h">Made for<br>Aarav, 2 months</span>
+          <div class="prod">${bottle}</div>
+          <b style="font-size:1.2cqi">Natural Response bottle</b><span class="s">260 ml · Flow 3 teat · 1m+</span>
+          <div class="tagr"><span>Anti-colic</span><span>Easy latch</span></div>
+          <div class="btnx">Add combo to cart</div></div></div>
+        <div class="phn" style="left:5cqi;top:5cqi;transform:rotate(-5deg)"><div class="scr"><div class="sb"><span>9:41</span><span>●●●</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span class="s" style="opacity:1;font-weight:700">‹ Back</span><span class="s">Step 2 of 5</span></div>
+          <div class="prog"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+          <span class="h" style="margin-top:.6cqi">How old is<br>your baby?</span><span class="s">So we can match the right teat flow.</span>
+          <div class="opt">0 to 1 month</div><div class="opt on">1 to 3 months <span>✓</span></div><div class="opt">3 to 6 months</div><div class="opt">6 months +</div>
+          <div class="btnx">Continue</div></div></div>
+      </div></div>`,
+    ar:()=>`<div class="cv cv-ar" role="img" aria-label="Immersive retail: an AR headset view with flavour match, a guide called Maya and an unlocked promo code">
+      <div class="txt"><span class="pill">UX Case Study</span><span class="ttl">Immersive<br>Retail <em>Store</em></span><span class="sub">AR experience for<br>headset &amp; mobile · Wipro</span></div>
+      <div class="stage">
+        <svg class="visor" viewBox="0 0 560 330" aria-hidden="true"><defs>
+          <linearGradient id="vs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2E4B40"/><stop offset="1" stop-color="#14261F"/></linearGradient>
+          <linearGradient id="vg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/></linearGradient>
+          <clipPath id="vc"><path d="M60 30H500Q540 30 540 70V240Q540 300 480 300H352Q320 300 308 270L298 246Q280 226 262 246L252 270Q240 300 208 300H80Q20 300 20 240V70Q20 30 60 30Z"/></clipPath></defs>
+          <path d="M8 150h12M540 150h14" stroke="#1F4A3D" stroke-width="22" stroke-linecap="round"/>
+          <g clip-path="url(#vc)"><rect width="560" height="330" fill="url(#vs)"/>
+            <g fill="#F7E8C8" opacity=".14"><rect x="40" y="96" width="480" height="5"/><rect x="40" y="186" width="480" height="5"/><rect x="40" y="276" width="480" height="5"/></g>
+            <g>${[[70,'#C8962A'],[112,'#7FA88C'],[154,'#E7D3A8'],[196,'#9C5A3C'],[350,'#E7D3A8'],[392,'#C8962A'],[434,'#7FA88C'],[476,'#B36B4B']].map(([x,c],i)=>`<g opacity="${i==2?1:.55}"><rect x="${x}" y="${i%2?52:44}" width="9" height="16" rx="2" fill="${c}"/><rect x="${x-9}" y="${i%2?66:58}" width="27" height="${i%2?30:38}" rx="6" fill="${c}"/></g>`).join('')}
+              ${[[96,'#7FA88C'],[150,'#C8962A'],[400,'#9C5A3C'],[450,'#E7D3A8']].map(([x,c])=>`<g opacity=".45"><rect x="${x}" y="134" width="9" height="16" rx="2" fill="${c}"/><rect x="${x-9}" y="148" width="27" height="38" rx="6" fill="${c}"/></g>`).join('')}</g>
+            <g stroke="#F2C14E" stroke-width="3" fill="none" stroke-linecap="round"><path d="M134 46v-10h10M170 36h10v10M180 106v10h-10M144 116h-10v-10"/></g>
+            <rect width="560" height="330" fill="url(#vg)"/></g>
+          <path d="M60 30H500Q540 30 540 70V240Q540 300 480 300H352Q320 300 308 270L298 246Q280 226 262 246L252 270Q240 300 208 300H80Q20 300 20 240V70Q20 30 60 30Z" fill="none" stroke="#1F4A3D" stroke-width="12"/>
+        </svg>
+        <div class="float" style="left:20cqi;top:6cqi;width:17cqi"><span class="lbl">Flavour match</span><b style="font-size:1.4cqi">Smoky &amp; sweet</b><div class="meter"><i></i></div><span class="s" style="opacity:.6">94% like your picks</span></div>
+        <div class="float" style="left:31cqi;top:38cqi;width:22cqi"><div class="maya"><span class="av"></span><span><b>Maya</b><br>Want something citrusy? It's two steps to your left.</span></div></div>
+        <div class="float code" style="left:1cqi;top:44cqi">Code unlocked · TASTE15</div>
+      </div></div>`,
+    digi:()=>`<div class="cv cv-digi" role="img" aria-label="Digi Yatra redesign: a face check screen and a boarding pass">
+      <div class="txt"><span class="pill">Redesign Concept</span><span class="ttl">Digi Yatra,<br>for the queue</span><span class="sub">Face-based airport entry<br>Mobile · Travel</span></div>
+      <div class="stage">
+        <div class="phn" style="left:13cqi;top:6cqi"><div class="scr"><div class="sb"><span>9:41</span><span>●●●</span></div>
+          <span class="lbl" style="color:#A9B1E6;opacity:1">Entry gate B</span><span class="h">Look at<br>the camera</span>
+          <div class="face"><span class="scan"></span><svg viewBox="0 0 100 100" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true"><g fill="none" stroke="#5CF0C1" stroke-width="2.4" stroke-linecap="round"><path d="M14 30V18q0-4 4-4h12M70 14h12q4 0 4 4v12M86 70v12q0 4-4 4H70M30 86H18q-4 0-4-4V70"/></g><g fill="none" stroke="#C8CEF5" stroke-width="1.6" opacity=".8"><ellipse cx="50" cy="45" rx="17" ry="21"/><path d="M22 92q4-20 28-20t28 20"/></g></svg></div>
+          <span class="ok">✓ Verified in 1.2 s</span>
+          <div class="pass"><span class="lbl" style="opacity:.55">6E 2041 · Seat 14C</span><div class="rt"><span>BLR</span><span style="font-size:1cqi;opacity:.4">✈</span><span>DEL</span></div><span class="s" style="opacity:.6">Boarding 10:40 · Gate 14</span></div>
+        </div></div>
+        <div class="float" style="left:36cqi;top:12cqi;width:17cqi"><span class="lbl">Queue</span><b style="font-size:1.4cqi">Express lane</b><span class="s" style="opacity:.6">About 3 min · 40 people ahead</span></div>
+        <div class="float" style="left:37cqi;top:40cqi;width:15cqi;background:#FF8A3D;color:#1A1023"><b style="font-size:1.25cqi">No paper. No ID card.</b><span class="s" style="opacity:.75">Just your face.</span></div>
+      </div></div>`,
+    fimbre:()=>`<div class="cv cv-fim" role="img" aria-label="Fimbre: the welcome screen and a community question card">
+      <div class="txt"><span class="pill">UX/UI Case Study</span><span class="ttl">Fimbre<br>mobile app</span><span class="sub">Community e-commerce<br>Unthinkable · 16 weeks</span></div>
+      <div class="stage">
+        <span class="blob"></span>
+        <svg class="waves" viewBox="0 0 400 220" aria-hidden="true"><g fill="none" stroke="#7CCB33" stroke-width="1.6">${Array.from({length:12},(_,i)=>`<path d="M0 ${200-i*4}C120 ${200-i*4} 170 ${120-i*9} 260 ${110-i*8}S380 ${40-i*6} 420 ${20-i*5}"/>`).join('')}</g></svg>
+        <div class="phn" style="left:13cqi;top:6cqi"><div class="scr"><div class="sb" style="color:#1E1E24"><span>5:13</span><span>●●●</span></div>
+          <span class="logo"><svg viewBox="0 0 20 20" style="width:1.5cqi" aria-hidden="true"><path d="M10 2c4 3 6 7 6 10a6 6 0 0 1-12 0c0-2 1-4 3-5 0 2 1 3 2 3 0-3 0-5 1-8z" fill="none" stroke="#E2616E" stroke-width="1.8" stroke-linejoin="round"/></svg>fimbre</span>
+          <span class="h" style="margin-top:.4cqi">discover &amp; buy</span><span class="s">from community-based genuine product recommendations</span>
+          <svg viewBox="0 0 160 150" style="width:100%;margin-top:.4cqi" aria-hidden="true"><g stroke="#F1B7BD" stroke-width="1.4" stroke-dasharray="3 3" fill="none"><path d="M80 78L34 34M80 78L128 30M80 78L30 118M80 78L130 120"/></g>
+            ${[[34,34,'#F7D9C4','#6B4F9E'],[128,30,'#F3C9A8','#2F6F8F'],[30,118,'#F7D9C4','#3E8E62'],[130,120,'#EAB894','#C2575F']].map(([x,y,sk,sh])=>`<g><circle cx="${x}" cy="${y}" r="20" fill="#FDEFF0" stroke="#F1B7BD" stroke-width="1.4"/><circle cx="${x}" cy="${y-4}" r="7" fill="${sk}"/><path d="M${x-11} ${y+15}q11-14 22 0" fill="${sh}"/></g>`).join('')}
+            <circle cx="80" cy="78" r="26" fill="#E2616E"/><circle cx="80" cy="72" r="9" fill="#F7D9C4"/><path d="M66 96q14-18 28 0" fill="#fff"/>
+            <g font-family="Manrope,sans-serif" font-weight="800" font-size="10" text-anchor="middle"><circle cx="80" cy="22" r="10" fill="#E2616E"/><text x="80" y="26" fill="#fff">₹</text><circle cx="80" cy="134" r="10" fill="#E2616E"/><text x="80" y="138" fill="#fff">♥</text></g></svg>
+          <div class="btnx">get started</div></div></div>
+        <div class="float" style="left:33cqi;top:31cqi;width:20cqi"><span class="lbl" style="color:#E2616E;opacity:1">Ask the community</span><b style="font-size:1.3cqi">Best running shoes under ₹5k?</b>
+          <div style="display:flex;align-items:center;gap:.7cqi"><span class="avs"><i style="background:#F3C9A8"></i><i style="background:#9DD36A"></i><i style="background:#F1B7BD"></i></span><span class="s" style="opacity:.6">12 recommendations</span></div></div>
+      </div></div>`,
+    airport:()=>`<div class="cv cv-air" role="img" aria-label="Airport AR companion: a camera view with a route to the gate and a nearby offer">
+      <div class="txt"><span class="pill">Research-led Concept</span><span class="ttl">Airport AR<br>companion</span><span class="sub">Wayfinding &amp; offers<br>Mobile AR · Team</span></div>
+      <div class="stage">
+        <div class="phn" style="left:13cqi;top:6cqi"><div class="scr">
+          <svg viewBox="0 0 100 210" preserveAspectRatio="none" aria-hidden="true"><g stroke="#fff" stroke-opacity=".28" stroke-width=".6" fill="none"><path d="M50 90L-40 210M50 90L140 210M50 90L10 210M50 90L90 210"/><path d="M0 120H100M0 150H100M0 190H100"/></g>
+            <rect x="14" y="56" width="18" height="34" fill="#5F6B70" opacity=".5"/><rect x="70" y="50" width="20" height="40" fill="#5F6B70" opacity=".5"/><rect x="73" y="54" width="14" height="6" fill="#D5FC65" opacity=".85"/>
+            <path d="M44 210L48 92H52L56 210Z" fill="#D5FC65" opacity=".28"/>
+            ${[[186,1],[160,.82],[138,.66],[120,.52],[106,.42]].map(([y,k],i)=>`<path class="chev" style="animation-delay:${(4-i)*.18}s" d="M${50-9*k} ${y}L50 ${y-7*k}L${50+9*k} ${y}" stroke="#D5FC65" stroke-width="${3.2*k}" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`).join('')}</svg>
+          <div class="top"><span class="lbl" style="opacity:.75">Walk to</span><b>Gate 23 · 4 min</b><span class="s">280 m · Security cleared ✓</span></div>
+          <div class="sheet"><span class="lbl">6E 2341 · Delhi</span><b style="font-size:1.3cqi">Boarding 10:40 · On time</b></div>
+        </div></div>
+        <div class="float" style="left:36cqi;top:15cqi;width:16cqi"><span class="lbl">Nearby offer</span><b style="font-size:1.3cqi">20% off coffee</b><span class="s" style="opacity:.65">40 m ahead, on your way</span></div>
+        <div class="float" style="left:37cqi;top:38cqi;width:15cqi;background:var(--lime)"><span class="lbl">Live update</span><b style="font-size:1.2cqi">Gate changed to 23</b></div>
+      </div></div>`
+  };
+  $$('.card').forEach(c=>{const sl=c.querySelector('.cvslot');if(sl&&COVERS[c.dataset.case])sl.outerHTML=COVERS[c.dataset.case]()});
+
+  /* ---------- work reel: pinned horizontal scroll on desktop ---------- */
+  const reel=$('#reel'),wrapR=$('#reelWrap'),bar=$('#reelBar');let reelTween=null;
+  if(hasG&&window.ScrollTrigger&&!reduce){
+    ScrollTrigger.matchMedia({
+      '(min-width: 901px)':function(){
+        const dist=()=>reel.scrollWidth-wrapR.clientWidth+16;const stages=$$('.card .cv .stage');
+        const tw=reelTween=gsap.to(reel,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:'#work',start:'top top',end:()=>'+='+dist(),pin:true,scrub:.8,invalidateOnRefresh:true,
+          onUpdate:s=>{bar.style.setProperty('--p',s.progress.toFixed(3));stages.forEach((el,i)=>el.style.setProperty('--px',((s.progress*4-i)*-1.2).toFixed(2)+'cqi'))}}});
+        return()=>{tw.kill();reelTween=null};
+      }
+    });
+    gsap.utils.toArray('.card').forEach(c=>{if(innerWidth<=900)gsap.from(c,{y:60,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:c,start:'top 88%'}})});
+    gsap.utils.toArray('.head h2,.contact h2').forEach(h=>gsap.from(h,{yPercent:30,opacity:0,duration:1.1,ease:'expo.out',scrollTrigger:{trigger:h,start:'top 88%'}}));
+    gsap.utils.toArray('.row,.tile').forEach(r=>gsap.from(r,{y:40,opacity:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:r,start:'top 92%'}}));
+  }
+
+  /* ---------- reel: horizontal wheel/trackpad, drag, arrows, keys ---------- */
+  (function(){
+    const work=$('#work'),prev=$('#reelPrev'),next=$('#reelNext'),cards=$$('#reel > .card, #reel > .reel-end');
+    const st=()=>reelTween&&reelTween.scrollTrigger;
+    const curScroll=()=>lenis?lenis.targetScroll:scrollY;
+    function goScroll(y,instant){if(lenis)lenis.scrollTo(y,{immediate:!!instant,duration:instant?0:1.1});else scrollTo({top:y,behavior:instant?'auto':'smooth'})}
+    // desktop: map sideways wheel onto the pinned scroll
+    work.addEventListener('wheel',e=>{const t=st();if(!t)return;if(Math.abs(e.deltaX)>Math.abs(e.deltaY)&&Math.abs(e.deltaX)>1){e.preventDefault();goScroll(Math.min(t.end,Math.max(t.start,curScroll()+e.deltaX*1.4)),true)}},{passive:false});
+    // drag with the mouse
+    let down=false,moved=false,sx=0,sy=0,sl=0;
+    reel.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||e.button!==0)return;down=true;moved=false;sx=e.clientX;sy=curScroll();sl=reel.scrollLeft});
+    addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-sx;if(!moved&&Math.abs(dx)>6){moved=true;reel.classList.add('dragging')}if(!moved)return;
+      const t=st();if(t)goScroll(Math.min(t.end,Math.max(t.start,sy-dx*1.2)),true);else reel.scrollLeft=sl-dx});
+    addEventListener('pointerup',()=>{if(!down)return;down=false;setTimeout(()=>reel.classList.remove('dragging'),0)});
+    reel.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
+    // arrows + keyboard: jump card by card
+    function offsets(){return cards.map(c=>c.offsetLeft-cards[0].offsetLeft)}
+    function currentX(){const t=st();if(t){const d=t.end-t.start;return (curScroll()-t.start)/(d||1)*d}return reel.scrollLeft}
+    function step(dir){const xs=offsets(),x=currentX();let target;
+      if(dir>0)target=xs.find(v=>v>x+20);else target=[...xs].reverse().find(v=>v<x-20);
+      if(target===undefined)target=dir>0?xs[xs.length-1]:0;
+      const t=st();if(t){if(curScroll()<t.start-5||curScroll()>t.end+5){goScroll(t.start);return}goScroll(Math.min(t.end,t.start+target))}
+      else reel.scrollTo({left:target,behavior:'smooth'})}
+    prev.onclick=()=>step(-1);next.onclick=()=>step(1);
+    addEventListener('keydown',e=>{if(!caseEl.hidden||!chat.hidden)return;if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;const r=work.getBoundingClientRect();if(r.top<innerHeight*.5&&r.bottom>innerHeight*.5){e.preventDefault();step(e.key==='ArrowRight'?1:-1)}});
+    // mobile progress bar
+    reel.addEventListener('scroll',()=>{if(st())return;const m=reel.scrollWidth-reel.clientWidth;bar.style.setProperty('--p',(m?reel.scrollLeft/m:0).toFixed(3))},{passive:true});
+  })();
+
+  /* ---------- statement: words light up as you read ---------- */
+  const st=$('#statement');
+  (function(){const walk=n=>{[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(w=>{if(!w)return;if(/^\s+$/.test(w))f.appendChild(document.createTextNode(w));else{const s=document.createElement('span');s.className='w';s.textContent=w;f.appendChild(s)}});c.replaceWith(f)}else if(c.nodeType===1&&!c.classList.contains('w')){c.classList.add('w')}})};walk(st)})();
+  const ws=$$('#statement .w');
+  if(reduce)ws.forEach(w=>w.classList.add('lit'));
+  else{const lite=()=>{const r=st.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.85-r.top)/(r.height+innerHeight*.35)));const k=Math.round(p*ws.length);ws.forEach((w,i)=>w.classList.toggle('lit',i<k))};
+    addEventListener('scroll',lite,{passive:true});lite()}
+
+  /* ---------- case studies ---------- */
+  const CASES={
+    philips:{idx:'01 / 05',title:'The right baby bottle, in a few questions.',img:null,mock:'mcc',facts:[['Client','Philips Mother & Child Care (via Wipro)'],['Role','UX/UI Designer'],['Timeline','8 weeks'],['Platform','Mobile-first web advisor']],
+      blocks:[['Overview','A personalised advisory for Philips\' Mother & Child Care website. Parents answer a few questions about their child\'s age, feeding habits and preferences, and get expert recommendations instead of facing a huge product range alone.'],
+        ['The problem','Parents struggle to choose the right feeding bottle among many options and complex factors. Wrong nipple-flow choices meant babies rejecting bottles, unhappy customers and high customer-service costs.'],
+        ['What I did','Secondary research, information architecture, two rounds of user interviews, three re-iterated flows (bottle, nipple, gift set), a mobile-first prototype, and the final advisor UI.']],
+      full:[['img/mcc/01-overview.jpg','Overview, problem statement, objectives and business challenges'],['img/mcc/02-users.jpg','Product users, user needs and three personas: Sarah, Patricia and David'],['img/mcc/03-process.jpg','Design process: research and discover, define, ideate, design'],['img/mcc/04-research.jpg','Secondary research on the product information document and bottle advisor structure'],['img/mcc/05-ia.jpg','Information architecture: a filter-down flow for bottles and teats'],['img/mcc/06-interviews.jpg','User interviews on the information architecture'],['img/mcc/07-reiterate.jpg','Re-iterated architecture for the bottle, nipple and gift-set flows'],['img/mcc/08-prototype.jpg','Mobile-first prototype used in testing'],['img/mcc/09-evaluation.jpg','Evaluation of user interview findings on the prototype'],['img/mcc/10-final.jpg','Final mobile designs: landing, category, age, drinking behaviour, specific needs, information card, decor options, recommendations and feedback']],
+      pull:'Three very different people, one short path to the right bottle.',link:'https://www.behance.net/gallery/244265285/Philips-MCC-Advisory-project'},
+    ar:{idx:'02 / 05',title:'An AR store that knows your taste.',facts:[['Client','Retail brand (via Wipro)'],['Role','UX Designer, in a team'],['Team','Designers, developers, wearable device team'],['Platform','AR headset + mobile']],
+      blocks:[['The idea','An immersive retail store where shoppers get a personal guide instead of hunting the shelves alone.'],
+        ['The experience',['Shoppers choose their flavour preferences and get recommendations inside the store','A 3D avatar guide, Maya, introduces products with subtle animation so the voice feels natural','Products can be customised, and promo codes unlock while you explore','The store was scanned into a 3D digital twin with Matterport, so it can also be explored virtually']],
+        ['My part','Mapping the current store journey (registration, tour, handover, exploring, checkout) and designing the AR and mobile touchpoints with developers and the wearable device team on a Magic Leap headset.']],
+      pull:'A store that feels like it was arranged just for you.',link:'https://www.behance.net/gallery/185484809/Augmented-Reality-Experience-Design'},
+    digi:{idx:'03 / 05',title:'Digi Yatra, rethought for the queue.',img:null,facts:[['Type','Redesign concept'],['Role','UX/UI Designer'],['Platform','Mobile app'],['Domain','Travel, identity']],
+      blocks:[['The context','Digi Yatra lets travellers in India pass airport checkpoints using face-based entry. People use it in the most stressful moment of a trip: standing in a queue, bags in hand.'],
+        ['The approach','I looked at how the app guides people from setup to the gate, and redesigned it so each step is obvious at a glance, even when you are rushed.']],
+      pull:'Design for the person holding a boarding pass and a coffee.',link:'https://www.behance.net/gallery/230860599/Digi-Yatra-redesign'},
+    fimbre:{idx:'04 / 05',title:'Shopping on the word of real people.',facts:[['Company','Unthinkable Solutions'],['Role','Product Design Intern'],['Timeline','16 weeks, 2022'],['Platform','Mobile app']],
+      blocks:[['The problem','Online reviews are hard to trust, and ads drown out real opinions. People want recommendations from someone like them.'],
+        ['The product','Fimbre is a community e-commerce app. You can ask a question, recommend products, and discover what to buy through genuine recommendations from other members.'],
+        ['What I learned','This was where I learned to ship: research, flows, UI and hand-off on a real in-house product over a full 16-week cycle.']],
+      pull:'Discover and buy, on the word of people like you.',link:'https://www.behance.net/gallery/161408655/Fimber-ux-ui-case-study'},
+    airport:{idx:'05 / 05',title:'Finding your way through the airport, in AR.',img:null,mock:'airport',facts:[['Type','AR concept, research-led'],['Role','UX research & design, in a team'],['Methods','Personas, journey maps, POV, HMW, ideation'],['Platform','Mobile AR']],
+      blocks:[['The problem','Airports are big, unfamiliar and stressful. Passengers struggle to find their way through every pre-flight step, and they miss offers at airport shops because nothing tells them what is nearby or relevant.'],
+        ['Who we designed for',['Sarah, 24, a marketing executive and savvy shopper who wants the best nearby offers without spending ages searching store by store','Rahul, 28, a business consultant who travels often and wants seamless navigation, real-time flight and gate updates, and deals that fit his limited time']],
+        ['Mapping the journey','We mapped the full trip, from check-in, immigration and security to the departure lounge, connecting flights, landing and finding the exit, plus separate maps for airport shops and shopping in one area. The emotion curve dipped hardest at security and at connecting flights, where people feel lost and short of time.'],
+        ['Point of view','Airport passengers need easy, real-time navigation to every pre-flight step, and to the right offers nearby, because they struggle to find the right path in a place they don\'t know.'],
+        ['How might we',['Make airport navigation more intuitive while telling passengers every step they need before boarding?','Add moments of fun to how passengers interact with the airport around them, even gamifying the wait?','Make it easier to find relevant information and compare offers across stores?']],
+        ['From ideas to direction','The team ran ideation rounds and voted on ideas, converging on an AR companion that draws your route to the gate in the real world, surfaces live flight updates, and shows relevant shop offers along the way.']],
+      pull:'An airport that shows you the way, instead of making you ask.',link:null}
+  };
+  const caseEl=$('#case'),caseBody=$('#caseBody'),caseIdx=$('#caseIdx');let lastFocus=null;
+  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const KEYS=Object.keys(CASES);let caseOpen=null,pushed=false;
+  function openCase(k,how){const c=CASES[k];if(!c)return;const nk=KEYS[(KEYS.indexOf(k)+1)%KEYS.length];if(caseEl.hidden)lastFocus=document.activeElement;caseIdx.textContent=c.idx;
+    try{if(how==='push'){history.pushState({pk:k},'','#'+k);pushed=true}else if(how==='replace'){history.replaceState({pk:k},'','#'+k)}}catch(e){}caseOpen=k;
+    caseBody.innerHTML=`<h2 id="caseTitle">${esc(c.title)}</h2>
+      <div class="hero-img">${COVERS[k]()}</div>
+      <div class="facts">${c.facts.map(f=>`<div><span class="mono">${esc(f[0])}</span><strong>${esc(f[1])}</strong></div>`).join('')}</div>
+      ${c.blocks.map(b=>b[0]==='__img'?`<figure class="fig"><img src="${b[1]}" alt="${esc(b[2])}" loading="lazy"><figcaption class="mono">${esc(b[2])}</figcaption></figure>`:`<div class="block"><h3>${esc(b[0])}</h3>${Array.isArray(b[1])?`<ul>${b[1].map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:`<p>${esc(b[1])}</p>`}</div>`).join('')}
+      ${c.full?`<div class="fullhead"><span class="idx">The full case study</span><p>Scroll through the complete case study, exactly as I presented it.</p></div><div class="fullcs">${c.full.map(f=>`<img src="${f[0]}" alt="${esc(f[1])}" loading="lazy">`).join('')}</div>`:''}
+      <p class="pull">${esc(c.pull)}</p>
+      ${c.link?`<div class="cta"><a class="btn" href="${c.link}" target="_blank" rel="noopener">See it on Behance ↗</a></div>`:''}
+      <button class="next" data-next="${nk}"><span class="mono">Next project · ${CASES[nk].idx}</span><span class="nt"><span>${esc(CASES[nk].title)}</span><i aria-hidden="true">→</i></span><div class="hero-img" aria-hidden="true">${COVERS[nk]()}</div></button>`;
+    caseEl.hidden=false;caseEl.scrollTop=0;caseProg.style.setProperty('--p',0);requestAnimationFrame(()=>caseEl.classList.add('open'));if(lenis)lenis.stop();document.body.style.overflow='hidden';document.body.classList.add('locked');$('#caseClose').focus({preventScroll:true})}
+  function closeCase(fromPop){if(caseEl.hidden)return;if(!fromPop&&pushed){pushed=false;try{history.back();return}catch(e){}}
+    if(!fromPop){try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}caseOpen=null;caseEl.classList.remove('open');document.body.classList.remove('locked');setTimeout(()=>{caseEl.hidden=true},reduce?0:800);if(lenis)lenis.start();document.body.style.overflow='';if(lastFocus)lastFocus.focus({preventScroll:true})}
+  $$('.card').forEach(c=>c.addEventListener('click',()=>openCase(c.dataset.case,'push')));
+  $('#caseClose').onclick=()=>closeCase();
+  caseBody.addEventListener('click',e=>{const n=e.target.closest('[data-next]');if(!n)return;caseEl.scrollTo({top:0,behavior:reduce?'auto':'smooth'});setTimeout(()=>openCase(n.dataset.next,pushed?'replace':'push'),reduce?0:350)});
+  // the phone / browser Back button closes the case study; deep links like #philips open it
+  addEventListener('popstate',()=>{const h=location.hash.slice(1);if(CASES[h])openCase(h);else closeCase(true)});
+  if(CASES[location.hash.slice(1)])setTimeout(()=>openCase(location.hash.slice(1)),400);
+  const caseProg=$('#caseProg');
+  caseEl.addEventListener('scroll',()=>{const m=caseEl.scrollHeight-caseEl.clientHeight;caseProg.style.setProperty('--p',(m>0?caseEl.scrollTop/m:0).toFixed(3))},{passive:true});
+  // keep keyboard focus inside the open case study
+  caseEl.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const f=[...caseEl.querySelectorAll('a[href],button:not([disabled])')].filter(x=>x.offsetParent!==null);if(!f.length)return;const first=f[0],last=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}});
+  addEventListener('keydown',e=>{if(e.key==='Escape'){if(!caseEl.hidden)closeCase();else if(menu.classList.contains('open')){setMenu(false);menuBtn.focus()}else if(!chat.hidden)closeChat()}});
+
+  /* ---------- composer ---------- */
+  const comp=$('#composer'),subj=$('#subj'),verdict=$('#verdict');let drag=false;
+  function place(x,y){const r=comp.getBoundingClientRect(),w=subj.offsetWidth;const px=Math.min(r.width-w,Math.max(0,x-r.left-w/2)),py=Math.min(r.height-w,Math.max(0,y-r.top-w/2));
+    subj.style.left=px+'px';subj.style.top=py+'px';const cX=(px+w/2)/r.width,cY=(py+w/2)/r.height,near=v=>Math.min(Math.abs(v-1/3),Math.abs(v-2/3))<.07;
+    verdict.textContent=near(cX)&&near(cY)?'On a thirds point. Strong, natural focus.':(Math.abs(cX-.5)<.07&&Math.abs(cY-.5)<.07)?'Dead centre. Stable, but static.':(cX<.12||cX>.88||cY<.12||cY>.88)?'Too close to the edge. The eye slides off.':near(cX)||near(cY)?'On a thirds line. Getting there.':'Floating. Try a thirds point.'}
+  comp.addEventListener('pointerdown',e=>{drag=true;comp.setPointerCapture(e.pointerId);place(e.clientX,e.clientY)});
+  comp.addEventListener('pointermove',e=>{if(drag)place(e.clientX,e.clientY)});comp.addEventListener('pointerup',()=>drag=false);
+
+  /* ---------- clock + email ---------- */
+  const clock=$('#clock');function tickClock(){try{clock.textContent='Bangalore · '+new Date().toLocaleTimeString('en-IN',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit'})+' IST'}catch(e){}}tickClock();setInterval(tickClock,30000);
+  const cb=$('#copyEmail'),em=$('#email');
+  cb.onclick=()=>{const sel=()=>{const r=document.createRange();r.selectNodeContents(em);const s=getSelection();s.removeAllRanges();s.addRange(r);cb.textContent='Selected'};
+    try{navigator.clipboard.writeText(em.textContent).then(()=>{cb.textContent='Copied ✓';setTimeout(()=>cb.textContent='Copy email',1800)},sel)}catch(e){sel()}};
+
+  /* ---------- voice: natural recorded clips, browser speech as fallback ---------- */
+  const askBtn=$('#askBtn');let voiceOn=false,CLIPS={},pending=null;const synth=window.speechSynthesis;
+  try{fetch('voice/clips.json').then(r=>r.ok?r.json():{}).then(j=>CLIPS=j||{}).catch(()=>{})}catch(e){}
+  const player=new Audio();player.preload='auto';
+  player.onplay=()=>askBtn.classList.add('talk');player.onended=player.onpause=()=>askBtn.classList.remove('talk');
+  function speak(text){if(!voiceOn||!text)return;try{player.pause();if(synth)synth.cancel();
+      if(CLIPS[text]){player.src=CLIPS[text];player.currentTime=0;player.play().catch(()=>{});return}
+      if(!synth)return;const vs=synth.getVoices().filter(v=>/^en/i.test(v.lang));const v=vs.find(v=>/Natural|Online|Rishi|Daniel|Google UK English Male/i.test(v.name))||vs[0];
+      (text.match(/[^.!?]+[.!?]*/g)||[text]).map(x=>x.trim()).filter(Boolean).forEach(ch=>{const u=new SpeechSynthesisUtterance(ch);if(v)u.voice=v;u.rate=1;u.pitch=1;synth.speak(u)})}catch(e){}}
+  const vbtn=$('#voice');vbtn.onclick=()=>{voiceOn=!voiceOn;vbtn.setAttribute('aria-pressed',voiceOn);if(!voiceOn){player.pause();if(synth)synth.cancel()}else{const last=[...$$('.msg.bot')].pop();if(last)speak(last.dataset.t||last.textContent)}};
+
+  /* ---- music: generative lo-fi (Web Audio, starts on tap) ---- */
+  let actx,master,on=false,sched=null,nextT=0,beat=0;
+  // Cmaj9 – Am9 – Fmaj7 – G6 (slow, warm)
+  const PROG=[[48,55,59,62,64],[45,52,55,59,60],[41,48,52,55,57],[43,50,53,55,59]];
+  const mtof=m=>440*Math.pow(2,(m-69)/12);
+  function makeReverb(){const len=actx.sampleRate*2.6,buf=actx.createBuffer(2,len,actx.sampleRate);
+    for(let c=0;c<2;c++){const d=buf.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.8)}
+    const cv=actx.createConvolver();cv.buffer=buf;return cv}
+  function keys(midi,t,dur,vel){ // soft electric-piano: sine + gentle FM bell, quick attack, long decay
+    const f=mtof(midi),car=actx.createOscillator(),mod=actx.createOscillator(),mg=actx.createGain(),g=actx.createGain();
+    car.type='sine';car.frequency.value=f;mod.type='sine';mod.frequency.value=f*2;mg.gain.setValueAtTime(f*1.2,t);mg.gain.exponentialRampToValueAtTime(f*.05,t+.6);
+    mod.connect(mg).connect(car.frequency);
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vel,t+.012);g.gain.exponentialRampToValueAtTime(vel*.35,t+.5);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    car.connect(g).connect(bus);car.start(t);mod.start(t);car.stop(t+dur+.05);mod.stop(t+dur+.05)}
+  function bass(midi,t,dur){const o=actx.createOscillator(),g=actx.createGain();o.type='sine';o.frequency.value=mtof(midi-12);
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.22,t+.03);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g).connect(dry);o.start(t);o.stop(t+dur+.05)}
+  function kick(t){const o=actx.createOscillator(),g=actx.createGain();o.frequency.setValueAtTime(110,t);o.frequency.exponentialRampToValueAtTime(42,t+.18);
+    g.gain.setValueAtTime(.42,t);g.gain.exponentialRampToValueAtTime(.0001,t+.32);o.connect(g).connect(dry);o.start(t);o.stop(t+.35)}
+  let noiseBuf;function noise(t,dur,vol,hp){if(!noiseBuf){noiseBuf=actx.createBuffer(1,actx.sampleRate,actx.sampleRate);const d=noiseBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}
+    const s=actx.createBufferSource(),f=actx.createBiquadFilter(),g=actx.createGain();s.buffer=noiseBuf;f.type='highpass';f.frequency.value=hp;
+    g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0001,t+dur);s.connect(f).connect(g).connect(dry);s.start(t);s.stop(t+dur+.02)}
+  let bus,dry,crackle;
+  function startCrackle(){const len=actx.sampleRate*3,buf=actx.createBuffer(1,len,actx.sampleRate),d=buf.getChannelData(0);
+    for(let i=0;i<len;i++)d[i]=Math.random()<.0009?(Math.random()*2-1)*.6:(Math.random()*2-1)*.012;
+    crackle=actx.createBufferSource();crackle.buffer=buf;crackle.loop=true;const f=actx.createBiquadFilter();f.type='bandpass';f.frequency.value=2500;
+    const g=actx.createGain();g.gain.value=.5;crackle.connect(f).connect(g).connect(master);crackle.start()}
+  const BPM=74,EIGHTH=60/BPM/2;
+  function schedule(){while(nextT<actx.currentTime+.4){const step=beat%16,bar=Math.floor(beat/16)%4,ch=PROG[bar],t=nextT+(step%2?EIGHTH*.12:0); // swing
+      if(step===0){ch.forEach((m,i)=>keys(m+12,t+i*.018,EIGHTH*14,.07));bass(ch[0],t,EIGHTH*6)}
+      if(step===10){ch.slice(1,4).forEach((m,i)=>keys(m+12,t+i*.02,EIGHTH*5,.045))}
+      if(step===6||step===14){keys(ch[4]+24,t,EIGHTH*3,.03)}
+      if(step===0||step===7||step===10)kick(t);
+      if(step===4||step===12)noise(t,.16,.12,1800);   // soft snare/brush
+      if(step%2===0)noise(t,.05,.035,7000);              // hat
+      if(step===8)bass(ch[0]+7,t,EIGHTH*4);
+      nextT+=EIGHTH;beat++}}
+  // iOS mutes Web Audio when the ringer switch is on silent. A looping silent <audio> element plus
+  // navigator.audioSession='playback' moves the page into the media channel, so music plays like a video would.
+  const unlock=new Audio('data:audio/wav;base64,UklGRvQHAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YdAHAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==');unlock.loop=true;unlock.setAttribute('playsinline','');unlock.preload='auto';
+  const sBtn=$('#sound'),sLbl=$('#soundLbl');
+  function setSound(v){on=v;sBtn.setAttribute('aria-pressed',v);sLbl.innerHTML=v?'Sound<span class="st"> on</span>':'Sound<span class="st"> off</span>';sBtn.title=v?'Pause the soundtrack':'Play a soft lo-fi soundtrack'}
+  sBtn.onclick=function(){try{
+      if(!on){
+        try{if(navigator.audioSession)navigator.audioSession.type='playback'}catch(e){}
+        try{const p=unlock.play();if(p)p.catch(()=>{})}catch(e){}
+        if(!actx){const AC=window.AudioContext||window.webkitAudioContext;try{actx=new AC({latencyHint:'playback'})}catch(e){actx=new AC()}master=actx.createGain();master.gain.value=0;
+          const lp=actx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2600;lp.Q.value=.4;
+          const comp=actx.createDynamicsCompressor();comp.threshold.value=-18;comp.ratio.value=3;
+          master.connect(lp).connect(comp).connect(actx.destination);
+          const rev=makeReverb(),rg=actx.createGain();rg.gain.value=.35;bus=actx.createGain();dry=actx.createGain();
+          bus.connect(master);bus.connect(rev);rev.connect(rg).connect(master);dry.connect(master);startCrackle()}
+        // tiny blip inside the tap: iOS only unlocks a context that actually starts a source during the gesture
+        const b=actx.createBufferSource();b.buffer=actx.createBuffer(1,1,22050);b.connect(actx.destination);b.start(0);
+        const go=()=>{master.gain.cancelScheduledValues(actx.currentTime);master.gain.setTargetAtTime(.55,actx.currentTime,.6);nextT=actx.currentTime+.05;beat=0;clearInterval(sched);sched=setInterval(schedule,100);schedule()};
+        setSound(true);
+        if(actx.state!=='running')actx.resume().then(go,()=>{});else go();
+        if(!window.__pkToast){window.__pkToast=1;toast('Soft lo-fi is playing. Tap Sound again to stop.')}
+      }else{
+        setSound(false);clearInterval(sched);if(actx)master.gain.setTargetAtTime(0,actx.currentTime,.4);
+        setTimeout(()=>{if(!on){try{unlock.pause()}catch(e){}if(actx)actx.suspend()}},1500)}
+    }catch(e){setSound(false);toast('Sound isn\'t available in this browser.')}};
+  // pause when the tab is hidden, resume when back (iOS kills audio in the background anyway)
+  document.addEventListener('visibilitychange',()=>{if(!actx||!on)return;if(document.hidden)actx.suspend();else{actx.resume();try{unlock.play().catch(()=>{})}catch(e){}}});
+
+
+  /* ---------- AI ---------- */
+  const FACTS=`About Pranit Kumar (use ONLY these facts):
+- UX/UI Designer based in Bangalore, India. Over four years of experience (since October 2022).
+- Capgemini, UX/UI Designer, Sep 2025 to present.
+- Wipro, UX/UI Designer, Oct 2022 to Oct 2025. Projects: (1) Immersive retail store AR experience for a wearable headset (Magic Leap) and mobile, a team project with developers and a wearable device team: shoppers discover products by flavour preference, meet a 3D avatar guide called Maya, customise products and unlock promo codes; the store was scanned into a 3D digital twin with Matterport. (2) Philips Mother & Child Care bottle and nipple advisor (8 weeks; personas Sarah 32 first-time working mother, Patricia 66 grandmother not tech-savvy, David 38 uncle buying a gift; user needs guidance, personalisation incl. reflux/colic, convenience, trust, accessibility, flexibility; process: secondary research from the product document, filter-down information architecture, user interviews on the IA, re-iterated into bottle, nipple and gift-set flows, mobile-first prototype tested with users, refined): parents often choose the wrong nipple flow, which makes babies reject bottles and drives up customer service costs; the advisor asks about the child's age, feeding habits and preferences and recommends a bottle and teat combo, with add-combo-to-cart and a feedback prompt. Process: ideation workshops, process map, Eisenhower matrix, sketches, final mobile screens. Persona: a first-time working mother.
+- Unthinkable Solutions, Product Design Intern, Gurugram, Jan to May 2022: Fimbre (16 weeks), a community e-commerce app where people ask questions and discover products through member recommendations.
+- AR airport companion (team, research-led concept): personas Sarah (24, savvy shopper) and Rahul (28, frequent business traveller); journey maps from check-in through security, lounge, connecting flights, landing and exit; pain peaks at security and connecting flights; idea: AR route to the gate, live flight updates and nearby shop offers.
+- Digi Yatra redesign: a redesign concept of the airport face-based entry app.
+- Explorations: Nike cover page animation, HP webpage.
+- Education: Bachelor of Design, NIFT Patna, 2018-2022.
+- Skills: user research, interaction design, wireframing and prototyping, UI design, visual communication, design strategy, typography, brand identity, photography.
+- Tools: Figma, Adobe XD, Miro, FlowMapp, Adobe Creative Suite.
+- Process: research, flows, design in Figma, prototype and test, hand off.
+- Design philosophy: clear hierarchy, honest research, interfaces that explain themselves; turns many-option problems into short, confident flows.
+- Open to full-time roles and freelance. Contact: pranitvlogs0@gmail.com, behance.net/kumarpranit.`;
+  const KB=[
+    {k:['hi','hello','hey','yo','namaste','sup'],a:"Hey! I'm Pranit, well, an AI version of me. Ask me about my projects, my process, or how to work with me."},
+    {k:['thank','thanks','cool','great','awesome','nice'],a:"Thank you! If you'd like to talk properly, email me at pranitvlogs0@gmail.com."},
+    {k:['who','yourself','about you','introduce','what do you do','do you do','role','job title','designer'],a:"I'm a UX/UI designer in Bangalore with over four years of experience. I'm at Capgemini now, and before that I spent three years at Wipro designing client products across retail, healthcare, travel and e-commerce."},
+    {k:['real','ai','bot','human','are you pranit','robot'],a:"I'm an AI version of Pranit, trained on his resume and projects. For anything important, email the real me at pranitvlogs0@gmail.com."},
+    {k:['experience','years','how long','senior','career'],a:"Over four years. Three at Wipro (Oct 2022 to Oct 2025), now at Capgemini since Sep 2025, plus a product design internship at Unthinkable Solutions in 2022."},
+    {k:['capgemini','current','now','currently','present'],a:"I'm currently a UX/UI designer at Capgemini in Bangalore. I joined in September 2025."},
+    {k:['wipro'],a:"At Wipro I worked as a UX/UI designer from October 2022 to October 2025. Highlights were an immersive AR store experience for a retail client and the Philips bottle and nipple advisor."},
+    {k:['ar','augmented','reality','headset','magic leap','retail','store','avatar','maya','matterport','diageo','immersive'],a:"The AR project was an immersive store experience for a wearable headset and mobile. Shoppers pick their flavour preferences, meet a 3D avatar guide called Maya, get recommendations in the aisle, customise products and unlock promo codes. We even scanned the store into a 3D digital twin with Matterport. I worked with developers and a wearable device team."},
+    {k:['philips','bottle','nipple','baby','mcc','mother','child','advisor','teat','feeding'],a:"For Philips' Mother & Child Care site I designed a bottle and nipple advisor. Parents often pick the wrong nipple flow, so babies reject bottles and support costs go up. The advisor asks a few questions about the baby's age and feeding habits, then recommends a bottle and teat combo you can add to cart. It took 8 weeks, with workshops, a process map, prioritisation and sketches before the final screens."},
+    {k:['airport','navigation','journey map','persona','gate','flight','wayfinding'],a:"I also worked in a team on an AR airport companion. We built personas, mapped the whole airport journey from check-in to the exit gate, and found people feel most lost at security and connecting flights. The concept draws your route to the gate in AR, shows live flight updates and relevant shop offers on the way."},
+    {k:['digi','yatra','travel','face'],a:"Digi Yatra is a redesign concept of the app Indian travellers use for face-based entry at airports. I looked at how it guides people from setup to the gate when they're rushed and standing in a queue."},
+    {k:['fimbre','fimber','community','internship','intern','unthinkable','recommendation app'],a:"Fimbre was my 16-week internship project at Unthinkable Solutions in 2022. It's a community e-commerce app where people ask questions, recommend products and discover what to buy from real members instead of ads."},
+    {w:.4,k:['project','projects','work','portfolio','case study','best','proud'],a:"My main projects are the Philips bottle advisor, an immersive AR retail experience, a Digi Yatra redesign and Fimbre, a community shopping app. Scroll up to 'Four takes' to see them, and each has a full case study on Behance."},
+    {k:['process','approach','how do you work','method','workflow','steps'],a:"Five stages: discover the people and the problem, define the journey in Miro or FlowMapp, design wireframes and UI in Figma, validate with prototypes and feedback, then deliver a clean hand-off to developers."},
+    {k:['research','user research','interview','persona','testing','usability'],a:"I start every project by understanding the people. On Philips, for example, I built personas like a first-time working mother, mapped the process, ran ideation workshops and prioritised ideas before designing anything."},
+    {k:['tool','tools','figma','xd','adobe','miro','flowmapp','software'],a:"Figma is my main tool. I also use Adobe XD, Miro, FlowMapp and the Adobe Creative Suite."},
+    {k:['skill','skills','strength','good at','expertise','specialise','specialize'],a:"User research, interaction design, wireframing and prototyping, UI design, visual communication and design strategy. I'm also strong in typography, brand identity and photography."},
+    {k:['education','study','studied','college','degree','nift','university','qualification'],a:"I did my Bachelor of Design at NIFT Patna, from 2018 to 2022."},
+    {k:['hire','hiring','open to work','available','freelance','job','opportunity','work together','collaborate','open'],a:"Yes, I'm open to full-time roles and freelance projects. The quickest way to reach me is pranitvlogs0@gmail.com."},
+    {k:['contact','email','reach','mail','phone','connect','linkedin','behance'],a:"Email me at pranitvlogs0@gmail.com. You can also find my work on behance.net/kumarpranit and me on LinkedIn."},
+    {k:['where','location','based','city','bangalore','bengaluru','relocate'],a:"I'm based in Bangalore, India. For relocation or remote work, email me and we can talk it through."},
+    {k:['salary','pay','rate','charge','cost','price','ctc'],a:"I'd rather discuss that directly. Email me at pranitvlogs0@gmail.com with a bit about the role or project."},
+    {k:['explorations','nike','hp','side project','fun'],a:"Outside client work I've done a Nike cover page motion study and an HP product webpage. On this site you can also try my focal point playground and ask me to critique a screen."},
+    {k:['resume','cv'],a:"Everything on my resume is on this page. If you'd like the PDF, email me at pranitvlogs0@gmail.com and I'll send it."},
+    {k:['why design','why ux','passion','inspire','motivation','philosophy'],a:"I love taking a confusing, many-option problem and turning it into a short, confident flow. Good UX makes real people's lives a little easier, and that never gets old."}
+  ];
+  function localAnswer(q){const t=' '+q.toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ')+' ';let best=null,score=0;
+    for(const e of KB){let sc=0;for(const k of e.k){if(t.includes(' '+k+' ')||(k.length>4&&t.includes(k)))sc+=k.split(' ').length+(k.length>5?1:0)}sc*=(e.w||1);if(sc>score){score=sc;best=e}}
+    return best?best.a:"Good question! I don't have that one in my notes. Try asking about my projects, process, tools or experience, or email me at pranitvlogs0@gmail.com."}
+  const fallback=localAnswer;
+  const samplePromise=window.claude?.use?Promise.race([window.claude.use('sample').catch(()=>null),new Promise(r=>setTimeout(()=>r(null),2500))]):Promise.resolve(null);let aiOff=false;
+  const chat=$('#chat'),log=$('#log'),form=$('#chatForm'),input=$('#chatIn'),turns=[];let busy=false;
+  function openChat(){chat.hidden=false;setTimeout(()=>input.focus(),50)}
+  function closeChat(){chat.hidden=true;askBtn.focus()}
+  askBtn.onclick=()=>chat.hidden?openChat():closeChat();$('#openChat2').onclick=openChat;$('#closeChat').onclick=closeChat;
+  $('#suggest').addEventListener('click',e=>{if(e.target.tagName==='BUTTON')ask(e.target.textContent)});
+  form.addEventListener('submit',e=>{e.preventDefault();const v=input.value.trim();if(v){input.value='';ask(v)}});
+  const add=(cls,t)=>{const d=document.createElement('div');d.className='msg '+cls;d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight;return d};
+  async function ask(q){if(busy)return;busy=true;add('me',q);const out=add('bot','Thinking…');
+    const sample=aiOff?null:await samplePromise;const done=t=>{out.dataset.t=t;speak(t);busy=false;log.scrollTop=log.scrollHeight};
+    if(!sample){await new Promise(r=>setTimeout(r,350));const a=fallback(q);out.textContent=a;done(a);return}
+    turns.push({role:'user',content:q});
+    const RULES=`You are the AI version of Pranit Kumar on his own design portfolio. Answer visitors' questions in the first person, as Pranit ("I", "my"), in 1-3 short sentences, warm, plain and natural. Use only the facts below. If the answer isn't there, say you'd rather they ask you directly by email. Never invent numbers, results or opinions not supported by the facts. If asked whether you are the real Pranit, say you're an AI version of him trained on his resume and projects.\n\n${FACTS}`;
+    try{const {text}=await sample([{role:'user',content:RULES},...turns.slice(-8)],{cache:false,modelTier:'quick',onText:({text})=>{out.textContent=text;log.scrollTop=log.scrollHeight}});turns.push({role:'assistant',content:text});done(text)}
+    catch(e){turns.pop();if(e&&e.code!=='rate_limited')aiOff=true;const a=fallback(q);out.textContent=a;done(a)}}
+  const cBtn=$('#critBtn'),cOut=$('#critOut');
+  cBtn.onclick=async()=>{const desc=$('#critIn').value.trim().slice(0,1200);if(!desc)return;cBtn.disabled=true;cOut.textContent='Thinking…';
+    const sample=aiOff?null:await samplePromise;
+    if(!sample){cOut.textContent='1. Make one thing the clear first look; right now several elements compete.\n2. Put the main action where the eye ends up, not below the fold.\n3. Cut or shrink anything decorative that sits above the main task.';cBtn.disabled=false;return}
+    try{await sample(`You are Pranit Kumar, a senior-minded UX/UI designer, speaking in the first person. Give exactly three numbered notes, one sentence each, on this screen: 1) visual hierarchy and what users notice first, 2) the main task flow and friction, 3) what to simplify or remove. Plain text, no headings.\n\nScreen: ${desc}`,{modelTier:'quick',onText:({text})=>cOut.textContent=text})}
+    catch(e){if(['not_granted','sampling_disabled'].includes(e.code))aiOff=true;cOut.textContent=e.text||"I couldn't answer right now. Try again in a moment."}
+    cBtn.disabled=false};
+})();
+</script>
+
+</body>
+</html>
