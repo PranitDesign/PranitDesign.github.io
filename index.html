@@ -153,6 +153,7 @@ section{position:relative}
 .card .media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(17,10,13,.65));pointer-events:none}
 .card .num{position:absolute;top:1rem;left:1.1rem;z-index:2;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;background:rgba(17,10,13,.6);backdrop-filter:blur(8px);padding:.3rem .6rem;border-radius:99px}
 .card .open{position:absolute;right:1.1rem;bottom:1.1rem;z-index:2;width:3.2rem;height:3.2rem;border-radius:50%;background:var(--lime);color:var(--ink);display:grid;place-items:center;font-size:1.3rem;transition:transform .5s var(--ease)}
+@media (max-width:900px){.card .num{top:.75rem;left:.75rem;font-size:.62rem;padding:.24rem .55rem}.card .open{right:.75rem;bottom:.75rem;width:2.6rem;height:2.6rem;font-size:1.05rem}}
 .card:hover .open{transform:rotate(-45deg) scale(1.08)}
 .card .meta{display:flex;justify-content:space-between;gap:1.5rem;align-items:start;flex-wrap:wrap}
 .card h3{font-family:var(--f-display);font-weight:700;font-size:clamp(1.45rem,2.4vw,2.2rem);line-height:1;letter-spacing:-.03em;max-width:22ch}
@@ -197,7 +198,7 @@ section{position:relative}
 .cv-ar{background:radial-gradient(circle at 70% 45%,#FFF3D6 0,transparent 55%),#FBF5E9;color:#1F4A3D}
 .cv-ar .pill{background:#1F4A3D;color:#FBF5E9}.cv-ar .sub{color:#5E6B5F}
 .cv-ar .ttl em{font-style:normal;color:#C8962A}
-.cv-ar .visor{position:absolute;left:3cqi;top:50%;width:52cqi;transform:translateY(-50%)}
+.cv-ar .visor{position:absolute;left:6cqi;top:50%;width:50cqi;transform:translateY(-50%)}
 .cv-ar .float{background:#fff;color:#1F4A3D}
 .cv-ar .meter{height:.5cqi;border-radius:9px;background:#EDE6D6;overflow:hidden}.cv-ar .meter i{display:block;height:100%;width:94%;background:linear-gradient(90deg,#1F4A3D,#5C9A6E)}
 .cv-ar .maya{display:flex;gap:.9cqi;align-items:center}
@@ -237,7 +238,7 @@ section{position:relative}
 .cv-air .chev{animation:chev 1.6s ease-in-out infinite}
 @keyframes chev{0%,100%{opacity:.3}50%{opacity:1}}
 @media (prefers-reduced-motion:reduce){.cv-digi .scan,.cv-air .chev{animation:none}}
-@container (max-width:520px){.cv .float{display:none}.cv .ttl{font-size:4.8cqi}.cv .pill{font-size:1.7cqi}.cv .sub{font-size:1.5cqi}}
+@container (max-width:520px){.cv .float{display:none}.cv-ar .visor{left:9cqi;width:46cqi}.cv .ttl{font-size:4.8cqi}.cv .pill{font-size:1.7cqi}.cv .sub{font-size:1.5cqi}}
 .reel-end{width:min(40vw,24rem);flex:none;display:grid;align-content:center;gap:1rem}
 .reel-end p{font-family:var(--f-serif);font-style:italic;font-size:clamp(1.6rem,2.6vw,2.4rem);line-height:1.15}
 .reel-bar{margin-top:2rem;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
@@ -630,13 +631,13 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   function setMenu(open){menu.classList.toggle('open',open);menuBtn.setAttribute('aria-expanded',open);menuBtn.setAttribute('aria-label',open?'Close menu':'Open menu');if(open)nav.classList.remove('light');document.body.classList.toggle('locked',open);
     if(open){nav.classList.remove('hide');if(lenis)lenis.stop();document.body.style.overflow='hidden';setTimeout(()=>menu.querySelector('a').focus({preventScroll:true}),300)}else{if(lenis)lenis.start();document.body.style.overflow='';onNav()}}
   menuBtn.onclick=()=>setMenu(!menu.classList.contains('open'));
-  function goTo(sel){let t=document.querySelector(sel);if(!t)return;if(t.parentElement&&t.parentElement.classList.contains('pin-spacer'))t=t.parentElement;const y=sel==='#top'?0:t.getBoundingClientRect().top+scrollY;lenis?lenis.scrollTo(y,{duration:1.4}):scrollTo({top:y,behavior:reduce?'auto':'smooth'})}
+  let navLock=0;function goTo(sel){navLock=Date.now()+1800;nav.classList.remove('hide');let t=document.querySelector(sel);if(!t)return;if(t.parentElement&&t.parentElement.classList.contains('pin-spacer'))t=t.parentElement;const y=sel==='#top'?0:t.getBoundingClientRect().top+scrollY;lenis?lenis.scrollTo(y,{duration:1.4}):scrollTo({top:y,behavior:reduce?'auto':'smooth'})}
   $$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const h=a.getAttribute('href');if(!document.querySelector(h))return;e.preventDefault();
     if(menu.classList.contains('open')){setMenu(false);setTimeout(()=>goTo(h),350)}else goTo(h)}));
   // nav: solid once you leave the hero, slides away while reading down, comes back the moment you scroll up
   let lastY=scrollY;const day=$('.day');const secs=['work','about','process','lab','contact'].map(id=>[id,document.getElementById(id)]);
   function onNav(){const y=scrollY;nav.classList.toggle('solid',y>40);
-    if(!menu.classList.contains('open')){if(y>lastY+4&&y>innerHeight*.7){nav.classList.add('hide');if(!fine&&document.getElementById('chat').hidden)document.body.classList.add('reading')}else if(y<lastY-4||y<innerHeight*.7){nav.classList.remove('hide');document.body.classList.remove('reading')}}
+    if(!menu.classList.contains('open')&&Date.now()>navLock){if(y>lastY+4&&y>innerHeight*.7){nav.classList.add('hide');if(!fine&&document.getElementById('chat').hidden)document.body.classList.add('reading')}else if(y<lastY-4||y<innerHeight*.7){nav.classList.remove('hide');document.body.classList.remove('reading')}}
     const dr=day.getBoundingClientRect(),nh=nav.offsetHeight;nav.classList.toggle('light',!menu.classList.contains('open')&&dr.top<nh&&dr.bottom>nh*.5);
     lastY=y;let cur='';for(const [id,el] of secs){if(el&&el.getBoundingClientRect().top<innerHeight*.4)cur=id}
     $$('.nav .links a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur))}
@@ -870,7 +871,7 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
       <p class="pull">${esc(c.pull)}</p>
       ${c.link?`<div class="cta"><a class="btn" href="${c.link}" target="_blank" rel="noopener">See it on Behance ↗</a></div>`:''}
       <button class="next" data-next="${nk}"><span class="mono">Next project · ${CASES[nk].idx}</span><span class="nt"><span>${esc(CASES[nk].title)}</span><i aria-hidden="true">→</i></span><div class="hero-img" aria-hidden="true">${COVERS[nk]()}</div></button>`;
-    caseEl.hidden=false;caseEl.scrollTop=0;caseProg.style.setProperty('--p',0);requestAnimationFrame(()=>caseEl.classList.add('open'));if(lenis)lenis.stop();document.body.style.overflow='hidden';document.body.classList.add('locked');$('#caseClose').focus({preventScroll:true})}
+    caseEl.hidden=false;caseEl.scrollTop=0;caseProg.style.setProperty('--p',0);void caseEl.offsetWidth;caseEl.classList.add('open');if(lenis)lenis.stop();document.body.style.overflow='hidden';document.body.classList.add('locked');$('#caseClose').focus({preventScroll:true})}
   function closeCase(fromPop){if(caseEl.hidden)return;if(!fromPop&&pushed){pushed=false;try{history.back();return}catch(e){}}
     if(!fromPop){try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}caseOpen=null;caseEl.classList.remove('open');document.body.classList.remove('locked');setTimeout(()=>{caseEl.hidden=true},reduce?0:800);if(lenis)lenis.start();document.body.style.overflow='';if(lastFocus)lastFocus.focus({preventScroll:true})}
   $$('.card').forEach(c=>c.addEventListener('click',()=>openCase(c.dataset.case,'push')));
