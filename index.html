@@ -159,6 +159,14 @@ body.locked .ask{opacity:0;pointer-events:none}
 .hero-proc .feat{position:relative;top:auto;right:auto;width:100%;align-self:start}
 @media (min-width:761px) and (max-height:820px){.hero-proc .ddl em{display:none}.hero-proc .ddl{height:1.3rem}}
 /* (AI guide launcher below) */
+/* Proto's limbs stay visible on the dark pill */
+.ask.on-light .mbot .m-leg path,.ask.on-light .mbot .m-arm path{stroke:#F6F1E8}
+.ask.on-light .mbot .m-arm circle{stroke:#F6F1E8}
+/* the tour card finds the emptiest spot: wide or tall-narrow, any corner */
+.tour.run.placed{left:var(--tl)!important;top:var(--tt)!important;right:auto!important;bottom:auto!important;transform:none;transition:left .5s var(--ease),top .5s var(--ease),opacity .35s}
+.tour.run.narrow{width:min(15.5rem,calc(100vw - 24px));grid-template-columns:auto minmax(0,1fr)}
+.tour.run.narrow .tctl{grid-column:1/-1;justify-content:flex-end;margin-top:-.1rem}
+
 /* tour as a subtitle bar: Proto lives inside it and points up at the item; the page scrolls the item into the clear space above */
 .tour.run{left:50%;bottom:calc(10px + env(safe-area-inset-bottom,0px));width:min(60rem,calc(100vw - 20px));grid-template-columns:auto minmax(0,1fr) auto;padding:.7rem .9rem .7rem .6rem;gap:.9rem}
 .tour .tav{width:3.4rem;height:4.75rem;background:none!important;border-radius:0;overflow:visible;align-self:end;margin:-1.4rem 0 -.2rem}
@@ -1544,7 +1552,7 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   const STOPS=[
     {go:()=>glide(0),hl:null},{go:()=>glide(0),hl:'.hfacts'},
     {go:()=>__pkCard(0),hl:'#reel>.card:nth-child(1) .media',w:1700},{go:()=>__pkCard(1),hl:'#reel>.card:nth-child(2) .media'},{go:()=>__pkCard(2),hl:'#reel>.card:nth-child(3) .media'},{go:()=>__pkCard(3),hl:'#reel>.card:nth-child(4) .media'},{go:()=>__pkCard(4),hl:'#reel>.card:nth-child(5) .media'},
-    {go:()=>showSec($('#statement')),hl:'#statement',w:1700},{go:()=>showSec($('#process .step')),hl:'#process .step:first-child',w:1700},{go:()=>showSec($('#fpTile')),hl:'#fpTile',w:1700},{go:()=>showSec($('.reach.big')),hl:'.reach.big',w:1700}];
+    {go:()=>showSec($('#statement')),hl:'#statement',w:1700,follow:'#about .wrap'},{go:()=>showSec($('#process .step')),hl:'#process .step:first-child',w:1700},{go:()=>showSec($('#fpTile')),hl:'#fpTile',w:1700},{go:()=>showSec($('.reach.big')),hl:'.reach.big',w:1700}];
   let ti=-1,tPlaying=false,tTimer=0,tId=0,hlEl=null;
   const setHl=sel=>{if(hlEl)hlEl.classList.remove('tour-hl');hlEl=sel?document.querySelector(sel):null;if(hlEl)hlEl.classList.add('tour-hl')};
   function tourMode(m){tourEl.classList.toggle('offer',m==='offer');tourEl.classList.toggle('run',m==='run');tourEl.hidden=!m;document.body.classList.toggle('touring',m==='run')}
@@ -1560,12 +1568,30 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   function centerOn(el){if(!el)return;const r=el.getBoundingClientRect(),f=freeBox(),av=f.bottom-f.top;const y=scrollY+r.top-f.top-Math.max(0,(av-r.height)/2);glide(Math.max(0,y))}
   function pointAt(el){if(!tav)return;if(!el){tav.style.setProperty('--aa','-20deg');tav.classList.remove('fl');return}
     const a=tav.getBoundingClientRect(),r=el.getBoundingClientRect();const sx=a.left+a.width*.65,sy=a.top+a.height*.56;let dx=r.left+r.width/2-sx,dy=Math.max(r.top,Math.min(r.bottom,sy-40))-sy;
-    if(r.top<sy&&r.bottom>sy)dy=-30;const fl=dx<0;tav.classList.toggle('fl',fl);dx=Math.abs(dx);
+    if(r.top<sy&&r.bottom>sy)dy=-30;tav.classList.remove('fl');if(dx<0){tav.style.setProperty('--aa','-120deg');return}
     let ang=Math.atan2(dy,dx)*180/Math.PI-56;ang=Math.max(-160,Math.min(10,ang));tav.style.setProperty('--aa',ang.toFixed(0)+'deg')}
   let tWords=[];
+  function followAfter(sel,id){const el=$(sel);if(!el)return;const go=()=>{if(id!==tId||!tPlaying)return;const r=el.getBoundingClientRect();if(r.bottom>innerHeight-20){glide(scrollY+r.bottom-innerHeight+30);setTimeout(()=>{if(id===tId){placeCard();pointAt(hlEl)}},1700)}};
+    const wait=()=>{if(id!==tId)return;const p=tAud.duration?tAud.currentTime/tAud.duration:0;if(p>.42)go();else setTimeout(wait,250)};setTimeout(wait,900)}
   function setWords(t){tTx.textContent='';tWords=t.split(/(\s+)/).map(w=>{const sp=document.createElement('span');sp.textContent=w;if(w.trim()){sp.className='w h'}tTx.appendChild(sp);return sp}).filter(sp=>sp.className)}
   function reveal(p){const n=Math.ceil(tWords.length*Math.min(1,p*1.06));tWords.forEach((w,i)=>w.classList.toggle('h',i>=n))}
   function barH(){document.body.style.setProperty('--tourH',(tourEl.offsetHeight+28)+'px')}
+
+  /* ---------- put the tour card where it covers the least content ---------- */
+  const SKIP='#tour,#guide,.cursor,#askBtn,.nav,#mhint,.toast,#reachPop';
+  function isContent(e){if(!e||e===document.body||e===document.documentElement)return false;if(/^(IMG|svg|CANVAS|VIDEO|P|H1|H2|H3|H4|LI|A|BUTTON|SPAN|B|EM|STRONG|SMALL|LABEL|TEXTAREA|INPUT|I|path|rect|circle|ellipse|line|polyline|polygon|text|tspan|g|use|image|DT|DD)$/.test(e.tagName))return true;
+    for(const n of e.childNodes)if(n.nodeType===3&&n.textContent.trim())return true;return false}
+  function hits(x,y,w,h){let c=0;for(let i=0;i<6;i++)for(let j=0;j<4;j++){const px=x+w*(i+.5)/6,py=y+h*(j+.5)/4;const e=document.elementsFromPoint(px,py).find(el=>!el.closest(SKIP));if(isContent(e))c++}return c}
+  function placeCard(){if(tourEl.hidden||!tourEl.classList.contains('run'))return;const m=innerWidth<761,top=m?62:76,pad=m?8:14,bot=innerHeight-pad;
+    const hr=hlEl?hlEl.getBoundingClientRect():null;const sizes=[];
+    for(const nar of (m?[false]:[false,true])){tourEl.classList.toggle('narrow',nar);sizes.push([nar,tourEl.offsetWidth,tourEl.offsetHeight])}
+    let best=null;
+    for(const [nar,w,h] of sizes)for(const [cx,cy] of [['r','b'],['r','t'],['l','b'],['l','t']]){
+      const x=cx==='r'?innerWidth-w-pad:pad,y=cy==='b'?bot-h:top;let sc=hits(x,y,w,h);
+      if(hr&&x<hr.right&&x+w>hr.left&&y<hr.bottom&&y+h>hr.top)sc+=100;sc+=(nar?.6:0)+(cx==='r'&&cy==='b'?0:.3);
+      if(!best||sc<best.sc)best={sc,x,y,nar}}
+    tourEl.classList.toggle('narrow',best.nar);tourEl.classList.add('placed');tourEl.style.setProperty('--tl',best.x+'px');tourEl.style.setProperty('--tt',best.y+'px');barH()}
+  addEventListener('resize',()=>{if(tPlaying)placeCard()});
   /* ---------- Proto walks to whatever he's talking about, then points ---------- */
   const guide=$('#guide');let gx=0,gy=0,gT=0;
   function gSet(x,y,dur){guide.style.setProperty('--gd',dur+'s');guide.style.setProperty('--gx',x+'px');guide.style.setProperty('--gy',y+'px');gx=x;gy=y}
@@ -1591,12 +1617,12 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
     window.__pkDuck&&window.__pkDuck(true);tourEl.classList.add('talking');guide.classList.add('gtalk');tAud.play().catch(()=>{tourEl.classList.remove('talking');guide.classList.remove('gtalk');fallback()})}
   function stop(i){if(i>=STOPS.length)return endTour(true);ti=i;const id=++tId;tN.textContent=(i+1)+' / '+STOPS.length;setWords(TOUR[i]);barH();tBar.style.width='0';
     clearTimeout(tTimer);try{tAud.pause()}catch(e){}STOPS[i].go();setHl(null);
-    tTimer=setTimeout(()=>{if(id!==tId||!tPlaying)return;setHl(STOPS[i].hl);pointAt(hlEl);setTimeout(()=>{if(id===tId)pointAt(hlEl)},900);say(TOUR[i],()=>{if(id===tId&&tPlaying)tTimer=setTimeout(()=>stop(i+1),650)},id)},reduce?200:(STOPS[i].w||1200))}
+    tTimer=setTimeout(()=>{if(id!==tId||!tPlaying)return;setHl(STOPS[i].hl);placeCard();pointAt(hlEl);setTimeout(()=>{if(id===tId){placeCard();pointAt(hlEl)}},900);if(STOPS[i].follow)followAfter(STOPS[i].follow,id);say(TOUR[i],()=>{if(id===tId&&tPlaying)tTimer=setTimeout(()=>stop(i+1),650)},id)},reduce?200:(STOPS[i].w||1200))}
   function startTour(){stopVoice();if(!chat.hidden)closeChat();if(!caseEl.hidden)closeCase();if(menu.classList.contains('open'))setMenu(false);popOpen(false);
     try{sessionStorage.setItem('pk-tour','1')}catch(e){}tourMode('run');barH();tPlaying=true;tPP.textContent='❚❚';tPP.setAttribute('aria-label','Pause tour');stop(0)}
   function pauseTour(){if(!tPlaying)return;tPlaying=false;tId++;clearTimeout(tTimer);try{tAud.pause()}catch(e){}tourEl.classList.remove('talking');guide.classList.remove('gtalk','walk');tPP.textContent='▶';tPP.setAttribute('aria-label','Resume tour');tTx.textContent='Paused. Tap ▶ to continue, → for the next stop.';window.__pkDuck&&window.__pkDuck(false)}
   function resumeTour(){if(tPlaying)return;tPlaying=true;tPP.textContent='❚❚';tPP.setAttribute('aria-label','Pause tour');stop(Math.max(0,ti))}
-  function endTour(finished){tPlaying=false;tId++;clearTimeout(tTimer);try{tAud.pause()}catch(e){}setHl(null);tourMode(null);document.body.style.removeProperty('--tourH');window.__pkDuck&&window.__pkDuck(false);if(finished)toast('Thanks for taking the tour! Proto is in the corner if you have questions.')}
+  function endTour(finished){tPlaying=false;tId++;clearTimeout(tTimer);try{tAud.pause()}catch(e){}setHl(null);tourEl.classList.remove('placed','narrow');tourMode(null);document.body.style.removeProperty('--tourH');window.__pkDuck&&window.__pkDuck(false);if(finished)toast('Thanks for taking the tour! Proto is in the corner if you have questions.')}
   tPP.onclick=()=>tPlaying?pauseTour():resumeTour();
   $('#tourNx').onclick=()=>{if(!tPlaying){tPlaying=true;tPP.textContent='❚❚'}stop(ti+1)};
   $('#tourX').onclick=()=>{if(tourEl.classList.contains('offer')){tourMode(null);try{sessionStorage.setItem('pk-tour','1')}catch(e){}}else endTour(false)};
