@@ -209,6 +209,27 @@ body.locked .ask{opacity:0;pointer-events:none}
 .tour .tav .m-arm-l,.tour .tav .m-arm-r{transform:none!important}
 .tour .tav.pav{background:transparent!important;border-radius:0!important;overflow:visible!important;opacity:1!important;filter:none!important}
 .tour.offer .tav.pav::after{display:none!important}
+/* phones: the welcome is a compact bottom card; close sits top-right, Proto stays inside, the hero stays visible */
+@media (max-width:600px){
+.tour.offer{grid-template-columns:auto minmax(0,1fr)!important;align-items:center;padding:.8rem .85rem .85rem .65rem!important;gap:.7rem!important;bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+.tour.offer .tctl{position:absolute;top:.5rem;right:.5rem;margin:0!important;grid-column:auto!important}
+.tour.offer .tctl button{width:2rem;height:2rem;font-size:.75rem}
+.tour.offer .tav{width:2.9rem!important;height:4.4rem!important;margin:0!important;align-self:center}
+.tour.offer .toff{gap:.38rem}
+.tour.offer p.tw{font-size:1.18rem!important;padding-right:2.2rem}
+.tour.offer p{font-size:.86rem!important;line-height:1.42}
+.tour.offer .tbtns{gap:.35rem .9rem;margin-top:.15rem}
+.tour.offer .btn{padding:.6rem 1rem!important;font-size:.9rem}
+}
+@media (max-width:600px) and (max-height:740px){
+.tour.offer{gap:.55rem!important;padding:.65rem .75rem .7rem .55rem!important}
+.tour.offer .tav{width:2.3rem!important;height:3.5rem!important}
+.tour.offer p.tw{font-size:1.05rem!important}
+.tour.offer p{font-size:.82rem!important;line-height:1.38}
+.tour.offer .tbtns{flex-wrap:nowrap}
+.tour.offer .btn{padding:.5rem .85rem!important;font-size:.84rem}
+.tour.offer .tlink{font-size:.8rem;white-space:nowrap}
+}
 .chat header .av{overflow:visible!important;border-radius:50%;background:transparent!important}
 .chat header .av svg{width:118%;height:118%;margin:-9% 0 0 -9%}
 
