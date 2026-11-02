@@ -1719,12 +1719,12 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   let pref='on';try{pref=localStorage.getItem('pk-music')||'on'}catch(e){}
   const hintTx=mhint.querySelector('span:last-child');
   // ducking: when AI Pranit speaks, the music drops to a whisper and comes back after
-  window.__pkDuck=d=>{try{if(!actx||!master||!on)return;const t=actx.currentTime;master.gain.cancelScheduledValues(t);master.gain.setTargetAtTime(d?.07:.55,t,d?.12:.7)}catch(e){}};
+  window.__pkDuck=d=>{try{if(!actx||!master||!on)return;const t=actx.currentTime;master.gain.cancelScheduledValues(t);master.gain.setTargetAtTime(d?.2:.55,t,d?.15:.7)}catch(e){}};
   window.__pkAudio=()=>({on,state:actx?actx.state:'none',gain:master?+master.gain.value.toFixed(3):0});
   if(pref!=='off'){
     // Browsers only allow sound after a real tap, click or key press. Stay "armed" until the music is
     // actually playing: if a gesture doesn't unlock audio (e.g. iOS ignores some event types), try the next one.
-    const EV=['click','touchend','keydown'];let trying=false,hinted=false;
+    const EV=['click','touchend','pointerup','mousedown','keydown'];let trying=false,hinted=false;
     sBtn.classList.add('armed');sLbl.innerHTML='Music<span class="st"> on</span>';sBtn.title='Music starts with your first tap or click. Tap here to keep it off.';
     const disarm=()=>{EV.forEach(t=>removeEventListener(t,arm,true));sBtn.classList.remove('armed')};
     function arm(e){
@@ -1735,6 +1735,11 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
         if(ok){disarm();hintTx.innerHTML='Music is on.<b>Tap here to turn it off</b>';showHint(5000)}
         else if(on){window.__pkSkip=false;sBtn.onclick();sBtn.classList.add('armed');sLbl.innerHTML='Music<span class="st"> on</span>'}},650)}
     EV.forEach(t=>addEventListener(t,arm,true));
+    // try right away: browsers that allow autoplay for this visitor (desktop Chrome after earlier visits, or sound allowed
+    // for the site) start the music on load; everyone else hears it from their first tap
+    setTimeout(()=>{if(on||trying)return;trying=true;try{sBtn.onclick()}catch(_){}
+      setTimeout(()=>{trying=false;if(on&&actx&&actx.state==='running'){disarm();hintTx.innerHTML='Music is on.<b>Tap here to turn it off</b>';showHint(5000)}
+        else if(on){window.__pkSkip=false;try{sBtn.onclick()}catch(_){}sBtn.classList.add('armed');sLbl.innerHTML='Music<span class="st"> on</span>'}},700)},500);
     // say it once per visit, so nobody wonders why "Music on" is silent
     let told=false;try{told=sessionStorage.getItem('pk-mh')==='1'}catch(e){}
     if(!told&&!window.__pkTourOffer)setTimeout(()=>{if(on||!sBtn.classList.contains('armed')||scrollY>200)return;hintTx.innerHTML='Lo-fi music starts with your first tap.<b>Tap here to keep it off</b>';showHint(8000);try{sessionStorage.setItem('pk-mh','1')}catch(e){}},1800);
