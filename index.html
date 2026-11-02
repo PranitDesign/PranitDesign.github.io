@@ -541,10 +541,56 @@ section{position:relative}
 .tile{border:1px solid var(--line);border-radius:22px;background:var(--bg-2);padding:clamp(1.3rem,2.5vw,2rem);display:grid;gap:1rem;align-content:start;min-width:0}
 .tile h3{font-family:var(--f-display);font-weight:450;font-size:1.85rem;line-height:1.1;letter-spacing:-.02em}
 .tile p{color:var(--muted);font-size:.98rem}
-.composer{position:relative;aspect-ratio:16/10;max-width:100%;border-radius:14px;background:var(--bg-3);overflow:hidden;touch-action:none;cursor:grab}
-.composer .g{position:absolute;inset:0;background-image:linear-gradient(rgba(241,234,225,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(241,234,225,.18) 1px,transparent 1px);background-size:33.333% 33.333%}
-.composer .subj{position:absolute;width:16%;aspect-ratio:1;border-radius:50%;background:var(--lime);left:42%;top:35%;box-shadow:0 0 40px rgba(213,252,101,.45)}
-.verdict{font-family:var(--f-serif);font-style:italic;font-size:1.35rem}
+.fp-goal{color:var(--cream);font-weight:600}
+.fp-bar{display:flex;align-items:center;justify-content:space-between;gap:.7rem;flex-wrap:wrap}
+.fp-prog{display:flex;align-items:center;gap:.4rem}
+.fp-prog i{width:.72rem;height:.72rem;border-radius:50%;border:1.5px solid rgba(241,234,225,.4);transition:background .3s,border-color .3s,box-shadow .3s,transform .3s}
+.fp-prog i.on{background:var(--lime);border-color:var(--lime);box-shadow:0 0 10px rgba(213,252,101,.6);transform:scale(1.15)}
+.fp-prog span{font:600 .72rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-left:.35rem}
+.fp-how{font:600 .72rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--lime);background:none;border:1px solid rgba(213,252,101,.4);border-radius:99px;padding:.55rem .9rem;cursor:pointer;transition:background .25s,color .25s}
+.fp-how:hover,.fp-how:focus-visible{background:var(--lime);color:#111;outline:none}
+.composer{position:relative;aspect-ratio:16/10;max-width:100%;border-radius:14px;background:var(--bg-3);overflow:hidden;touch-action:none;cursor:grab;outline:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;--c:#8FB8FF}
+.composer:focus-visible{box-shadow:0 0 0 2px var(--lime)}
+.composer .ln{position:absolute;background:rgba(241,234,225,.16);transition:background .25s,box-shadow .25s}
+.composer .ln.v{top:0;bottom:0;width:1px}.composer .v1{left:33.333%}.composer .v2{left:66.666%}
+.composer .ln.h{left:0;right:0;height:1px}.composer .h1{top:33.333%}.composer .h2{top:66.666%}
+.composer .ln.hot{background:var(--lime);box-shadow:0 0 12px rgba(213,252,101,.75)}
+.composer .pt{position:absolute;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;border:1.5px dashed rgba(241,234,225,.4);display:grid;place-items:center;transition:background .3s,border-color .3s}
+.composer .pt.found{border:1.5px solid var(--lime);background:var(--lime);animation:fpPop .6s var(--ease)}
+.composer .pt.found::after{content:"";width:8px;height:4px;margin-top:-2px;border:solid #111;border-width:0 0 2px 2px;transform:rotate(-45deg)}
+@keyframes fpPop{0%{transform:scale(.4);box-shadow:0 0 0 0 rgba(213,252,101,.8)}60%{transform:scale(1.35)}100%{transform:scale(1);box-shadow:0 0 0 22px rgba(213,252,101,0)}}
+.composer .subj{position:absolute;z-index:2;width:16%;aspect-ratio:1;border-radius:50%;background:var(--lime);left:42%;top:35%;box-shadow:0 0 34px rgba(213,252,101,.35);transition:box-shadow .3s}
+.composer .subj.strong{box-shadow:0 0 0 7px rgba(213,252,101,.22),0 0 64px rgba(213,252,101,.75)}
+.composer .subj.fp-inv::after{content:"";position:absolute;inset:-10px;border-radius:50%;border:2px solid var(--lime);animation:fpRing 1.6s ease-out infinite}
+@keyframes fpRing{0%{transform:scale(.85);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+.hud{position:absolute;z-index:4;left:10px;top:10px;display:grid;gap:5px;padding:.5rem .75rem .6rem;border-radius:12px;background:rgba(17,10,13,.86);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid color-mix(in srgb,var(--c) 55%,transparent);pointer-events:none;transition:border-color .3s}
+.hud.low{top:auto;bottom:10px}
+.hud .lbl{font:600 .6rem var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.hud b{display:flex;align-items:center;gap:.45rem;font:700 .9rem/1.1 var(--f-body);color:var(--cream)}
+.hud b::before{content:"";flex:none;width:.62rem;height:.62rem;border-radius:50%;background:var(--c);box-shadow:0 0 8px var(--c)}
+.hud .meter{height:4px;width:9.5rem;border-radius:9px;background:rgba(241,234,225,.14);overflow:hidden}
+.hud .meter i{display:block;height:100%;width:var(--s,10%);background:var(--c);border-radius:9px;transition:width .2s,background .3s}
+.hud.flash{animation:fpFlash .5s var(--ease)}
+@keyframes fpFlash{0%{transform:scale(1)}40%{transform:scale(1.07)}100%{transform:scale(1)}}
+.hand{position:absolute;z-index:5;left:50%;top:50%;width:40px;pointer-events:none;opacity:0;transition:opacity .3s}
+.hand.travel{transition:opacity .3s,left .65s var(--ease),top .65s var(--ease)}
+.hand svg{display:block;width:100%;transform:translate(-45%,-6%);filter:drop-shadow(0 6px 10px rgba(0,0,0,.45));transition:transform .2s}
+.hand .tap{position:absolute;left:0;top:0;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:rgba(247,243,236,.28);border:2px solid rgba(247,243,236,.8);opacity:0;transform:scale(.5);transition:opacity .2s,transform .2s}
+.hand.press svg{transform:translate(-45%,-6%) scale(.9)}.hand.press .tap{opacity:1;transform:scale(1)}
+.coach{position:absolute;z-index:6;left:0;top:0;max-width:min(15rem,70%);background:var(--lime);color:#111;font:700 .84rem/1.3 var(--f-body);padding:.55rem .75rem;border-radius:10px;opacity:0;transform:translateY(4px);transition:opacity .25s,transform .25s;pointer-events:none;box-shadow:0 10px 24px rgba(0,0,0,.45)}
+.coach.on{opacity:1;transform:none}
+.coach::before{content:"";position:absolute;left:var(--ax,1rem);width:10px;height:10px;background:var(--lime);transform:rotate(45deg)}
+.coach.below::before{top:-5px}.coach.above::before{bottom:-5px}
+.coach .n{display:inline-grid;place-items:center;width:1.25rem;height:1.25rem;margin-right:.4rem;border-radius:50%;background:#111;color:var(--lime);font:700 .7rem var(--f-mono)}
+.fp-done{position:absolute;inset:0;z-index:7;display:grid;place-content:center;justify-items:center;gap:.5rem;text-align:center;padding:1rem;background:rgba(17,10,13,.86);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.fp-done[hidden]{display:none}
+.fp-done .mono{color:var(--lime)}
+.fp-done strong{font:450 clamp(1.3rem,3vw,1.7rem)/1.1 var(--f-display);color:var(--cream)}
+.fp-done p{max-width:26rem;font-size:.92rem}
+.verdict{display:flex;gap:.7rem;align-items:baseline;font-family:var(--f-serif);font-style:italic;font-size:1.15rem;line-height:1.4;color:var(--cream)}
+.verdict .why{flex:none;font-style:normal;font-size:.68rem;color:var(--lime);border:1px solid rgba(213,252,101,.4);border-radius:99px;padding:.2rem .5rem}
+@media (max-width:600px){.composer{aspect-ratio:4/3}.hud .meter{width:6.8rem}.hud b{font-size:.82rem}}
+@media (prefers-reduced-motion:reduce){.composer .subj.fp-inv::after{animation:none;opacity:.6}}
 .tile textarea{width:100%;min-height:6rem;resize:vertical;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--cream);padding:.8rem;font:inherit;font-size:16px}
 .tile textarea:focus{outline:none;border-color:var(--lime)}
 .tile .out{white-space:pre-wrap;font-size:.95rem;min-height:1.4rem}
@@ -775,12 +821,21 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
     <div class="wrap">
       <div class="head"><div><span class="idx">(04) — Lab</span><h2>Play &amp; <span class="serif">explore</span></h2></div><p>Small experiments and side work. Try them.</p></div>
       <div class="lab">
-        <div class="tile">
-          <span class="mono">Interactive · Visual hierarchy</span>
-          <h3>Focal point playground</h3>
-          <p>Drag the focal element around the layout grid and see how its position changes where the eye lands.</p>
-          <div class="composer" id="composer" aria-label="Composition playground" data-cursor="Drag"><div class="g"></div><div class="subj" id="subj"></div></div>
-          <p class="verdict" id="verdict">Dead centre. Stable, but static.</p>
+        <div class="tile fp" id="fpTile">
+          <span class="mono">Interactive · Rule of thirds</span>
+          <h3>Where does the eye land?</h3>
+          <p>Designers place the hero of a layout where the thirds lines cross, because that is where the eye rests. <b class="fp-goal">Drag the dot and find all four sweet spots.</b></p>
+          <div class="fp-bar"><div class="fp-prog" role="status" aria-live="polite"><i></i><i></i><i></i><i></i><span id="fpCount">0 of 4 found</span></div><button class="fp-how" id="fpHow" type="button"><span aria-hidden="true">▶</span> Show me how</button></div>
+          <div class="composer" id="composer" tabindex="0" role="application" aria-label="Rule of thirds playground. Drag the dot, or use the arrow keys, to find the four points where the thirds lines cross." aria-describedby="verdict" data-cursor="Drag">
+            <i class="ln v v1"></i><i class="ln v v2"></i><i class="ln h h1"></i><i class="ln h h2"></i>
+            <span class="pt" style="left:33.333%;top:33.333%"></span><span class="pt" style="left:66.666%;top:33.333%"></span><span class="pt" style="left:33.333%;top:66.666%"></span><span class="pt" style="left:66.666%;top:66.666%"></span>
+            <div class="hud" id="fpHud" aria-hidden="true"><span class="lbl">Live result</span><b id="fpTag">Dead centre</b><span class="meter"><i></i></span></div>
+            <div class="subj fp-inv" id="subj"></div>
+            <div class="hand" id="fpHand" aria-hidden="true"><span class="tap"></span><svg viewBox="0 0 48 62" aria-hidden="true"><path d="M17 6a5 5 0 0 1 10 0v19l1.5-.3V20a4.5 4.5 0 0 1 9 0v6.5l1-.2a4.5 4.5 0 0 1 8.5 2V42c0 10-7.5 18-17.5 18h-3.5C19 60 14.5 57 11 51.5L3.4 39.6a4.6 4.6 0 0 1 7.2-5.6L17 40.5z" fill="#F7F3EC" stroke="#141014" stroke-width="2.6" stroke-linejoin="round"/><path d="M28.5 25v9M38.5 26.5v8" stroke="#141014" stroke-width="2" stroke-linecap="round" opacity=".35"/></svg></div>
+            <div class="coach" id="fpCoach" aria-hidden="true"></div>
+            <div class="fp-done" id="fpDone" data-cursor="Replay" hidden><span class="mono">4 of 4 found</span><strong>That is the rule of thirds.</strong><p>The eye rests where the lines cross, so that is where a hero image, a headline or a button earns attention.</p><button class="btn ghost" id="fpReset" type="button">Play again</button></div>
+          </div>
+          <p class="verdict" id="verdict"><span class="why mono">Why</span><span id="fpWhy">Stable, but static. Nothing pulls the eye onward.</span></p>
         </div>
         <div class="tile">
           <span class="mono">AI · Design critique</span>
@@ -1084,13 +1139,58 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
     if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}});
   addEventListener('keydown',e=>{if(e.key==='Escape'){if(!caseEl.hidden)closeCase();else if(menu.classList.contains('open')){setMenu(false);menuBtn.focus()}else if(!chat.hidden)closeChat()}});
 
-  /* ---------- composer ---------- */
-  const comp=$('#composer'),subj=$('#subj'),verdict=$('#verdict');let drag=false;
-  function place(x,y){const r=comp.getBoundingClientRect(),w=subj.offsetWidth;const px=Math.min(r.width-w,Math.max(0,x-r.left-w/2)),py=Math.min(r.height-w,Math.max(0,y-r.top-w/2));
-    subj.style.left=px+'px';subj.style.top=py+'px';const cX=(px+w/2)/r.width,cY=(py+w/2)/r.height,near=v=>Math.min(Math.abs(v-1/3),Math.abs(v-2/3))<.07;
-    verdict.textContent=near(cX)&&near(cY)?'On a thirds point. Strong, natural focus.':(Math.abs(cX-.5)<.07&&Math.abs(cY-.5)<.07)?'Dead centre. Stable, but static.':(cX<.12||cX>.88||cY<.12||cY>.88)?'Too close to the edge. The eye slides off.':near(cX)||near(cY)?'On a thirds line. Getting there.':'Floating. Try a thirds point.'}
-  comp.addEventListener('pointerdown',e=>{drag=true;comp.setPointerCapture(e.pointerId);place(e.clientX,e.clientY)});
-  comp.addEventListener('pointermove',e=>{if(drag)place(e.clientX,e.clientY)});comp.addEventListener('pointerup',()=>drag=false);
+  /* ---------- rule-of-thirds playground, with a guided walkthrough ---------- */
+  (()=>{
+  const comp=$('#composer'),subj=$('#subj'),hud=$('#fpHud'),tag=$('#fpTag'),why=$('#fpWhy'),hand=$('#fpHand'),coach=$('#fpCoach'),done=$('#fpDone'),cnt=$('#fpCount'),dots=$$('.fp-prog i'),pts=$$('#composer .pt'),lines={v1:$('#composer .v1'),v2:$('#composer .v2'),h1:$('#composer .h1'),h2:$('#composer .h2')};
+  const PT=[[1/3,1/3],[2/3,1/3],[1/3,2/3],[2/3,2/3]],COL={strong:'#D5FC65',line:'#F2C14E',centre:'#8FB8FF',edge:'#FF7A6B',float:'#B9AFA6'};
+  let fx=.5,fy=.5,drag=false,last='',found=new Set(),demoId=0,touched=false;
+  function judge(x,y){const nx=Math.min(Math.abs(x-1/3),Math.abs(x-2/3))<.06,ny=Math.min(Math.abs(y-1/3),Math.abs(y-2/3))<.06;
+    let d=9,ni=0;PT.forEach((p,i)=>{const dd=Math.hypot(x-p[0],y-p[1]);if(dd<d){d=dd;ni=i}});const sc=Math.round(Math.max(.06,1-d/.32)*100);
+    if(nx&&ny)return{k:'strong',t:'Sweet spot',w:'Strong focus. The eye rests where the thirds lines cross.',sc:Math.max(sc,92),i:ni};
+    if(Math.abs(x-.5)<.07&&Math.abs(y-.5)<.07)return{k:'centre',t:'Dead centre',w:'Stable, but static. Nothing pulls the eye onward.',sc};
+    if(x<.14||x>.86||y<.14||y>.86)return{k:'edge',t:'Too close to the edge',w:'The eye slides off the frame. Pull it back in.',sc:Math.min(sc,25)};
+    if(nx||ny)return{k:'line',t:'On a thirds line',w:'Getting there. Slide along the line to where it crosses another.',sc};
+    return{k:'float',t:'Floating',w:'No anchor yet. Head for a point where two lines cross.',sc}}
+  function set(x,y,user){const r=comp.getBoundingClientRect(),w=subj.offsetWidth,rx=w/2/r.width,ry=w/2/r.height;
+    fx=Math.min(1-rx,Math.max(rx,x));fy=Math.min(1-ry,Math.max(ry,y));subj.style.left=(fx-rx)*100+'%';subj.style.top=(fy-ry)*100+'%';
+    const j=judge(fx,fy);comp.style.setProperty('--c',COL[j.k]);hud.querySelector('.meter i').style.setProperty('--s',j.sc+'%');subj.classList.toggle('strong',j.k==='strong');
+    lines.v1.classList.toggle('hot',Math.abs(fx-1/3)<.06);lines.v2.classList.toggle('hot',Math.abs(fx-2/3)<.06);lines.h1.classList.toggle('hot',Math.abs(fy-1/3)<.06);lines.h2.classList.toggle('hot',Math.abs(fy-2/3)<.06);
+    hud.classList.toggle('low',fy<.42&&fx<.5);
+    if(j.k!==last){last=j.k;tag.textContent=j.t;why.textContent=j.w;hud.classList.remove('flash');void hud.offsetWidth;hud.classList.add('flash')}
+    if(user&&j.k==='strong'&&!found.has(j.i)){found.add(j.i);pts[j.i].classList.add('found');dots.forEach((d,i)=>d.classList.toggle('on',i<found.size));cnt.textContent=found.size+' of 4 found';try{navigator.vibrate&&navigator.vibrate(18)}catch(e){}
+      if(found.size===4)setTimeout(()=>{done.hidden=false;$('#fpReset').focus({preventScroll:true})},700)}}
+  const fromEvent=e=>{const r=comp.getBoundingClientRect();return[(e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height]};
+  function userStart(){stopDemo();if(!touched){touched=true;subj.classList.remove('fp-inv')}}
+  comp.addEventListener('pointerdown',e=>{if(e.target.closest('.fp-done'))return;userStart();drag=true;try{comp.setPointerCapture(e.pointerId)}catch(_){}set(...fromEvent(e),true)});
+  comp.addEventListener('pointermove',e=>{if(drag)set(...fromEvent(e),true)});
+  ['pointerup','pointercancel'].forEach(t=>comp.addEventListener(t,()=>drag=false));
+  comp.addEventListener('keydown',e=>{const k={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];if(!k)return;e.preventDefault();userStart();const st=e.shiftKey?.08:.025;set(fx+k[0]*st,fy+k[1]*st,true)});
+  $('#fpReset').onclick=()=>{found.clear();pts.forEach(p=>p.classList.remove('found'));dots.forEach(d=>d.classList.remove('on'));cnt.textContent='0 of 4 found';done.hidden=true;set(.5,.5);comp.focus({preventScroll:true})};
+
+  // ---- walkthrough: a hand shows the gesture, coach marks name each step ----
+  const wait=(ms,id)=>new Promise(r=>setTimeout(()=>r(id===demoId),ms));
+  function glide(tx,ty,ms,id){const sx=fx,sy=fy,t0=performance.now();return new Promise(res=>{const f=now=>{if(id!==demoId)return res(false);const k=Math.min(1,(now-t0)/ms),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+    set(sx+(tx-sx)*e,sy+(ty-sy)*e,false);handTo(fx,fy);k<1?requestAnimationFrame(f):res(true)};requestAnimationFrame(f)})}
+  function handTo(x,y){hand.style.left=x*100+'%';hand.style.top=y*100+'%'}
+  function say(html,x,y,where,off=18){const r=comp.getBoundingClientRect();coach.innerHTML=html;coach.className='coach '+where;const cw=coach.offsetWidth,ch=coach.offsetHeight;
+    let l=x*r.width-cw/2;l=Math.max(8,Math.min(r.width-cw-8,l));const tp=where==='below'?y*r.height+off:y*r.height-ch-off;coach.style.left=l+'px';coach.style.top=Math.max(6,Math.min(r.height-ch-6,tp))+'px';
+    coach.style.setProperty('--ax',Math.max(10,Math.min(cw-20,x*r.width-l-5))+'px');requestAnimationFrame(()=>coach.classList.add('on'))}
+  const hush=()=>coach.classList.remove('on');
+  function stopDemo(){demoId++;hand.style.opacity=0;hand.classList.remove('press');hush();comp.classList.remove('demo')}
+  async function demo(){if(!done.hidden)return;const id=++demoId;comp.classList.add('demo');set(.5,.5);handTo(.62,.78);hand.style.opacity=1;
+    say('<span class="n">1</span>Press the dot and drag it',.5,.5,'below',subj.offsetWidth/2+12);if(!await wait(900,id))return;
+    hand.classList.add('travel');handTo(.5,.5);if(!await wait(700,id))return;hand.classList.remove('travel');hand.classList.add('press');if(!await wait(350,id))return;hush();
+    if(!await glide(1/3,1/3,1300,id))return;
+    const hr=hud.getBoundingClientRect(),cr=comp.getBoundingClientRect(),lo=hud.classList.contains('low');say('<span class="n">2</span>Live result shows here',(hr.left-cr.left+hr.width*.35)/cr.width,((lo?hr.top:hr.bottom)-cr.top)/cr.height,lo?'above':'below');if(!await wait(1900,id))return;hush();
+    if(!await glide(.5,.5,900,id))return;if(!await wait(500,id))return;
+    if(!await glide(2/3,2/3,1000,id))return;say('<span class="n">3</span>Lines cross: a sweet spot',2/3,2/3,'above',subj.offsetWidth/2+12);if(!await wait(1700,id))return;
+    hand.classList.remove('press');hand.style.opacity=0;hush();if(!await glide(.5,.5,700,id))return;
+    say('Your turn. Find all 4 sweet spots',.5,.5,'below',subj.offsetWidth/2+12);if(!await wait(2600,id))return;hush();comp.classList.remove('demo')}
+  $('#fpHow').onclick=()=>{comp.scrollIntoView({block:'center',behavior:reduce?'auto':'smooth'});setTimeout(demo,reduce?0:450)};
+  set(.5,.5);
+  // play the walkthrough once, the first time the playground is properly in view
+  if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){io.disconnect();if(!touched&&!reduce)setTimeout(()=>{if(!touched)demo()},500)}},{threshold:.75});io.observe(comp)}
+  })();
 
   /* ---------- clock + email ---------- */
   const clock=$('#clock');function tickClock(){try{clock.textContent='Bangalore · '+new Date().toLocaleTimeString('en-IN',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit'})+' IST'}catch(e){}}tickClock();setInterval(tickClock,30000);
