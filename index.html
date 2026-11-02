@@ -173,6 +173,18 @@ body.locked .ask{opacity:0;pointer-events:none}
 #tourTx .w{transition:opacity .18s,filter .18s}
 #tourTx .w.h{opacity:0}
 body.touring{padding-bottom:var(--tourH,140px)}
+/* compact tour card, docked bottom-right so the page stays visible */
+.tour.run{left:auto;right:max(12px,var(--gut-r));transform:none;width:min(27rem,calc(100vw - 24px));padding:.5rem .55rem .55rem .45rem;gap:.55rem;border-radius:18px;grid-template-columns:auto minmax(0,1fr) auto}
+.tour.run[hidden]{transform:translateY(24px)}
+.tour.run .tav{width:2.3rem;height:3.2rem;margin:-.9rem 0 -.15rem}
+.tour.run .trun{gap:.35rem}
+.tour.run p{font-size:.84rem;line-height:1.4}
+#tourTx{min-height:0}
+#tourTx .w.h{opacity:.22}
+.tour.run .tk .mono{font-size:.55rem}
+.tour.run .tctl{align-self:start;gap:.25rem}
+.tour.run .tctl button{width:1.85rem;height:1.85rem;font-size:.72rem}
+@media (max-width:600px){.tour.run{right:10px;width:calc(100vw - 20px);grid-template-columns:auto minmax(0,1fr) auto}.tour.run .tctl{grid-column:auto;margin:0}}
 body.touring .guide{display:none}
 @media (max-width:600px){.tour.run{grid-template-columns:auto minmax(0,1fr);padding:.6rem .7rem .6rem .5rem}.tour .tav{width:2.8rem;height:3.9rem;margin-top:-1rem}}
 /* tighter rhythm: About starts sooner, process cards hug their content */
@@ -1530,9 +1542,9 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   const yOf=sel=>{let t=document.querySelector(sel);if(!t)return 0;if(t.parentElement&&t.parentElement.classList.contains('pin-spacer'))t=t.parentElement;return Math.max(0,t.getBoundingClientRect().top+scrollY-(innerWidth<761?64:80))};
   const glide=y=>{if(lenis)lenis.scrollTo(y,{duration:reduce?0:1.6,immediate:reduce});else scrollTo({top:y,behavior:reduce?'auto':'smooth'})};
   const STOPS=[
-    {go:()=>glide(0),hl:null},{go:()=>centerOn($('.hfacts')),hl:'.hfacts'},
+    {go:()=>glide(0),hl:null},{go:()=>glide(0),hl:'.hfacts'},
     {go:()=>__pkCard(0),hl:'#reel>.card:nth-child(1) .media',w:1700},{go:()=>__pkCard(1),hl:'#reel>.card:nth-child(2) .media'},{go:()=>__pkCard(2),hl:'#reel>.card:nth-child(3) .media'},{go:()=>__pkCard(3),hl:'#reel>.card:nth-child(4) .media'},{go:()=>__pkCard(4),hl:'#reel>.card:nth-child(5) .media'},
-    {go:()=>centerOn($('#statement')),hl:'#statement',w:1700},{go:()=>centerOn($('#process .stack')),hl:'#process .step:first-child',w:1700},{go:()=>centerOn($('#fpTile')),hl:'#fpTile',w:1700},{go:()=>centerOn($('.reach.big')),hl:'.reach.big',w:1700}];
+    {go:()=>showSec($('#statement')),hl:'#statement',w:1700},{go:()=>showSec($('#process .step')),hl:'#process .step:first-child',w:1700},{go:()=>showSec($('#fpTile')),hl:'#fpTile',w:1700},{go:()=>showSec($('.reach.big')),hl:'.reach.big',w:1700}];
   let ti=-1,tPlaying=false,tTimer=0,tId=0,hlEl=null;
   const setHl=sel=>{if(hlEl)hlEl.classList.remove('tour-hl');hlEl=sel?document.querySelector(sel):null;if(hlEl)hlEl.classList.add('tour-hl')};
   function tourMode(m){tourEl.classList.toggle('offer',m==='offer');tourEl.classList.toggle('run',m==='run');tourEl.hidden=!m;document.body.classList.toggle('touring',m==='run')}
@@ -1541,6 +1553,10 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   /* ---------- tour bar: keep items clear of the bar, point at them, type captions in sync with the voice ---------- */
   const tav=tourEl.querySelector('.tav');
   function freeBox(){const b=tourEl.getBoundingClientRect();return{top:innerWidth<761?64:84,bottom:(tourEl.hidden?innerHeight:b.top)-14}}
+  // show a whole section from its start; if the highlighted item wouldn't fit, line the item up near the top instead
+  function showSec(el){if(!el)return;let sec=el.closest('section')||el;if(sec.parentElement&&sec.parentElement.classList.contains('pin-spacer'))sec=sec.parentElement;
+    const f=freeBox(),st=sec.getBoundingClientRect().top+scrollY,r=el.getBoundingClientRect(),elTop=r.top+scrollY,elBot=elTop+r.height;
+    const y=(elBot-st<=f.bottom-14)?st:Math.max(0,elTop-f.top-24);glide(Math.max(0,y))}
   function centerOn(el){if(!el)return;const r=el.getBoundingClientRect(),f=freeBox(),av=f.bottom-f.top;const y=scrollY+r.top-f.top-Math.max(0,(av-r.height)/2);glide(Math.max(0,y))}
   function pointAt(el){if(!tav)return;if(!el){tav.style.setProperty('--aa','-20deg');tav.classList.remove('fl');return}
     const a=tav.getBoundingClientRect(),r=el.getBoundingClientRect();const sx=a.left+a.width*.65,sy=a.top+a.height*.56;let dx=r.left+r.width/2-sx,dy=Math.max(r.top,Math.min(r.bottom,sy-40))-sy;
