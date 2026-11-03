@@ -359,6 +359,16 @@ body.touring .guide{display:none}
 .chat header .av svg{width:112%!important;height:112%!important;margin:-4% 0 0 -6%!important}
 @media (prefers-reduced-motion:reduce){.mascot.face *{animation:none!important;transition:none!important}}
 .ask .mascot.face .m-shade{display:none}
+/* contrast: Proto's cream face sits on a dark badge with a lime ring, so it reads on the cream pill */
+.ask .mbot{isolation:isolate}
+.ask .mbot::before{content:"";position:absolute;left:3%;top:3%;width:94%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 40%,#2c2027,#140d11 70%);box-shadow:0 0 0 1.5px var(--lime),0 4px 10px -2px rgba(0,0,0,.45);z-index:-1}
+.ask.on-light .mbot::before{box-shadow:0 0 0 1.5px var(--lime),0 0 0 3px #1A1216}
+/* hello bubble: close to Proto, pointer on his face, frosted glass so the page behind softens */
+.ask .asktip{bottom:calc(100% + 16px)!important;background:rgba(24,16,20,.66)!important;-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);
+  box-shadow:0 18px 40px -10px rgba(0,0,0,.65),0 0 0 999px rgba(0,0,0,0)}
+.ask .asktip::after{right:var(--tail,1.6rem)!important;background:rgba(24,16,20,.9)!important}
+.ask .asktip::before{content:"";position:absolute;inset:-22px;border-radius:30px;z-index:-1;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  -webkit-mask:radial-gradient(closest-side,#000 60%,transparent);mask:radial-gradient(closest-side,#000 60%,transparent);pointer-events:none}
 @media (max-width:600px){
 .tour.run{top:62px!important;bottom:auto!important;left:8px!important;right:8px!important;width:auto!important;transform:none!important;
   grid-template-columns:auto minmax(0,1fr) auto!important;gap:.55rem!important;padding:.6rem .55rem .65rem .5rem!important;align-items:start}
@@ -1826,6 +1836,7 @@ const m=innerWidth<761,top=m?62:76,pad=m?8:14,bot=innerHeight-pad;
   // step 2 of the welcome: Proto stays small in the corner and says hello for a few seconds, then settles back
   let offered=false;window.__pkOffer=()=>{if(offered)return;offered=true;if(!tourEl.hidden||!chat.hidden||!caseEl.hidden||menu.classList.contains('open'))return;
     const tip=askBtn.querySelector('.asktip');tip.innerHTML='Hello, welcome to Pranit\'s design portfolio. Reach out to me for any information or help.';
+    {const br=askBtn.getBoundingClientRect(),fr=askBtn.querySelector('.mbot').getBoundingClientRect();tip.style.setProperty('--tail',Math.max(12,br.right-(fr.left+fr.width/2)-6)+'px')}
     askBtn.classList.add('hello');setTimeout(()=>askBtn.classList.remove('hello'),5000);window.__pkSayHello&&window.__pkSayHello()};
   setTimeout(window.__pkOffer,5000);
   /* ---------- music is on by default: it starts at the visitor's first tap or click (browsers block sound before that) ---------- */
