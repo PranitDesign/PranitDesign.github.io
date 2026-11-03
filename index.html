@@ -767,6 +767,7 @@ section{position:relative}
 .reel-nav button:hover{background:var(--lime);color:var(--ink);border-color:var(--lime)}
 .reel-nav button:disabled{opacity:.3;pointer-events:none}
 .reel-nav .mono{margin-left:.6rem}
+.reel.autoplay ~ .reel-nav .mono,.reel-wrap:has(.reel.autoplay) .reel-nav .mono{color:var(--lime)}
 @media (max-width:900px){
   .reel-wrap{overflow:visible}
   .reel{width:auto;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-inline:calc(-1 * var(--gut)) calc(-1 * var(--gut-r));padding:0 var(--gut-r) 1rem var(--gut);scroll-padding-left:var(--gut);gap:1rem}
@@ -1403,6 +1404,28 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
     addEventListener('keydown',e=>{if(!caseEl.hidden||!chat.hidden)return;if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;const r=work.getBoundingClientRect();if(r.top<innerHeight*.5&&r.bottom>innerHeight*.5){e.preventDefault();step(e.key==='ArrowRight'?1:-1)}});
     // mobile progress bar
     reel.addEventListener('scroll',()=>{if(st())return;const m=reel.scrollWidth-reel.clientWidth;bar.style.setProperty('--p',(m?reel.scrollLeft/m:0).toFixed(3))},{passive:true});
+    // phones & tablets: once the reel is on screen it glides slowly through the stories, one card at a time,
+    // so nobody misses the sideways content. Any touch, swipe, wheel or arrow hands control back for good.
+    (function(){
+      if(reduce||!('IntersectionObserver' in window))return;
+      const hint=$('.reel-nav .mono'),hint0=hint?hint.textContent:'';
+      let visible=false,stopped=false,done=false,timer=0,raf=0,idx=0,started=false;
+      const DWELL=3400,GLIDE=1500;
+      const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+      function glideTo(x,cb){cancelAnimationFrame(raf);const x0=reel.scrollLeft,dx=x-x0,t0=performance.now();reel.style.scrollSnapType='none';
+        const f=now=>{if(stopped){reel.style.scrollSnapType='';return}const p=Math.min(1,(now-t0)/GLIDE);reel.scrollLeft=x0+dx*ease(p);if(p<1)raf=requestAnimationFrame(f);else{reel.style.scrollSnapType='';cb&&cb()}};raf=requestAnimationFrame(f)}
+      function busy(){return st()||!caseEl.hidden||!chat.hidden||document.body.classList.contains('touring')}
+      function setHint(on){if(hint)hint.textContent=on?'Auto-playing · touch to stop':hint0;reel.classList.toggle('autoplay',on)}
+      function tick(){clearTimeout(timer);if(stopped||done||!visible)return;timer=setTimeout(()=>{if(stopped||!visible)return;if(busy()){tick();return}
+        const xs=offsets(),max=reel.scrollWidth-reel.clientWidth;idx=xs.findIndex(v=>v>reel.scrollLeft+20);
+        if(idx<0||reel.scrollLeft>=max-4){done=true;glideTo(0,()=>setHint(false));return}
+        glideTo(Math.min(max,xs[idx]),tick)},started?DWELL:1600);started=true;setHint(true)}
+      function stop(){if(stopped)return;stopped=true;clearTimeout(timer);cancelAnimationFrame(raf);reel.style.scrollSnapType='';setHint(false)}
+      ['touchstart','pointerdown','wheel'].forEach(t=>reel.addEventListener(t,stop,{passive:true}));
+      [prev,next].forEach(b=>b.addEventListener('click',stop));
+      new IntersectionObserver(es=>{es.forEach(e=>{visible=e.intersectionRatio>=.55;if(visible&&!st())tick();else{clearTimeout(timer);if(!stopped&&!done)setHint(false)}})},{threshold:[0,.55,1]}).observe(reel);
+      window.__pkReelAuto=()=>({visible,stopped,done,x:Math.round(reel.scrollLeft)});
+    })();
   })();
 
 
