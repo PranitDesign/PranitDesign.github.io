@@ -1701,9 +1701,11 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   let voiceOK=false;function unlockVoice(){if(voiceOK)return;try{const src=Object.values(CLIPS)[0];if(!src)return;tAud.muted=true;tAud.src=src;const p=tAud.play();
     if(p&&p.then)p.then(()=>{voiceOK=true;if(!tPlaying){tAud.pause();tAud.currentTime=0}tAud.muted=false},()=>{tAud.muted=false});else{voiceOK=true;tAud.muted=false}}catch(e){}}
   window.__pkUnlockVoice=unlockVoice;
+  let helloOn=false;
   const HELLO="Hello! Welcome to Pranit's design portfolio. Reach out to me for any information or help.";
   window.__pkSayHello=()=>{const src=CLIPS[HELLO];if(!src||tPlaying||!chat.hidden)return;tAud.onplaying=null;tAud.ontimeupdate=null;tAud.src=src;tAud.currentTime=0;tAud.muted=false;
-    const end=()=>{askBtn.classList.remove('talk');window.__pkDuck&&window.__pkDuck(false)};tAud.onended=end;window.__pkDuck&&window.__pkDuck(true);askBtn.classList.add('talk');tAud.play().catch(end)};
+    const end=()=>{helloOn=false;askBtn.classList.remove('talk');window.__pkDuck&&window.__pkDuck(false)};tAud.onended=end;helloOn=true;
+    window.__pkHushHello=()=>{if(!helloOn)return;try{tAud.pause()}catch(e){}end();askBtn.classList.remove('hello')};window.__pkDuck&&window.__pkDuck(true);askBtn.classList.add('talk');tAud.play().catch(end)};
   const TOUR=["Hi, I'm Proto. Pranit built me to walk you through his work. He's a UX/UI designer at frog, part of Capgemini Invent, and he designs products that feel obvious.", "Before frog, he spent three years at Wipro, after studying design at NIFT Patna. He has designed for Philips and Barclays, across health, banking, insurance and retail.", "First, Philips Enterprise AI-Chat. Pranit designed Workspace, where employees chat with their own files, safely.", "For Philips Mother and Child Care, he built an advisor that finds the right baby bottle in a few questions.", "This is an AR store that knows your taste, designed for a headset and a phone.", "Here, he reimagined Digi Yatra as a companion for the whole airport journey, from the gate to the plane.", "And Fimbre, a community shopping app, where he learned to ship. Open any project for the full case study.", "A little about Pranit. He designs for the moment someone feels stuck. Off the clock, he sings, travels with a backpack, and films it all.", "His process is simple. Talk to people, frame the problem, explore and test, then ship and hand off.", "In the lab, try a few small experiments, like the rule of thirds game.", "That's the tour! To work with Pranit, email him, call him, or message him on LinkedIn. It's all right here. And I'm always in the corner if you have questions."];
   const yOf=sel=>{let t=document.querySelector(sel);if(!t)return 0;if(t.parentElement&&t.parentElement.classList.contains('pin-spacer'))t=t.parentElement;return Math.max(0,t.getBoundingClientRect().top+scrollY-(innerWidth<761?64:80))};
   const glide=y=>{if(lenis)lenis.scrollTo(y,{duration:reduce?0:1.6,immediate:reduce});else scrollTo({top:y,behavior:reduce?'auto':'smooth'})};
@@ -1775,7 +1777,7 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   function stop(i){if(i>=STOPS.length)return endTour(true);ti=i;const id=++tId;tN.textContent=(i+1)+' / '+STOPS.length;setWords(TOUR[i]);barH();tBar.style.width='0';
     clearTimeout(tTimer);try{tAud.pause()}catch(e){}STOPS[i].go();setHl(null);
     tTimer=setTimeout(()=>{if(id!==tId||!tPlaying)return;setHl(STOPS[i].hl);placeCard();pointAt(hlEl);setTimeout(()=>{if(id===tId){placeCard();pointAt(hlEl)}},900);if(STOPS[i].follow)followAfter(STOPS[i].follow,id);say(TOUR[i],()=>{if(id===tId&&tPlaying)tTimer=setTimeout(()=>stop(i+1),650)},id)},reduce?200:(STOPS[i].w||1200))}
-  function startTour(){unlockVoice();stopVoice();if(!chat.hidden)closeChat();if(!caseEl.hidden)closeCase();if(menu.classList.contains('open'))setMenu(false);popOpen(false);
+  function startTour(){window.__pkHushHello&&window.__pkHushHello();unlockVoice();stopVoice();if(!chat.hidden)closeChat();if(!caseEl.hidden)closeCase();if(menu.classList.contains('open'))setMenu(false);popOpen(false);
     try{sessionStorage.setItem('pk-tour','1')}catch(e){}tourMode('run');barH();tPlaying=true;tPP.textContent='❚❚';tPP.setAttribute('aria-label','Pause tour');stop(0)}
   function pauseTour(){if(!tPlaying)return;tPlaying=false;tId++;clearTimeout(tTimer);try{tAud.pause()}catch(e){}tourEl.classList.remove('talking');guide.classList.remove('gtalk','walk');tPP.textContent='▶';tPP.setAttribute('aria-label','Resume tour');tTx.textContent='Paused. Tap ▶ to continue, → for the next stop.';window.__pkDuck&&window.__pkDuck(false)}
   function resumeTour(){unlockVoice();if(tPlaying)return;tPlaying=true;tPP.textContent='❚❚';tPP.setAttribute('aria-label','Pause tour');stop(Math.max(0,ti))}
@@ -1794,7 +1796,7 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   // step 2 of the welcome: Proto offers the tour once the music tip has had its moment (or after ~7s regardless)
   // step 2 of the welcome: Proto stays small in the corner and says hello for a few seconds, then settles back
   let offered=false;window.__pkOffer=()=>{if(offered)return;offered=true;if(!tourEl.hidden||!chat.hidden||!caseEl.hidden||menu.classList.contains('open'))return;
-    const tip=askBtn.querySelector('.asktip');tip.innerHTML='<b>Hello 👋</b> Welcome to Pranit\'s design portfolio. Reach out to me for any information or help.';
+    const tip=askBtn.querySelector('.asktip');tip.innerHTML='Hello, welcome to Pranit\'s design portfolio. Reach out to me for any information or help.';
     askBtn.classList.add('hello');setTimeout(()=>askBtn.classList.remove('hello'),5000);window.__pkSayHello&&window.__pkSayHello()};
   setTimeout(window.__pkOffer,5000);
   /* ---------- music is on by default: it starts at the visitor's first tap or click (browsers block sound before that) ---------- */
@@ -1892,7 +1894,7 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   const fallback=localAnswer;
   const samplePromise=window.claude?.use?Promise.race([window.claude.use('sample').catch(()=>null),new Promise(r=>setTimeout(()=>r(null),2500))]):Promise.resolve(null);let aiOff=false;
   const chat=$('#chat'),log=$('#log'),form=$('#chatForm'),input=$('#chatIn'),turns=[];let busy=false;
-  function openChat(){chat.hidden=false;setTimeout(()=>input.focus(),50)}
+  function openChat(){window.__pkHushHello&&window.__pkHushHello();chat.hidden=false;setTimeout(()=>input.focus(),50)}
   function closeChat(){stopVoice();chat.hidden=true;askBtn.focus()}
   askBtn.onclick=()=>chat.hidden?openChat():closeChat();$('#openChat2').onclick=openChat;$('#closeChat').onclick=closeChat;
   $('#suggest').addEventListener('click',e=>{if(e.target.tagName==='BUTTON')ask(e.target.textContent)});
