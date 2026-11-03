@@ -422,7 +422,7 @@ body.touring .ask{opacity:0;pointer-events:none}
 .asktip{position:absolute;right:0;bottom:calc(100% + 40px);white-space:nowrap;background:var(--bg-2);color:var(--cream);border:1px solid rgba(213,252,101,.5);border-radius:14px;padding:.55rem .8rem;font-size:.84rem;font-weight:600;box-shadow:0 16px 30px -12px rgba(0,0,0,.7);opacity:0;transform:translateY(6px) scale(.96);transform-origin:bottom right;transition:opacity .35s,transform .35s var(--ease);pointer-events:none}
 .asktip::after{content:"";position:absolute;right:1.6rem;bottom:-6px;width:10px;height:10px;background:var(--bg-2);border-right:1px solid rgba(213,252,101,.5);border-bottom:1px solid rgba(213,252,101,.5);transform:rotate(45deg)}
 .ask.hello .asktip{opacity:1;transform:none}
-.ask .asktip{bottom:calc(100% + 62px);white-space:normal;width:max-content;max-width:min(15.5rem,calc(100vw - 32px));line-height:1.35;font-weight:500}
+.ask .asktip{bottom:calc(100% + 62px);white-space:normal;width:max-content;max-width:min(18rem,calc(100vw - 32px));line-height:1.35;font-weight:500}
 .ask .asktip b{font-weight:700;margin-right:.15rem}
 .ask.hello .bot .m-eyes-open{opacity:0;animation:none!important}.ask.hello .bot .m-eyes-happy{opacity:1;animation:none!important}
 .ask.hello .bot .m-arm-r{opacity:0;animation:none!important}.ask.hello .bot .m-wave{opacity:1;animation:none!important}
@@ -1755,10 +1755,10 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   window.__pkTourOffer=!toured;
   // step 2 of the welcome: Proto offers the tour once the music tip has had its moment (or after ~7s regardless)
   // step 2 of the welcome: Proto stays small in the corner and says hello for a few seconds, then settles back
-  let offered=false;window.__pkOffer=()=>{if(offered)return;const mh=document.getElementById('mhint');if(mh&&!mh.hidden){setTimeout(window.__pkOffer,1200);return}offered=true;if(!tourEl.hidden||!chat.hidden||!caseEl.hidden||menu.classList.contains('open'))return;
-    const tip=askBtn.querySelector('.asktip');tip.innerHTML=toured?'<b>Questions?</b> Ask me anything about Pranit.':'<b>Hi, I\'m Proto 👋</b> Ask me anything, or tap for a 1-minute tour.';
-    askBtn.classList.add('hello');setTimeout(()=>askBtn.classList.remove('hello'),4200)};
-  setTimeout(window.__pkOffer,9500);
+  let offered=false;window.__pkOffer=()=>{if(offered)return;offered=true;if(!tourEl.hidden||!chat.hidden||!caseEl.hidden||menu.classList.contains('open'))return;
+    const tip=askBtn.querySelector('.asktip');tip.innerHTML='<b>Hi, I\'m Proto 👋</b> Welcome to Pranit\'s portfolio. Ask me anything, anytime.';
+    askBtn.classList.add('hello');setTimeout(()=>askBtn.classList.remove('hello'),5000)};
+  setTimeout(window.__pkOffer,5000);
   /* ---------- music is on by default: it starts at the visitor's first tap or click (browsers block sound before that) ---------- */
   const mhint=$('#mhint');let hintT;
   function placeHint(){const r=sBtn.getBoundingClientRect();mhint.style.top=(r.bottom+12)+'px';mhint.style.right=Math.max(12,innerWidth-r.right)+'px';mhint.style.setProperty('--ax',Math.max(18,r.width/2)+'px')}
@@ -1773,14 +1773,13 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   // ducking: when AI Pranit speaks, the music drops to a whisper and comes back after
   window.__pkDuck=d=>{try{if(!actx||!master||!on)return;const t=actx.currentTime;master.gain.cancelScheduledValues(t);master.gain.setTargetAtTime(d?.2:.55,t,d?.15:.7)}catch(e){}};
   window.__pkAudio=()=>({on,state:actx?actx.state:'none',gain:master?+master.gain.value.toFixed(3):0});
-  if(pref==='off')setTimeout(()=>window.__pkOffer&&window.__pkOffer(),1500);
   if(pref!=='off'){
     // Browsers only allow sound after a real tap, click or key press. Stay "armed" until the music is
     // actually playing: if a gesture doesn't unlock audio (e.g. iOS ignores some event types), try the next one.
     const EV=['click','touchend','pointerup','mousedown','keydown'];let trying=false,hinted=false;
     sBtn.classList.add('armed');sLbl.innerHTML='Music<span class="st"> on</span>';sBtn.title='Music starts with your first tap or click. Tap here to keep it off.';
     const disarm=()=>{EV.forEach(t=>removeEventListener(t,arm,true));sBtn.classList.remove('armed')};
-    function played(){disarm();mhint.dataset.mode='playing';hintTx.innerHTML='Music is on.<b>Tap here to turn it off</b>';showHint(4000);setTimeout(()=>window.__pkOffer&&window.__pkOffer(),4800)}
+    function played(){disarm();mhint.dataset.mode='playing';hintTx.innerHTML='Music is on.<b>Tap here to turn it off</b>';showHint(4000)}
     function arm(e){
       if(e.type==='keydown'&&(e.metaKey||e.ctrlKey||e.altKey||e.key==='Escape'||e.key==='Tab'))return;
       // tapping Music itself turns the music on; skip the button's own click so it doesn't toggle straight back off
