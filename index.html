@@ -360,7 +360,7 @@ body.touring .guide{display:none}
 @media (prefers-reduced-motion:reduce){.mascot.face *{animation:none!important;transition:none!important}}
 .ask .mascot.face .m-shade{display:none}
 @media (max-width:600px){
-.tour.run{top:auto!important;bottom:calc(8px + env(safe-area-inset-bottom,0px))!important;left:8px!important;right:8px!important;width:auto!important;transform:none!important;
+.tour.run{top:62px!important;bottom:auto!important;left:8px!important;right:8px!important;width:auto!important;transform:none!important;
   grid-template-columns:auto minmax(0,1fr) auto!important;gap:.55rem!important;padding:.6rem .55rem .65rem .5rem!important;align-items:start}
 .tour.run .tav{width:2.5rem!important;height:2.35rem!important;margin:.15rem 0 0!important;align-self:start!important}
 .tour.run .tctl{grid-column:auto!important;flex-direction:column;gap:.3rem!important;margin:0!important;align-self:start!important}
@@ -1744,6 +1744,9 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
   function showSec(el){if(!el)return;let sec=el.closest('section')||el;if(sec.parentElement&&sec.parentElement.classList.contains('pin-spacer'))sec=sec.parentElement;
     const f=freeBox(),st=sec.getBoundingClientRect().top+scrollY,r=el.getBoundingClientRect(),elTop=r.top+scrollY,elBot=elTop+r.height;
     const y=(elBot-st<=f.bottom-14)?st:Math.max(0,elTop-f.top-24);glide(Math.max(0,y))}
+  // phones: make the highlighted block fully visible in the space below the docked card
+  function fitHl(){if(innerWidth>600||!hlEl||tourEl.hidden)return;const c=tourEl.getBoundingClientRect(),r=hlEl.getBoundingClientRect(),top=c.bottom+14,bot=innerHeight-14;
+    if(r.top>=top-2&&(r.bottom<=bot+2||r.height>bot-top))return;glide(Math.max(0,scrollY+r.top-top))}
   function centerOn(el){if(!el)return;const r=el.getBoundingClientRect(),f=freeBox(),av=f.bottom-f.top;const y=scrollY+r.top-f.top-Math.max(0,(av-r.height)/2);glide(Math.max(0,y))}
   function pointAt(el){if(!tav)return;if(!el){tav.style.setProperty('--lx','0px');tav.style.setProperty('--ly','0px');return}
     const a=tav.getBoundingClientRect(),r=el.getBoundingClientRect();const dx=r.left+r.width/2-(a.left+a.width/2),dy=r.top+r.height/2-(a.top+a.height/2),d=Math.hypot(dx,dy)||1;
@@ -1761,7 +1764,7 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
     for(const n of e.childNodes)if(n.nodeType===3&&n.textContent.trim())return true;return false}
   function hits(x,y,w,h){let c=0;for(let i=0;i<6;i++)for(let j=0;j<4;j++){const px=x+w*(i+.5)/6,py=y+h*(j+.5)/4;const e=document.elementsFromPoint(px,py).find(el=>!el.closest(SKIP));if(isContent(e))c++}return c}
   function placeCard(){if(tourEl.hidden||!tourEl.classList.contains('run'))return;
-    // phones: always dock at the bottom, so the section being described stays visible at the top
+    // phones: the card docks at the top; fitHl() then scrolls the highlighted block fully into view below it
     if(innerWidth<=600){tourEl.classList.remove('placed','narrow');document.body.style.setProperty('--tourH',(tourEl.offsetHeight+24)+'px');return}
 const m=innerWidth<761,top=m?62:76,pad=m?8:14,bot=innerHeight-pad;
     const hr=hlEl?hlEl.getBoundingClientRect():null;const sizes=[];
@@ -1798,7 +1801,7 @@ const m=innerWidth<761,top=m?62:76,pad=m?8:14,bot=innerHeight-pad;
     tAud.muted=false;window.__pkDuck&&window.__pkDuck(true);tourEl.classList.add('talking');guide.classList.add('gtalk');tAud.play().catch(()=>{tourEl.classList.remove('talking');guide.classList.remove('gtalk');fallback()})}
   function stop(i){if(i>=STOPS.length)return endTour(true);ti=i;const id=++tId;tN.textContent=(i+1)+' / '+STOPS.length;setWords(TOUR[i]);barH();tBar.style.width='0';
     clearTimeout(tTimer);try{tAud.pause()}catch(e){}STOPS[i].go();setHl(null);
-    tTimer=setTimeout(()=>{if(id!==tId||!tPlaying)return;setHl(STOPS[i].hl);placeCard();pointAt(hlEl);setTimeout(()=>{if(id===tId){placeCard();pointAt(hlEl)}},900);if(STOPS[i].follow)followAfter(STOPS[i].follow,id);say(TOUR[i],()=>{if(id===tId&&tPlaying)tTimer=setTimeout(()=>stop(i+1),650)},id)},reduce?200:(STOPS[i].w||1200))}
+    tTimer=setTimeout(()=>{if(id!==tId||!tPlaying)return;setHl(STOPS[i].hl);placeCard();pointAt(hlEl);fitHl();setTimeout(()=>{if(id===tId){placeCard();fitHl();pointAt(hlEl)}},900);if(STOPS[i].follow)followAfter(STOPS[i].follow,id);say(TOUR[i],()=>{if(id===tId&&tPlaying)tTimer=setTimeout(()=>stop(i+1),650)},id)},reduce?200:(STOPS[i].w||1200))}
   function startTour(){window.__pkHushHello&&window.__pkHushHello();unlockVoice();stopVoice();if(!chat.hidden)closeChat();if(!caseEl.hidden)closeCase();if(menu.classList.contains('open'))setMenu(false);popOpen(false);
     try{sessionStorage.setItem('pk-tour','1')}catch(e){}tourMode('run');barH();tPlaying=true;tPP.textContent='❚❚';tPP.setAttribute('aria-label','Pause tour');stop(0)}
   function pauseTour(){if(!tPlaying)return;tPlaying=false;tId++;clearTimeout(tTimer);try{tAud.pause()}catch(e){}tourEl.classList.remove('talking');guide.classList.remove('gtalk','walk');tPP.textContent='▶';tPP.setAttribute('aria-label','Resume tour');tTx.textContent='Paused. Tap ▶ to continue, → for the next stop.';window.__pkDuck&&window.__pkDuck(false)}
