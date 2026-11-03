@@ -435,7 +435,11 @@ body.touring .guide{display:none}
 .tour .tctl button{width:2.3rem;height:2.3rem;border-radius:50%;border:1px solid var(--line);color:var(--cream);background:none;display:grid;place-items:center;font-size:.85rem;cursor:pointer}
 .tour .tctl button:hover{background:var(--lime);color:#111;border-color:var(--lime)}
 body.touring .ask{opacity:0;pointer-events:none}
-.tour-hl{outline:2px solid var(--lime)!important;outline-offset:6px;box-shadow:0 0 0 12px rgba(213,252,101,.1)!important;transition:outline-color .3s,box-shadow .3s}
+.tour-hl{outline:2px solid var(--lime)!important;outline-offset:6px;box-shadow:0 0 0 10px rgba(213,252,101,.1),0 0 48px 10px rgba(213,252,101,.26)!important;transition:outline-color .3s,box-shadow .3s;animation:hlGlow 2.4s ease-in-out infinite}
+@keyframes hlGlow{0%,100%{box-shadow:0 0 0 10px rgba(213,252,101,.1),0 0 40px 6px rgba(213,252,101,.2)}50%{box-shadow:0 0 0 10px rgba(213,252,101,.14),0 0 64px 16px rgba(213,252,101,.34)}}
+@media (prefers-reduced-motion:reduce){.tour-hl{animation:none}}
+/* phones: the sideways reel clips anything above its cards, so give the highlight and glow room */
+@media (max-width:900px){body.touring .reel{padding-top:34px!important;margin-top:-34px!important;padding-bottom:calc(1rem + 30px)!important;margin-bottom:-30px!important}}
 @media (max-width:600px){.tour{grid-template-columns:auto minmax(0,1fr);padding:.75rem}.tour .tctl{grid-column:1/-1;justify-content:flex-end;margin-top:-.2rem}.tour .tav{width:2.5rem;height:2.5rem}.tour p{font-size:.9rem}}
 @media (prefers-reduced-motion:reduce){.pav .eye,.tour .tav .ant,.tour.talking .tav svg{animation:none}}
 /* cards: clean lift + cover parallax (no 3D tilt, nothing clipped) */
