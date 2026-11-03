@@ -1432,30 +1432,37 @@ body.reading .ask{transform:translateY(calc(100% + 24px + env(safe-area-inset-bo
     addEventListener('keydown',e=>{if(!caseEl.hidden||!chat.hidden)return;if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;const r=work.getBoundingClientRect();if(r.top<innerHeight*.5&&r.bottom>innerHeight*.5){e.preventDefault();step(e.key==='ArrowRight'?1:-1)}});
     // mobile progress bar
     reel.addEventListener('scroll',()=>{if(st())return;const m=reel.scrollWidth-reel.clientWidth;bar.style.setProperty('--p',(m?reel.scrollLeft/m:0).toFixed(3))},{passive:true});
-    // phones & tablets: once the reel is on screen it glides slowly through the stories, one card at a time,
-    // so nobody misses the sideways content. Any touch, swipe, wheel or arrow hands control back for good.
+    // phones & tablets: while the reel is on screen it drifts continuously, like a slow banner, so nobody misses
+    // the sideways stories. A finger on it pauses the drift (vertical page scrolling resumes it on release);
+    // a sideways swipe, a tap or the arrows hand control to the visitor for good.
     (function(){
       if(reduce||!('IntersectionObserver' in window))return;
       const hint=$('.reel-nav .mono'),hint0=hint?hint.textContent:'';
-      let visible=false,stopped=false,done=false,timer=0,raf=0,idx=0,started=false;
-      const DWELL=3400,GLIDE=1500;
-      const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
-      function glideTo(x,cb){cancelAnimationFrame(raf);const x0=reel.scrollLeft,dx=x-x0,t0=performance.now();reel.style.scrollSnapType='none';
-        const f=now=>{if(stopped){reel.style.scrollSnapType='';return}const p=Math.min(1,(now-t0)/GLIDE);reel.scrollLeft=x0+dx*ease(p);if(p<1)raf=requestAnimationFrame(f);else{reel.style.scrollSnapType='';cb&&cb()}};raf=requestAnimationFrame(f)}
+      const SPEED=34; // px per second: a gentle reading pace
+      let visible=false,stopped=false,held=false,raf=0,last=0,pos=0,rewinding=false;
       function busy(){return st()||!caseEl.hidden||!chat.hidden||document.body.classList.contains('touring')}
       function setHint(on){if(hint)hint.textContent=on?'Auto-playing · touch to stop':hint0;reel.classList.toggle('autoplay',on)}
-      function tick(){clearTimeout(timer);if(stopped||done||!visible)return;timer=setTimeout(()=>{if(stopped||!visible)return;if(busy()){tick();return}
-        const xs=offsets(),max=reel.scrollWidth-reel.clientWidth;idx=xs.findIndex(v=>v>reel.scrollLeft+20);
-        if(idx<0||reel.scrollLeft>=max-4){done=true;glideTo(0,()=>setHint(false));return}
-        glideTo(Math.min(max,xs[idx]),tick)},started?DWELL:1600);started=true;setHint(true)}
-      function stop(){if(stopped)return;stopped=true;clearTimeout(timer);cancelAnimationFrame(raf);reel.style.scrollSnapType='';setHint(false)}
-      let tx=0,ty=0;reel.addEventListener('touchstart',e=>{const t=e.touches[0];tx=t.clientX;ty=t.clientY},{passive:true});
-      reel.addEventListener('touchmove',e=>{const t=e.touches[0],dx=Math.abs(t.clientX-tx),dy=Math.abs(t.clientY-ty);if(dx>10&&dx>dy)stop()},{passive:true});
+      function frame(now){raf=0;if(stopped||!visible)return;const dt=Math.min(.05,(now-last)/1000);last=now;
+        if(!held&&!busy()&&!rewinding){const max=reel.scrollWidth-reel.clientWidth;
+          if(Math.abs(reel.scrollLeft-pos)>2)pos=reel.scrollLeft;   // the visitor moved it: carry on from there
+          pos+=SPEED*dt;
+          if(pos>=max-1){rewinding=true;reel.style.scrollSnapType='';reel.scrollTo({left:0,behavior:'smooth'});setTimeout(()=>{pos=reel.scrollLeft;rewinding=false;if(!stopped)reel.style.scrollSnapType='none'},1400)}
+          else reel.scrollLeft=pos}
+        raf=requestAnimationFrame(frame)}
+      function play(){if(stopped||raf||st())return;pos=reel.scrollLeft;reel.style.scrollSnapType='none';setHint(true);last=performance.now();raf=requestAnimationFrame(frame)}
+      function pause(){cancelAnimationFrame(raf);raf=0;if(!stopped)setHint(false)}
+      function stop(){if(stopped)return;stopped=true;cancelAnimationFrame(raf);raf=0;reel.style.scrollSnapType='';setHint(false)}
+      let tx=0,ty=0,sideways=false;
+      reel.addEventListener('touchstart',e=>{const t=e.touches[0];tx=t.clientX;ty=t.clientY;sideways=false;held=true},{passive:true});
+      reel.addEventListener('touchmove',e=>{const t=e.touches[0],dx=Math.abs(t.clientX-tx),dy=Math.abs(t.clientY-ty);if(dx>10&&dx>dy){sideways=true;stop()}},{passive:true});
+      reel.addEventListener('touchend',()=>{held=false;if(!sideways&&!stopped)pos=reel.scrollLeft},{passive:true});
+      reel.addEventListener('touchcancel',()=>{held=false},{passive:true});
+      reel.addEventListener('click',stop,true);
       reel.addEventListener('wheel',e=>{if(Math.abs(e.deltaX)>Math.abs(e.deltaY))stop()},{passive:true});
       reel.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')stop()},{passive:true});
       [prev,next].forEach(b=>b.addEventListener('click',stop));
-      new IntersectionObserver(es=>{es.forEach(e=>{visible=e.intersectionRatio>=.55;if(visible&&!st())tick();else{clearTimeout(timer);if(!stopped&&!done)setHint(false)}})},{threshold:[0,.55,1]}).observe(reel);
-      window.__pkReelAuto=()=>({visible,stopped,done,x:Math.round(reel.scrollLeft)});
+      new IntersectionObserver(es=>{es.forEach(e=>{visible=e.intersectionRatio>=.35;if(visible)play();else pause()})},{threshold:[0,.35,.6,1]}).observe(reel);
+      window.__pkReelAuto=()=>({visible,stopped,held,x:Math.round(reel.scrollLeft)});
     })();
   })();
 
